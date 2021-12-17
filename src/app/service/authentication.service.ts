@@ -19,11 +19,11 @@ export class AuthenticationService {
     ) {}
 
   public login(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(`${environment.apiUrl}/user/login`, user, { observe: 'response' });
+    return this.http.post<User>(`${environment.apiUrl}/api/v1//user/login`, user, { observe: 'response' });
   }
 
   public register(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/user/register`, user);
+    return this.http.post<User>(`${environment.apiUrl}/api/v1//user/register`, user);
   }
 
   public logOut(): void {
