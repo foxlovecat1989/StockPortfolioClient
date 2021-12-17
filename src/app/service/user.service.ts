@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../model/custom-http-response';
-import { User } from '../model/User';
+import { User } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -59,7 +59,7 @@ export class UserService {
     formData.append('profileImage', profileImage);
     formData.append('isActive', JSON.stringify(user.isEnabled));
     formData.append('isNonLocked', JSON.stringify(user.isAccountNonLocked));
-    
+
     return formData;
   }
 }
