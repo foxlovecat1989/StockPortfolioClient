@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,7 +8,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
 import { UserComponent } from './component/user/user.component';
 import { RegisterComponent } from './component/register/register.component';
 import { LoginComponent } from './component/login/login.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { AuthenticationService } from './service/authentication.service';
 import { UserService } from './service/user.service';
@@ -28,7 +28,8 @@ import { NotificationModule } from './notification.module';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    NotificationModule
+    NotificationModule,
+    ReactiveFormsModule
   ],
   providers: [
     NotificationService,

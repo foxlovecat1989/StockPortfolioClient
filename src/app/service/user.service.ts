@@ -17,11 +17,11 @@ export class UserService {
   }
 
   public addUser(formData: FormData): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1//user/add`, formData);
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/add`, formData);
   }
 
   public updateUser(formData: FormData): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1//user/update`, formData);
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/update`, formData);
   }
 
   public resetPassword(email: string): Observable<CustomHttpRespone> {

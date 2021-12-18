@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/user';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private helper: JwtHelperService
+    private helper: JwtHelperService,
+    private router: Router
     ) {}
 
   public login(user: User): Observable<HttpResponse<User>> {
@@ -23,7 +25,7 @@ export class AuthenticationService {
   }
 
   public register(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/register`, user);
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/registration`, user);
   }
 
   public logOut(): void {
@@ -70,4 +72,12 @@ export class AuthenticationService {
     this.loggedInUsername = decodedTokenSub;
     return true;
   }
+
+  public checkUserLoggedIn() : void {
+    if (this.isUserLoggedIn())
+      this.router.navigateByUrl('/user/management');
+    else
+      this.router.navigateByUrl('/login')
+  }
+
 }
