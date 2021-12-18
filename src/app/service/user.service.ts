@@ -25,18 +25,18 @@ export class UserService {
   }
 
   public resetPassword(email: string): Observable<CustomHttpRespone> {
-    return this.http.get<CustomHttpRespone>(`${environment.apiUrl}/api/v1//user/resetpassword/${email}`);
+    return this.http.get<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/resetpassword/${email}`);
   }
 
   public updateProfileImage(formData: FormData): Observable<HttpEvent<User>> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1//user/updateProfileImage`, formData,
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/updateProfileImage`, formData,
     {reportProgress: true,
       observe: 'events'
     });
   }
 
   public deleteUser(username: string): Observable<CustomHttpRespone> {
-    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1//user/delete/${username}`);
+    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/delete/${username}`);
   }
 
   public addUsersToLocalCache(users: User[]): void {

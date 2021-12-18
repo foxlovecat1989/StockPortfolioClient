@@ -5,10 +5,10 @@ const customNotifierOptions: NotifierOptions = {
     position: {
           horizontal: {
               position: 'left',
-              distance: 150
+              distance: 30
           },
           vertical: {
-              position: 'top',
+              position: 'bottom',
               distance: 12,
               gap: 10
           }
@@ -44,6 +44,9 @@ const customNotifierOptions: NotifierOptions = {
 
 @NgModule({
   imports: [NotifierModule.withConfig(customNotifierOptions)],
+
   exports: [NotifierModule]
 })
-export class NotificationModule {}
+export class NotificationModule {
+
+}

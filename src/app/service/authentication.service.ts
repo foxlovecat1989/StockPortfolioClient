@@ -15,15 +15,15 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private jwtHelperService: JwtHelperService
+    private helper: JwtHelperService
     ) {}
 
   public login(user: User): Observable<HttpResponse<User>> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1//user/login`, user, { observe: 'response' });
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/login`, user, { observe: 'response' });
   }
 
   public register(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1//user/register`, user);
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/register`, user);
   }
 
   public logOut(): void {
@@ -57,17 +57,17 @@ export class AuthenticationService {
 
   public isUserLoggedIn(): boolean {
     this.loadToken();
-    const tokenSubject = this.jwtHelperService.decodeToken(this.token).sub;
+    const decodedTokenSub = this.helper.decodeToken(this.token);
     const isTokenNullOrEmpty = (this.token == null || this.token === '');
-    const isTokenSubjectNullOrEmpty = (tokenSubject == null || tokenSubject === '');
-    const isTokenExpired = this.jwtHelperService.isTokenExpired(this.token);
+    const isTokenSubjectNullOrEmpty = (decodedTokenSub == null || decodedTokenSub === '');
+    const isTokenExpired = this.helper.isTokenExpired(this.token);
 
     if (isTokenNullOrEmpty || isTokenSubjectNullOrEmpty || isTokenExpired){
       this.logOut();
       return false;
     }
 
-    this.loggedInUsername = tokenSubject;
+    this.loggedInUsername = decodedTokenSub;
     return true;
   }
 }

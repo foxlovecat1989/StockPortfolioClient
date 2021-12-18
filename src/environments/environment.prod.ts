@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://someServe'
+  apiUrl: 'http://someServe',
+  jwtTokenDisallowedRoutes: []
   // TODO change this when production
 };

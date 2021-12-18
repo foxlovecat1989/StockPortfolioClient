@@ -5,7 +5,11 @@ import { NotificationType } from '../enum/notification-type.enum';
 @Injectable({providedIn: 'root'})
 export class NotificationService {
 
-  constructor(private notifier: NotifierService) {}
+  private notifier: NotifierService;
+
+	public constructor( notifier: NotifierService ) {
+		this.notifier = notifier;
+	}
 
   public notify(type: NotificationType, message: string) {
     this.notifier.notify(type, message);
