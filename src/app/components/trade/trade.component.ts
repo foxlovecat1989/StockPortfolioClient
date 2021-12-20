@@ -38,7 +38,8 @@ export class TradeComponent implements OnInit {
             this.selectedDate = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
         const user = this.authService.getUserFromLocalCache();
         console.log(user.userId)
-        this.tradeService.getTradesByDate(3, this.selectedDate).subscribe(
+        this.notificationService.sendNotification(NotificationType.INFO, 'Loading Data..please wait')
+        this.tradeService.getTradesByDate(9, this.selectedDate).subscribe(
           next => {
             this.trades = next;
             this.dataLoaded = true;

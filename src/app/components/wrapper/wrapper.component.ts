@@ -22,14 +22,19 @@ export class WrapperComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.checkUserLoggedIn();
+    this.setLoginUsername();
+  }
+  
+  private setLoginUsername() {
     this.authenticationService.isUserLoggedInEvent.subscribe(
       (response: boolean) => {
         this.isLogin = response;
         this.user = this.authenticationService.getUserFromLocalCache();
-        this.notificationService.sendNotification(NotificationType.INFO, `${this.user.username.toUpperCase()} Sucessfully Login In...`)
+        this.notificationService.sendNotification(NotificationType.INFO, `${this.user.username.toUpperCase()} Sucessfully Login In...`);
       }
     );
   }
+
   toggleExpanded(){
     this.isExpanded = !this.isExpanded;
   }

@@ -40,7 +40,7 @@ export class TradeService {
 
   getTradesByDate(userId: number, date: string) : Observable<Trade[]> {
 
-    return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trades/findAll/${userId}/2021-12-30`)
+    return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trades/findAll/3/${date}`)
       .pipe(
         map (
           datas => {

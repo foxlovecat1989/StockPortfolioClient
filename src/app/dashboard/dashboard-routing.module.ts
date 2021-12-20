@@ -13,10 +13,10 @@ const routes: Routes = [
     path: '', component: WrapperComponent,
     children: [
       {
-        path: 'dashboard', component: DashboardComponent
+        path: 'dashboard', component: DashboardComponent, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'user/trade', component: TradeComponent,
+        path: 'user/trade', component: TradeComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticationGuard]
