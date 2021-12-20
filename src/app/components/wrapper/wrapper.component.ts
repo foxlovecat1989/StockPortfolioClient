@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 @Component({
@@ -11,7 +10,7 @@ export class WrapperComponent implements OnInit {
 
   user!: User;
   isExpanded = false;
-  subscription!: Subscription;
+
 
   constructor(
     private authenticationService: AuthenticationService,

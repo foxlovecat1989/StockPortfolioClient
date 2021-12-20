@@ -21,7 +21,10 @@ import { NotificationModule } from './notification.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { CalendarComponent } from './components/calendar/calendar.component';
+import { UserComponent } from './user/user.component';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { TradeComponent } from './components/trade/trade.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { CalendarComponent } from './components/calendar/calendar.component';
     LoginComponent,
     WrapperComponent,
     DashboardComponent,
-    CalendarComponent
+    UserComponent,
+    UserProfileComponent,
+    TradeComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
