@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,7 @@ import { HeaderType } from 'src/app/enum/header-type.enum';
 export class LoginComponent implements OnInit, OnDestroy {
   public showLoading = false;
   private subscriptions: Subscription[] = [];
+
 
   constructor(
       private router: Router,
@@ -35,7 +36,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           const token = response.headers.get(HeaderType.JWT_TOKEN);
           this.authenticationService.saveToken(token!);
           this.authenticationService.addUserToLocalCache(response.body!);
-          this.router.navigateByUrl('/user/management');
+          this.authenticationService.isUserLoggedInEvent.emit(true);
+          this.router.navigateByUrl('/dashboard');
           this.showLoading = false;
         },
         (errorResponse: HttpErrorResponse) => {

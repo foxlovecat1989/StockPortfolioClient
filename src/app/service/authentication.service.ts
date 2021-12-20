@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/user';
@@ -13,6 +13,7 @@ export class AuthenticationService {
 
   private token!: string;
   private loggedInUsername!: string;
+  isUserLoggedInEvent = new EventEmitter<boolean>();
 
   constructor(
     private http: HttpClient,

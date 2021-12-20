@@ -35,7 +35,7 @@
         <div class="move-left">
           <h4>M y S t o c k</h4>
         </div>
-        <div class="nav-item nav-link move-right mr-3" >
+        <div class="nav-item nav-link move-right mr-3" *ngIf="isLogin">
           Welcome, {{user?.username}}
           <i class="fa fa-user"></i>
         </div>
