@@ -13,15 +13,15 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.apiUrl}/api/v1/user/list`);
+    return this.http.get<User[]>(`${environment.apiUrl}/api/v1/user/findAll`);
   }
 
   public addUser(formData: FormData): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/add`, formData);
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/user`, formData);
   }
 
   public updateUser(formData: FormData): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/update`, formData);
+    return this.http.patch<User>(`${environment.apiUrl}/api/v1/user`, formData);
   }
 
   public resetPassword(email: string): Observable<CustomHttpRespone> {
@@ -36,7 +36,7 @@ export class UserService {
   }
 
   public deleteUser(username: string): Observable<CustomHttpRespone> {
-    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/delete/${username}`);
+    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/${username}`);
   }
 
   public addUsersToLocalCache(users: User[]): void {
