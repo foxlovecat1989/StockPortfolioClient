@@ -22,6 +22,11 @@
         </mat-list-item>
 
         <mat-list-item>
+          <mat-icon mat-list-icon [routerLink]="'user/management'">manage_accounts</mat-icon>
+          <span *ngIf="isExpanded">User</span>
+        </mat-list-item>
+
+        <mat-list-item>
           <mat-icon mat-list-icon [routerLink]="'login'">login</mat-icon>
           <span *ngIf="isExpanded">Login</span>
         </mat-list-item>
@@ -31,7 +36,13 @@
 
   <div class="content">
     <mat-toolbar>
-      <h4>M y S t o c k </h4>
+        <div class="move-left">
+          <h4>M y S t o c k</h4>
+        </div>
+        <div class="nav-item nav-link move-right mr-3" >
+          Welcome, {{user?.username}}
+          <i class="fa fa-user"></i>
+        </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
+import { Subject, Subscription } from 'rxjs';
+import { User } from 'src/app/model/user';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 @Component({
   selector: 'app-wrapper',
   templateUrl: './wrapper.component.html',
@@ -8,16 +9,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class WrapperComponent implements OnInit {
 
+  user!: User;
   isExpanded = false;
+  subscription!: Subscription;
 
   constructor(
-
+    private authenticationService: AuthenticationService,
   ) { }
 
   ngOnInit(): void {
+    this.user = this.authenticationService.getUserFromLocalCache();
 
   }
-
   toggleExpanded(){
     this.isExpanded = !this.isExpanded;
   }
