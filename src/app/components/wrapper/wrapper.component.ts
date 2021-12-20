@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-wrapper',
@@ -9,9 +10,12 @@ export class WrapperComponent implements OnInit {
 
   isExpanded = false;
 
-  constructor() { }
+  constructor(
+
+  ) { }
 
   ngOnInit(): void {
+
   }
 
   toggleExpanded(){

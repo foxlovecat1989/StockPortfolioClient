@@ -1,7 +1,9 @@
 mat-sidenav-container {
   height: 100%;
+  background-color: darkslateblue;
 
   mat-sidenav {
+    background-color: palevioletred;
 
     mat-nav-list {
 
@@ -19,3 +21,10 @@ mat-sidenav-container {
     }
   }
 }
+
+mat-toolbar{
+  background-color: rgb(60, 4, 117);
+  color: whitesmoke;
+}
+
+
