@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AdminComponent } from '../admin/admin.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
@@ -26,6 +27,9 @@ const routes: Routes = [
       },
       {
         path: 'register', component: RegisterComponent
+      },
+      {
+        path: 'admin/management', component: AdminComponent, canActivate: [AuthenticationGuard]
       },
     ]
   },
