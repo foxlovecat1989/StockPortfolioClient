@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
+import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatIconModule } from '@angular/material/icon';
+import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
-import { UserComponent } from './component/user/user.component';
-import { RegisterComponent } from './component/register/register.component';
-import { LoginComponent } from './component/login/login.component';
+import { UserComponent } from './components/user/user.component';
+import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { AuthenticationService } from './service/authentication.service';
@@ -15,13 +19,20 @@ import { UserService } from './service/user.service';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import { NotificationService } from './service/notification.service';
 import { NotificationModule } from './notification.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { WrapperComponent } from './components/wrapper/wrapper.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    WrapperComponent,
+    DashboardComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +40,12 @@ import { NotificationModule } from './notification.module';
     HttpClientModule,
     FormsModule,
     NotificationModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatListModule,
+    MatToolbarModule
   ],
   providers: [
     NotificationService,

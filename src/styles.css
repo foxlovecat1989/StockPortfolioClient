@@ -1,4 +1,4 @@
-@import 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css';
+@import '~bootstrap/dist/css/bootstrap.css';
 @import 'https://use.fontawesome.com/releases/v5.8.1/css/all.css';
 @import "~angular-notifier/styles";
 
@@ -35,3 +35,6 @@ td {
     cursor: inherit;
     display: block;
   }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
