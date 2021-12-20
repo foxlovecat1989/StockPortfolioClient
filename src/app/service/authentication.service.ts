@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -76,7 +76,7 @@ export class AuthenticationService {
 
   public checkUserLoggedIn() : void {
     if (this.isUserLoggedIn())
-      this.router.navigateByUrl('/user/management');
+      this.router.navigateByUrl('/dashboard');
     else
       this.router.navigateByUrl('/login')
   }
