@@ -1,72 +1,27 @@
 <div>
-  <h1> Execute Trade {{trade.tradeType == 'BUY' ? 'BUY' : 'SELL'}}</h1>
-  <div>
     <form [formGroup]="tradeForm">
+      <div class="form-group mb-3 mt-5">
+        <label for="tradeType" class="form-label">Trade Type: </label>
+        <input class="form-control" type="text" id="tradeType" placeholder="Trade Type" formControlName="tradeType" aria-label="tradeType" readonly>
+      </div>
       <div class="form-group mb-3">
-        <label for="id" class="form-label">ID: </label>
-        <input class="form-control" type="text" id="id" placeholder="id" formControlName="id" aria-label="id" readonly>
+        <label for="stockSymbol" class="form-label">Stock Symbol: </label>
+        <input class="form-control" type="text" id="stockSymbol" placeholder="Stock Symbol" formControlName="stockSymbol" aria-label="stockSymbol" readonly>
       </div>
 
       <div class="form-group mb-3">
-        <label for="name" class="form-label">Stock Symbol: </label>
-        <input type="text" class="form-control" id="stockSymbol" placeholder="Stock Symbol" formControlName="stockSymbol">
-        <div class="alert alert-danger" *ngIf="tradeForm.controls['stockSymbol'].invalid && tradeForm.controls['stockSymbol'].touched">
-          <div *ngIf="tradeForm.get('stockSymbol')?.hasError('required')">Stock Symbol is required.</div>
+        <label for="stockName" class="form-label">Stock Name: </label>
+        <input class="form-control" type="text" id="stockName" placeholder="Stock Name" formControlName="stockName" aria-label="stockName" readonly>
+      </div>
+
+      <div class="form-group mb-3">
+        <label for="amount" class="form-label">Amount: </label>
+        <input type="text" class="form-control" id="amount" placeholder="Amount" formControlName="amount">
+        <div class="alert alert-danger" *ngIf="tradeForm.controls['amount'].invalid && tradeForm.controls['amount'].touched">
+          <div *ngIf="tradeForm.get('amount')?.hasError('required')">Amount is required.</div>
         </div>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="location" class="form-label">Location</label>
-        <input type="text" class="form-control" id="location" placeholder="location" formControlName="location">
-        <div class="alert alert-danger" *ngIf="tradeForm.controls['location'].invalid && tradeForm.controls['location'].touched">
-          <div *ngIf="tradeForm.get('location')?.hasError('required')">Location is required.</div>
-        </div>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="startDate">Start Date</label>
-        <input type="date" class="form-control" id="startDate" name="startDate"  formControlName="startDate">
-        <div class="alert alert-danger" *ngIf="tradeForm.controls['startDate'].invalid && tradeForm.controls['startDate'].touched">
-          <div *ngIf="tradeForm.get('startDate')?.hasError('required')">Start Date is required.</div>
-        </div>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="startTime">Start Time</label>
-        <input type="time" class="form-control" id="startTime" name="startTime"  formControlName="startTime">
-        <div class="alert alert-danger" *ngIf="tradeForm.controls['startTime'].invalid && tradeForm.controls['startTime'].touched">
-          <div *ngIf="tradeForm.get('startTime')?.hasError('required')">Start Time is required.</div>
-        </div>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="endTime">End Time</label>
-        <input type="time" class="form-control" id="endTime" name="endTime"  formControlName="endTime">
-        <div class="alert alert-danger" *ngIf="tradeForm.controls['endTime'].invalid && tradeForm.controls['endTime'].touched">
-          <div *ngIf="tradeForm.get('endTime')?.hasError('required')">End Time is required.</div>
-        </div>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="limitAmount" class="form-label">Limit</label>
-        <input type="text" class="form-control" id="limitAmount" placeholder="limitAmount" formControlName="limitAmount">
-        <div class="alert alert-danger" *ngIf="tradeForm.controls['limitAmount'].invalid && tradeForm.controls['limitAmount'].touched">
-          <div *ngIf="tradeForm.get('limitAmount')?.hasError('required')">Location is required.</div>
-          <div *ngIf="tradeForm.get('limitAmount')?.hasError('min')">
-            Limit amount cannot less than {{tradeForm.get('limitAmount')?.errors?.['min'].min }}.
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group mb-3">
-        <label for="tradeType" class="form-label">Type</label>
-        <select class="form-control" formControlName="tradeType">
-          <option *ngIf="trade.tradeId == null"  [ngValue]="null" disabled>Choose Classify</option>
-          <option *ngFor="let tradeType of keysOfTradeType" [ngValue]="tradeType">{{ tradeType }}</option>
-        </select>
       </div>
 
       <button type="button" class="btn btn-primary" (click)="execute()" [disabled]="tradeForm.invalid">Save</button>
     </form>
   </div>
-</div>
