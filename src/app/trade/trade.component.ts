@@ -21,7 +21,7 @@ export class TradeComponent implements OnInit {
   user!: User;
   trades!: Array<Trade>;
   selectedDate!: string;
-  dataLoaded = false;
+  isLoading = false;
   action!: string;
   selectedTstock!: Tstock;
   selectedTradeType!: TradeType;
@@ -44,16 +44,6 @@ export class TradeComponent implements OnInit {
     this.route.queryParams.subscribe(
       params => {
         this.selectedDate = params['date'];
-        const symbol = params['symbol'];
-        this.selectedTradeType = params['tradeType'];
-        if(symbol != null){
-          this.stockService.getStockBySymbol(symbol).subscribe(
-            next => {
-              this.selectedTstock = next;
-              this.notificationService.sendNotification(NotificationType.INFO, `Switch to ${this.selectedTstock.symbol}`);
-            }
-          );
-        }
         if (!this.selectedDate)
             this.selectedDate = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
         this.loadData();
@@ -66,7 +56,7 @@ export class TradeComponent implements OnInit {
         this.tradeService.getTradesByDate(+user.id, this.selectedDate).subscribe(
           next => {
             this.trades = next;
-            this.dataLoaded = true;
+            this.isLoading = true;
             const displayDate = formatDate(this.selectedDate, 'MMM-dd', 'en-Us');
             if(next.length > 0){
               this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to load data...');
@@ -91,10 +81,12 @@ export class TradeComponent implements OnInit {
   }
 
   onSell(tstock: Tstock){
-    this.router.navigate(['user', 'trade'], {queryParams : {date : this.selectedDate, symbol: tstock.symbol, tradeType: TradeType.SELL}});
+    this.selectedTstock = tstock;
+    this.selectedTradeType = TradeType.SELL;
   }
 
   onBuy(tstock: Tstock){
-    this.router.navigate(['user', 'trade'], {queryParams : {date : this.selectedDate, symbol: tstock.symbol, tradeType: TradeType.BUY}});
+    this.selectedTstock = tstock;
+    this.selectedTradeType = TradeType.BUY;
   }
 }

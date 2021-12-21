@@ -6,7 +6,7 @@
         <h1>Trade Calendar</h1>
         <h2>Filter by: <input type="date" [(ngModel)]="selectedDate" name="selectedDate" (change)="dateChanged()" /></h2>
         <a class="btn btn-primary mt-3 mb-5" (click)="createNewTrade()">New Trade</a>
-      <div *ngIf="dataLoaded">
+      <div *ngIf="isLoading">
         <div class="row row-striped" *ngFor="let trade of trades" >
           <div class="col-md-2 text-right">
             <h1 class="display-4"><span class="badge bg-dark rounded-pill">{{ trade.getTradeDateAsDate() | date:'dd' }}</span></h1>

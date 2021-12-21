@@ -14,7 +14,7 @@ export class StockService {
   ) { }
 
   getStockBySymbol(symbol: string): Observable<Tstock>{
-    return this.http.get<Tstock>(`${environment.apiUrl}/api/v1/stock/${symbol}`)
+    return this.http.get<Tstock>(`${environment.apiUrl}/api/v1/stock/${symbol}`);
   }
 
   public getStocks(): Observable<Tstock[]> {

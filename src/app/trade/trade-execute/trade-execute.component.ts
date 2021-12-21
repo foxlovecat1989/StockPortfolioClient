@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { TradeType } from 'src/app/enum/TradeType.enum';
@@ -12,7 +12,7 @@ import { NotificationService } from 'src/app/service/notification.service';
   templateUrl: './trade-execute.component.html',
   styleUrls: ['./trade-execute.component.css']
 })
-export class TradeExecuteComponent implements OnInit {
+export class TradeExecuteComponent implements OnInit, OnChanges {
 
   @Input('tstock')
   tstock!: Tstock;
@@ -27,6 +27,10 @@ export class TradeExecuteComponent implements OnInit {
     private notificationService: NotificationService,
     private authService: AuthenticationService
   ) { }
+
+  ngOnChanges(): void {
+    this.initForm();
+  }
 
   ngOnInit(): void {
     this.initForm();
