@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatIconModule } from '@angular/material/icon';
-import {MatListModule} from '@angular/material/list';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
@@ -61,12 +61,8 @@ import { ManageUserComponent } from './admin/manage-user/manage-user.component';
     AuthenticationService,
     UserService,
     JwtHelperService,
-    {
-      provide: JWT_OPTIONS,
-      useValue: JWT_OPTIONS,
-      useClass: AuthInterceptor,
-      multi: true
-    }
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })
