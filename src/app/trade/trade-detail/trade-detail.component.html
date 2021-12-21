@@ -1,11 +1,9 @@
 <div class="row">
-  <div class="col-md-7 mt-3">
+  <div class="col-md-10 mt-3">
   <h1>Trade Calendar</h1>
   <h2>Filter by: <input type="date" [(ngModel)]="selectedDate" name="selectedDate" (change)="dateChanged()" /></h2>
   <a class="btn btn-primary mt-3 mb-5" (click)="createTrade()">New Trade</a>
 <div *ngIf="dataLoaded">
-  <h3 class="mt-5 alert alert-danger" *ngIf="trades.length === 0 && dataLoaded" >There are no trade records for this date.</h3>
-
   <div class="row row-striped" *ngFor="let trade of trades" >
     <div class="col-md-2 text-right">
       <h1 class="display-4"><span class="badge bg-dark rounded-pill">{{ trade.getTradeDateAsDate() | date:'dd' }}</span></h1>
@@ -19,7 +17,7 @@
         <li class="list-inline-item badge bg-secondary">Pre-Close: {{ trade.tstock.previousClosed | currency }}</li>
       </ul>
       <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
           <p class="mb-0">Buy At: {{ trade.price | currency }}</p>
           <p class="mb-0">Change: {{ trade.tstock.price - trade.price | currency }}</p>
           <p class="mb-0">Volume: {{ trade.amount | number }}</p>

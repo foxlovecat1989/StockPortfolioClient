@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             NotificationType.SUCCESS,
             `A new account was created for ${response.username}. Please check your email for enable account.`
           );
-          this.router.navigate(['login']);
+          this.router.navigate(['/login']);
         },
         (errorResponse: HttpErrorResponse) => {
           this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
@@ -68,6 +68,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   private checkIsLogin() {
     if (this.authenticationService.isUserLoggedIn())
-      this.router.navigateByUrl('/user/management');
+      this.router.navigateByUrl('/dashboard');
   }
 }

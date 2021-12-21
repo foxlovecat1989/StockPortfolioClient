@@ -23,10 +23,12 @@ import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
-import { TradeComponent } from './components/trade/trade.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { AdminComponent } from './admin/admin.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
+import { TradeDetailComponent } from './trade/trade-detail/trade-detail.component';
+import { TradeComponent } from './trade/trade.component';
+import { TradeExecuteComponent } from './trade/trade-execute/trade-execute.component';
 
 @NgModule({
   declarations: [
@@ -37,10 +39,12 @@ import { ManageUserComponent } from './admin/manage-user/manage-user.component';
     DashboardComponent,
     UserComponent,
     UserProfileComponent,
-    TradeComponent,
     LogoutComponent,
     AdminComponent,
-    ManageUserComponent
+    ManageUserComponent,
+    TradeDetailComponent,
+    TradeComponent,
+    TradeExecuteComponent
   ],
   imports: [
     BrowserModule,

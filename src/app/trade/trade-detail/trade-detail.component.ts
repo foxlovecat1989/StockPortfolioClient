@@ -9,22 +9,24 @@ import { NotificationService } from 'src/app/service/notification.service';
 import { TradeService } from 'src/app/service/trade.service';
 
 @Component({
-  selector: 'app-trade',
-  templateUrl: './trade.component.html',
-  styleUrls: ['./trade.component.css']
+  selector: 'app-trade-detail',
+  templateUrl: './trade-detail.component.html',
+  styleUrls: ['./trade-detail.component.css']
 })
-export class TradeComponent implements OnInit {
+export class TradeDetailComponent implements OnInit {
+
   user!: User;
   trades!: Array<Trade>;
   selectedDate!: string;
   dataLoaded = false;
 
-  constructor(private tradeService: TradeService,
-              private router: Router,
-              private route: ActivatedRoute,
-              private authService: AuthenticationService,
-              private notificationService: NotificationService
-              ) { }
+  constructor(
+    private tradeService: TradeService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private authService: AuthenticationService,
+    private notificationService: NotificationService
+  ) { }
 
   ngOnInit() {
     this.loadData();
@@ -37,17 +39,18 @@ export class TradeComponent implements OnInit {
         if (!this.selectedDate)
             this.selectedDate = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
         const user = this.authService.getUserFromLocalCache();
-        console.log(user.id)
         this.notificationService.sendNotification(NotificationType.INFO, 'Loading Data..please wait')
-        this.tradeService.getTradesByDate(9, this.selectedDate).subscribe(
+        this.tradeService.getTradesByDate(+user.id, this.selectedDate).subscribe(
           next => {
             this.trades = next;
             this.dataLoaded = true;
-            console.log(this.trades);
-            this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to load data...');
+            const displayDate = formatDate(this.selectedDate, 'MMM-dd', 'en-Us');
+            if(next.length > 0)
+              this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to load data...');
+            else
+              this.notificationService.sendNotification(NotificationType.WARNING, `There are no records on ${displayDate}.`);
           },
           error => {
-            console.log(error);
             this.notificationService.sendNotification(NotificationType.ERROR, error);
           }
         );
