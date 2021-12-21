@@ -1,7 +1,7 @@
 import { Classify } from "./classify";
 
 
-export class Stock{
+export class Tstock{
   id!: number;
   symbol!: string;
   name!: string;
@@ -13,8 +13,8 @@ export class Stock{
   lastUpDateTime!: string;
   classify!: Classify;
 
-  static fromHttp(data: Stock): Stock {
-    const stock = new Stock();
+  static fromHttp(data: Tstock): Tstock {
+    const stock = new Tstock();
     stock.id = data.id;
     stock.name = data.name;
     stock.classify = Classify.fromHttp(data.classify);

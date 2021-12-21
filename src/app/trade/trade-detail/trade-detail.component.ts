@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Trade } from 'src/app/model/Trade';
-import { User } from 'src/app/model/user';
+import { User } from 'src/app/model/User';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { TradeService } from 'src/app/service/trade.service';

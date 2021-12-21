@@ -1,9 +1,8 @@
 import { TradeType } from "../enum/TradeType.enum";
-import { Stock } from "./Stock";
-
+import { Tstock } from "./Tstock";
 export class Trade {
   tradeId!: number;
-  tstock!: Stock;
+  tstock!: Tstock;
   amount!: number;
   price!: number;
   tradeDate!: string;
@@ -17,7 +16,7 @@ export class Trade {
   static fromHttp(trade: Trade): Trade {
     const newTrade = new Trade();
     newTrade.tradeId = trade.tradeId;
-    newTrade.tstock = Stock.fromHttp(trade.tstock);
+    newTrade.tstock = Tstock.fromHttp(trade.tstock);
     newTrade.amount = trade.amount;
     newTrade.price = trade.price;
     newTrade.tradeDate = trade.tradeDate;

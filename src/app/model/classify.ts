@@ -1,4 +1,3 @@
-import { Stock } from "./Stock";
 
 export class Classify{
   classifyId!: number;

@@ -24,7 +24,7 @@ export class WrapperComponent implements OnInit {
     this.authenticationService.checkUserLoggedIn();
     this.setLoginUsername();
   }
-  
+
   private setLoginUsername() {
     this.authenticationService.isUserLoggedInEvent.subscribe(
       (response: boolean) => {
