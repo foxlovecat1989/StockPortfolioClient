@@ -26,7 +26,6 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { LogoutComponent } from './components/logout/logout.component';
 import { AdminComponent } from './admin/admin.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
-import { TradeDetailComponent } from './trade/trade-detail/trade-detail.component';
 import { TradeExecuteComponent } from './trade/trade-execute/trade-execute.component';
 import { TradeComponent } from './trade/trade.component';
 
@@ -42,7 +41,6 @@ import { TradeComponent } from './trade/trade.component';
     LogoutComponent,
     AdminComponent,
     ManageUserComponent,
-    TradeDetailComponent,
     TradeComponent,
     TradeExecuteComponent
   ],
