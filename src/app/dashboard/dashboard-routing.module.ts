@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from '../admin/admin.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { LoginComponent } from '../components/login/login.component';
+import { LogoutComponent } from '../components/logout/logout.component';
 import { RegisterComponent } from '../components/register/register.component';
 import { TradeComponent } from '../components/trade/trade.component';
 import { WrapperComponent } from '../components/wrapper/wrapper.component';
@@ -24,6 +25,9 @@ const routes: Routes = [
       },
       {
         path: 'login', component: LoginComponent
+      },
+      {
+        path: 'logout', component: LogoutComponent
       },
       {
         path: 'register', component: RegisterComponent

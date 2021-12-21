@@ -17,18 +17,23 @@
         </mat-list-item>
 
         <mat-list-item>
+          <mat-icon mat-list-icon [routerLink]="'user/profile'">account_circle</mat-icon>
+          <span *ngIf="isExpanded">Profile</span>
+        </mat-list-item>
+
+        <mat-list-item>
           <mat-icon mat-list-icon [routerLink]="'user/trade'">today</mat-icon>
           <span *ngIf="isExpanded">Trade</span>
         </mat-list-item>
 
         <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/profile'">manage_accounts</mat-icon>
-          <span *ngIf="isExpanded">Profile</span>
+          <mat-icon mat-list-icon [routerLink]="'logout'">logout</mat-icon>
+          <span *ngIf="isExpanded">Logout</span>
         </mat-list-item>
 
         <mat-list-item>
           <mat-icon mat-list-icon [routerLink]="'admin/management'">manage_accounts</mat-icon>
-          <span *ngIf="isExpanded">Profile</span>
+          <span *ngIf="isExpanded">Admin</span>
         </mat-list-item>
 
       </mat-nav-list>
