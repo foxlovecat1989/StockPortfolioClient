@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -57,9 +58,13 @@ export class TradeExecuteModalComponent implements OnInit {
           this.activeModal.close();
           this.notificationService.sendNotification(
             NotificationType.SUCCESS, ` SUCCESS TO (${this.tradeForm.controls['tradeType'].value}) "${this.tstock.symbol}" Amount: ${this.tradeForm.controls['amount'].value}`)
-            this.router.navigate(['user', 'trade']);
+          this.router.navigate(['user', 'trade']);
         },
-        error => this.notificationService.sendNotification(NotificationType.ERROR, error)
+        (errorResponse: HttpErrorResponse) => {
+          this.activeModal.close();
+          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+          this.router.navigate(['user', 'trade']);
+        }
       );
 
     }
