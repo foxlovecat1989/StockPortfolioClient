@@ -7,6 +7,7 @@ import { LogoutComponent } from '../components/logout/logout.component';
 import { RegisterComponent } from '../components/register/register.component';
 import { WrapperComponent } from '../components/wrapper/wrapper.component';
 import { AuthenticationGuard } from '../guard/authentication.guard';
+import { InventoryComponent } from '../inventory/inventory.component';
 import { TradeComponent } from '../trade/trade.component';
 import { UserProfileComponent } from '../user/user-profile/user-profile.component';
 
@@ -22,6 +23,9 @@ const routes: Routes = [
       },
       {
         path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticationGuard]
+      },
+      {
+        path: 'user/report', component: InventoryComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'login', component: LoginComponent

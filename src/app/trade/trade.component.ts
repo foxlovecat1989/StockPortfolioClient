@@ -29,7 +29,6 @@ export class TradeComponent implements OnInit {
   selectedTstock!: Tstock;
   selectedTradeType!: TradeType;
 
-  title = 'ng-bootstrap-modal-demo';
   closeResult!: string;
   modalOptions!: NgbModalOptions;
 
