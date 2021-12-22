@@ -1,1 +1,48 @@
-<p>watchlist works!</p>
+<div class="container">
+  <div class="row">
+    <div *ngIf="watchlists != null">
+      <label for="Watchlist" class="form-label">Watchlist: </label>
+      <select class="form-control" formControlName="tradeType">
+      <option *ngFor="let Watchlist of watchlists" [ngValue]="Watchlist">{{ Watchlist.name }}</option>
+    </select>
+    </div>
+    <h1 class="mt-5">Watchlist</h1>
+    <div class="col-md-12">
+      <div>
+        <button type="button" (click)="refreshPrice()" class="btn btn-outline-info">
+          Get The Lastest Price
+          <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
+        </button>
+    </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Previous Closed</th>
+            <th>Current Price</th>
+            <th>Change Price</th>
+            <th>Change In Percent</th>
+            <th>Volume</th>
+            <th>Last UpDate Time</th>
+            <th>Classify</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stock of stocks">
+            <td (click)="trade(stock.symbol)">{{ stock.id }}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.symbol }}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.name }}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.previousClosed | currency}}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.price | currency }}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.changePrice | currency }}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.changeInPercent / 100 | percent }}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
+            <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

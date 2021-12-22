@@ -62,6 +62,7 @@ export class InventoryComponent implements OnInit, OnDestroy {
   private loadingData() {
     this.notificationService.sendNotification(NotificationType.INFO, `Loading Data, please wait...`);
     const userId = this.authService.getUserFromLocalCache().id;
+    console.log(userId);
     this.subscriptions.push(this.inventoryReportService.getInventoryReport(+userId).subscribe(
       next => {
         this.inventoryReports = next;
@@ -93,7 +94,6 @@ export class InventoryComponent implements OnInit, OnDestroy {
     const name = inventoryReport.stockName;
     const indexOfNameEnds = name.length - 5;
     const stockName = name.substring(0, indexOfNameEnds);
-    console.log(stockName)
     this.notificationService.sendNotification(NotificationType.INFO, `Loading data, please wait...`);
     this.subscriptions.push(this.stockService.getStockByStockName(stockName).subscribe(
       next => {
