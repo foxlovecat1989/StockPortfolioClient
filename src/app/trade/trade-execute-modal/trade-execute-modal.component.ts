@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { TradeType } from 'src/app/enum/TradeType.enum';
 import { Trade } from 'src/app/model/Trade';
@@ -10,21 +11,21 @@ import { TradeObject } from 'src/app/model/Trade-object';
 import { Tstock } from 'src/app/model/Tstock';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
+import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { TradeService } from 'src/app/service/trade.service';
-import { UserService } from 'src/app/service/user.service';
-
 @Component({
   selector: 'app-trade-execute-modal',
   templateUrl: './trade-execute-modal.component.html',
   styleUrls: ['./trade-execute-modal.component.css']
 })
-export class TradeExecuteModalComponent implements OnInit {
+export class TradeExecuteModalComponent implements OnInit, OnDestroy {
 
   @Input('tstock')
   tstock!: Tstock;
   tradeObject = new TradeObject();
   tradeForm!: FormGroup;
   keysOfTradeType = Object.keys(TradeType);
+  private subscriptions: Subscription[] = [];
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -33,15 +34,19 @@ export class TradeExecuteModalComponent implements OnInit {
     private authService: AuthenticationService,
     private router: Router,
     private tradeService: TradeService,
-    private userService: UserService
+    private reload: ReloadFormService
     ) { }
+
+    ngOnInit(): void {
+      this.initForm();
+    }
 
     ngOnChanges(): void {
       this.initForm();
     }
 
-    ngOnInit(): void {
-      this.initForm();
+    ngOnDestroy(): void {
+      this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 
     public execute(){
@@ -52,20 +57,22 @@ export class TradeExecuteModalComponent implements OnInit {
       this.tradeObject.tradeType = this.tradeForm.controls['tradeType'].value;
       this.tradeObject.user = this.authService.getUserFromLocalCache();
 
-      this.tradeService.createTrade(this.tradeObject).subscribe(
+      this.subscriptions.push(this.tradeService.createTrade(this.tradeObject).subscribe(
         (response: Trade) => {
           // close window
           this.activeModal.close();
           this.notificationService.sendNotification(
-            NotificationType.SUCCESS, ` SUCCESS TO (${this.tradeForm.controls['tradeType'].value}) "${this.tstock.symbol}" Amount: ${this.tradeForm.controls['amount'].value}`)
-          this.router.navigate(['user', 'trade']);
+          NotificationType.SUCCESS, ` SUCCESS TO (${this.tradeForm.controls['tradeType'].value}) "${this.tstock.symbol}" Amount: ${this.tradeForm.controls['amount'].value}`)
+          this.reload.reloadEvent.emit();
+          this.router.navigate(['user', 'report']);
         },
         (errorResponse: HttpErrorResponse) => {
           this.activeModal.close();
           this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-          this.router.navigate(['user', 'trade']);
+          this.reload.reloadEvent.emit();
+          this.router.navigate(['user', 'report']);
         }
-      );
+      ));
 
     }
 

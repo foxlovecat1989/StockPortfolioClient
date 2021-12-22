@@ -17,6 +17,10 @@ export class StockService {
     return this.http.get<Tstock>(`${environment.apiUrl}/api/v1/stock/${symbol}`);
   }
 
+  getStockByStockName(name: string): Observable<Tstock>{
+    return this.http.get<Tstock>(`${environment.apiUrl}/api/v1/stock?stockName=${name}`);
+  }
+
   public getStocks(): Observable<Tstock[]> {
     return this.http.get<Tstock[]>(`${environment.apiUrl}/api/v1/stock/findAll`);
   }

@@ -1,8 +1,9 @@
 import { formatDate } from '@angular/common';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { NotificationType } from '../enum/notification-type.enum';
 import { TradeType } from '../enum/TradeType.enum';
 import { Trade } from '../model/Trade';
@@ -10,7 +11,6 @@ import { Tstock } from '../model/Tstock';
 import { User } from '../model/user';
 import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
-import { StockService } from '../service/stock.service';
 import { TradeService } from '../service/trade.service';
 import { TradeExecuteModalComponent } from './trade-execute-modal/trade-execute-modal.component';
 
@@ -19,7 +19,7 @@ import { TradeExecuteModalComponent } from './trade-execute-modal/trade-execute-
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.css']
 })
-export class TradeComponent implements OnInit {
+export class TradeComponent implements OnInit, OnDestroy {
 
   user!: User;
   trades!: Array<Trade>;
@@ -28,6 +28,7 @@ export class TradeComponent implements OnInit {
   action!: string;
   selectedTstock!: Tstock;
   selectedTradeType!: TradeType;
+  private subscriptions: Subscription[] = [];
 
   closeResult!: string;
   modalOptions!: NgbModalOptions;
@@ -37,7 +38,6 @@ export class TradeComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
-    private stockService: StockService,
     private notificationService: NotificationService,
     private modalService: NgbModal
   ) {
@@ -51,20 +51,24 @@ export class TradeComponent implements OnInit {
     this.loadParams();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   loadParams(){
-    this.route.queryParams.subscribe(
+    this.subscriptions.push(this.route.queryParams.subscribe(
       params => {
         this.selectedDate = params['date'];
         if (!this.selectedDate)
             this.selectedDate = formatDate(new Date(), 'yyyy-MM-dd', 'en-US');
         this.loadData();
-      });
+      }));
   }
 
   loadData() {
         const user = this.authService.getUserFromLocalCache();
         this.notificationService.sendNotification(NotificationType.INFO, 'Loading Data..please wait');
-        this.tradeService.getTradesByDate(+user.id, this.selectedDate).subscribe(
+        this.subscriptions.push(this.tradeService.getTradesByDate(+user.id, this.selectedDate).subscribe(
           next => {
             this.trades = next;
             this.isLoading = true;
@@ -78,7 +82,7 @@ export class TradeComponent implements OnInit {
           (errorResponse: HttpErrorResponse) => {
             this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
           }
-        );
+        ));
   }
 
   dateChanged() {

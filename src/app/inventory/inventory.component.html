@@ -25,16 +25,16 @@
         </thead>
         <tbody>
           <tr *ngFor="let inventoryReport of inventoryReports">
-            <td>{{ inventoryReport.id }}</td>
-            <td>{{ inventoryReport.stockName }}</td>
-            <td>{{ inventoryReport.classifyName }}</td>
-            <td>{{ inventoryReport.amountInInventory | number }}</td>
-            <td>{{ inventoryReport.currentPrice | currency }}</td>
-            <td>{{ inventoryReport.currentTotalWorth | currency }}</td>
-            <td>{{ inventoryReport.totalCost | currency }}</td>
-            <td>{{ inventoryReport.avgPriceInInventory | currency }}</td>
-            <td>{{ inventoryReport.income | currency }}</td>
-            <td>{{ inventoryReport.rateOfReturn | percent:'2.2-2' }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.id }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.stockName }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.classifyName }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.amountInInventory | number }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.currentPrice | currency }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.currentTotalWorth | currency }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.totalCost | currency }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.avgPriceInInventory | currency }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.income | currency }}</td>
+            <td (click)="trade(inventoryReport)">{{ inventoryReport.rateOfReturn | percent:'2.2-2' }}</td>
           </tr>
         </tbody>
       </table>
