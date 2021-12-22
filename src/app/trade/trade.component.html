@@ -2,10 +2,9 @@
   <div class="row">
     <div class="col-md-7">
       <div class="row">
-        <div class="col-md-10 mt-3">
-        <h1>Trade Calendar</h1>
+        <div class="col-md-8 mt-3">
+        <h1>Trade Records</h1>
         <h2>Filter by: <input type="date" [(ngModel)]="selectedDate" name="selectedDate" (change)="dateChanged()" /></h2>
-        <a class="btn btn-primary mt-3 mb-5" (click)="createNewTrade()">New Trade</a>
       <div *ngIf="isLoading">
         <div class="row row-striped" *ngFor="let trade of trades" >
           <div class="col-md-2 text-right">
@@ -20,15 +19,14 @@
               <li class="list-inline-item badge bg-secondary">Pre-Close: {{ trade.tstock.previousClosed | currency }}</li>
             </ul>
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-7">
                 <p class="mb-0">Buy At: {{ trade.price | currency }}</p>
                 <p class="mb-0">Change: {{ trade.tstock.price - trade.price | currency }}</p>
                 <p class="mb-0">Volume: {{ trade.amount | number }}</p>
                 <p class="mb-0 badge bg-danger">Profit: {{ (trade.tstock.price - trade.price) * trade.amount | currency}}</p>
               </div>
-              <div class="col-md-4">
-                <a class="btn btn-warning btn-lg mx-1" (click)="onBuy(this.trade.tstock)">Buy</a>
-                <a class="btn btn-danger btn-lg mx-1"(click)="onSell(this.trade.tstock)">Sell</a>
+              <div class="col-md-3">
+                <a class="btn btn-outline-danger mx-1 " (click)="execute(trade.tstock)">Trade</a>
               </div>
             </div>
           </div>
@@ -37,9 +35,6 @@
       </div>
       </div>
       </div>
-    </div>
-    <div class="col-md-5 mt-3">
-      <app-trade-execute *ngIf="selectedTradeType" [tstock]="selectedTstock" [tradeType]="selectedTradeType"></app-trade-execute>
     </div>
   </div>
 </div>

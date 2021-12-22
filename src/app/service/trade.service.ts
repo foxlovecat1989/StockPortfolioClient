@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Trade } from '../model/Trade';
+import { TradeObject } from '../model/Trade-object';
 import { AuthenticationService } from './authentication.service';
 import { UserService } from './user.service';
 
@@ -52,7 +53,7 @@ export class TradeService {
       );
   }
 
-  public createTrade(trade: Trade): Observable<Trade>{
-    return this.http.post<Trade>(environment.apiUrl + '/api/v1/trades/', trade);
+  public createTrade(tradeObject: TradeObject): Observable<Trade>{
+    return this.http.post<Trade>(environment.apiUrl + '/api/v1/trades/', tradeObject);
   }
 }

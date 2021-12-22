@@ -4,14 +4,14 @@ import { User } from "./User";
 
 export class TradeObject{
   tstock!: Tstock;
-  userId!: number;
+  user!: User;
   amount!: number;
   tradeType!: TradeType;
 
   static fromHttp(tradeObject: TradeObject){
     const newTradeObject = new TradeObject();
     newTradeObject.tstock = Tstock.fromHttp(tradeObject.tstock);
-    newTradeObject.userId = tradeObject.userId;
+    newTradeObject.user = User.fromHttp(tradeObject.user);
     newTradeObject.amount = tradeObject.amount;
 
 

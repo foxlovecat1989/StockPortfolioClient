@@ -26,8 +26,9 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
 import { LogoutComponent } from './components/logout/logout.component';
 import { AdminComponent } from './admin/admin.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
-import { TradeExecuteComponent } from './trade/trade-execute/trade-execute.component';
 import { TradeComponent } from './trade/trade.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { TradeExecuteModalComponent } from './trade/trade-execute-modal/trade-execute-modal.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { TradeComponent } from './trade/trade.component';
     AdminComponent,
     ManageUserComponent,
     TradeComponent,
-    TradeExecuteComponent
+    TradeExecuteModalComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +56,11 @@ import { TradeComponent } from './trade/trade.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    NgbModule
+  ],
+  entryComponents:[
+    TradeExecuteModalComponent
   ],
   providers: [
     NotificationService,

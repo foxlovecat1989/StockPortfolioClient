@@ -1,6 +1,7 @@
 import { formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { NotificationType } from '../enum/notification-type.enum';
 import { TradeType } from '../enum/TradeType.enum';
 import { Trade } from '../model/Trade';
@@ -10,6 +11,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
 import { StockService } from '../service/stock.service';
 import { TradeService } from '../service/trade.service';
+import { TradeExecuteModalComponent } from './trade-execute-modal/trade-execute-modal.component';
 
 @Component({
   selector: 'app-trade',
@@ -26,14 +28,24 @@ export class TradeComponent implements OnInit {
   selectedTstock!: Tstock;
   selectedTradeType!: TradeType;
 
+  title = 'ng-bootstrap-modal-demo';
+  closeResult!: string;
+  modalOptions!: NgbModalOptions;
+
   constructor(
     private tradeService: TradeService,
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private stockService: StockService,
-    private notificationService: NotificationService
-  ) { }
+    private notificationService: NotificationService,
+    private modalService: NgbModal
+  ) {
+      this.modalOptions = {
+        backdrop:'static',
+        backdropClass:'customBackdrop'
+      }
+   }
 
   ngOnInit(): void {
 
@@ -74,19 +86,23 @@ export class TradeComponent implements OnInit {
     this.router.navigate(['user', 'trade'], {queryParams : {date : this.selectedDate}});
   }
 
-
-
-  createNewTrade(){
-
+  execute(tstock: Tstock){
+    this.selectedTstock = tstock;
+    this.open();
   }
 
-  onSell(tstock: Tstock){
-    this.selectedTstock = tstock;
-    this.selectedTradeType = TradeType.SELL;
+  open() {
+    const modalRef = this.modalService.open(TradeExecuteModalComponent);
+    modalRef.componentInstance.tstock = this.selectedTstock;
   }
 
-  onBuy(tstock: Tstock){
-    this.selectedTstock = tstock;
-    this.selectedTradeType = TradeType.BUY;
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 }

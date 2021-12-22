@@ -1,9 +1,20 @@
-<div *ngIf="tstock">
+<div class="modal-header">
+  <h4 class="modal-title">Execute Trade</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div *ngIf="tstock">
     <form [formGroup]="tradeForm">
       <div class="form-group mb-3 mt-5">
         <label for="tradeType" class="form-label">Trade Type: </label>
-        <input class="form-control" type="text" id="tradeType" placeholder="Trade Type" formControlName="tradeType" aria-label="tradeType" readonly>
+        <select class="form-control" formControlName="tradeType">
+          <option [ngValue]="null" disabled>Select One</option>
+          <option *ngFor="let tradeType of keysOfTradeType" [ngValue]="tradeType">{{ tradeType }}</option>
+        </select>
       </div>
+
       <div class="form-group mb-3">
         <label for="stockSymbol" class="form-label">Stock Symbol: </label>
         <input class="form-control" type="text" id="stockSymbol" placeholder="Stock Symbol" formControlName="stockSymbol" aria-label="stockSymbol" readonly>
@@ -21,7 +32,10 @@
           <div *ngIf="tradeForm.get('amount')?.hasError('required')">Amount is required.</div>
         </div>
       </div>
-
-      <button type="button" class="btn btn-primary" (click)="execute()" [disabled]="tradeForm.invalid">Save</button>
     </form>
   </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary" (click)="execute()" [disabled]="tradeForm.invalid">Execute</button>
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>
+</div>
