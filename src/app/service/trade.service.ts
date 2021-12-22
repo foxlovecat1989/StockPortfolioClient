@@ -20,7 +20,7 @@ export class TradeService {
 
   getTrades(): Observable<Array<Trade>> {
 
-    return this.http.get<Array<Trade>>(environment.apiUrl + '/api/v1/trades/findAll')
+    return this.http.get<Array<Trade>>(environment.apiUrl + '/api/v1/trade/findAll')
     .pipe(
       map(
         datas => {
@@ -40,7 +40,7 @@ export class TradeService {
 
   getTradesByDate(userId: number, date: string) : Observable<Trade[]> {
 
-    return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trades/findAll/${userId}/${date}`)
+    return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trade/findAll/${userId}/${date}`)
       .pipe(
         map (
           datas => {
@@ -54,6 +54,6 @@ export class TradeService {
   }
 
   public createTrade(tradeObject: TradeObject): Observable<Trade>{
-    return this.http.post<Trade>(environment.apiUrl + '/api/v1/trades/', tradeObject);
+    return this.http.post<Trade>(environment.apiUrl + '/api/v1/trade/', tradeObject);
   }
 }

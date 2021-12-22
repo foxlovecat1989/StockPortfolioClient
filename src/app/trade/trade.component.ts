@@ -1,4 +1,5 @@
 import { formatDate } from '@angular/common';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
@@ -48,7 +49,6 @@ export class TradeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-
     this.loadParams();
   }
 
@@ -64,7 +64,7 @@ export class TradeComponent implements OnInit {
 
   loadData() {
         const user = this.authService.getUserFromLocalCache();
-        this.notificationService.sendNotification(NotificationType.INFO, 'Loading Data..please wait')
+        this.notificationService.sendNotification(NotificationType.INFO, 'Loading Data..please wait');
         this.tradeService.getTradesByDate(+user.id, this.selectedDate).subscribe(
           next => {
             this.trades = next;
@@ -76,8 +76,8 @@ export class TradeComponent implements OnInit {
             else
               this.notificationService.sendNotification(NotificationType.WARNING, `There are no records on ${displayDate}.`);
           },
-          error => {
-            this.notificationService.sendNotification(NotificationType.ERROR, error);
+          (errorResponse: HttpErrorResponse) => {
+            this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
           }
         );
   }
