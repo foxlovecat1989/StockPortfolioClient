@@ -30,6 +30,8 @@ import { TradeComponent } from './trade/trade.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TradeExecuteModalComponent } from './trade/trade-execute-modal/trade-execute-modal.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { StockComponent } from './stock/stock.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { InventoryComponent } from './inventory/inventory.component';
     ManageUserComponent,
     TradeComponent,
     TradeExecuteModalComponent,
-    InventoryComponent
+    InventoryComponent,
+    StockComponent,
+    WatchlistComponent
   ],
   imports: [
     BrowserModule,
