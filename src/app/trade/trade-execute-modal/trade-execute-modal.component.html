@@ -1,13 +1,13 @@
-<div class="modal-header">
+<div class="modal-header bg-pink">
   <h4 class="modal-title">Execute Trade</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
+<div class="modal-body bg-grey font-weight-500">
   <div *ngIf="tstock">
     <form [formGroup]="tradeForm">
-      <div class="form-group mb-3 mt-5">
+      <div class="form-group mb-1 mt-1">
         <label for="tradeType" class="form-label">Trade Type: </label>
         <select class="form-control" formControlName="tradeType">
           <option [ngValue]="null" disabled>Select One</option>

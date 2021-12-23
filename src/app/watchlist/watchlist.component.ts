@@ -83,6 +83,10 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     ));
   }
 
+  public new(){
+    
+  }
+
   public refreshPrice(){
     this.isRefreshing = true;
     this.notificationService.sendNotification(NotificationType.INFO, `Refresh Price, please wait...`);

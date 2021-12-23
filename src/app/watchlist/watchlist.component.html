@@ -1,49 +1,60 @@
 <div class="container">
-  <div class="row">
-      <div class="form-group col-3">
-        <label for="watchlist">Select:</label>
-        <select class="form-control" id="selectedWatchlist" name="selectedWatchlist" [(ngModel)]="selectedWatchlist" (ngModelChange)="reloadStocks()">
-          <option [ngValue]="selectedWatchlist" disabled>{{ selectedWatchlist.name }}</option>
-          <option *ngFor="let watchlist of watchlists" [ngValue]="watchlist">{{ watchlist.name }}</option>
-        </select>
+      <div class="row mt-3">
+          <div class="form-group col-md-3 mt-3">
+                <label for="watchlist" [hidden]="true">Select:</label>
+                <select class="form-control" id="selectedWatchlist" name="selectedWatchlist" [(ngModel)]="selectedWatchlist" (ngModelChange)="reloadStocks()">
+                  <option [ngValue]="selectedWatchlist" disabled>{{ selectedWatchlist.name }}</option>
+                  <option *ngFor="let watchlist of watchlists" [ngValue]="watchlist">{{ watchlist.name }}</option>
+                </select>
+          </div>
+          <div class="col-md-4 mt-3">
+            <div class="row">
+              <div class="col-md-auto">
+                <button type="button" class="btn btn-outline-secondary" (click)="new()">Create</button>
+              </div>
+              <div class="col-md-auto">
+                <button type="button" (click)="refreshPrice()" class="btn btn-outline-info ml-1">Refresh Price:
+                  <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-auto">
+          </div>
       </div>
-    <h1 class="mt-5">Watchlist</h1>
-    <div class="col-md-12">
-      <div>
-        <button type="button" (click)="refreshPrice()" class="btn btn-outline-info">
-          Get The Lastest Price
-          <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
-        </button>
-    </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Symbol</th>
-            <th>Name</th>
-            <th>Previous Closed</th>
-            <th>Current Price</th>
-            <th>Change Price</th>
-            <th>Change In Percent</th>
-            <th>Volume</th>
-            <th>Last UpDate Time</th>
-            <th>Classify</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let stock of stocks">
-            <td (click)="trade(stock.symbol)">{{ stock.id }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.symbol }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.name }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.previousClosed | currency}}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.price | currency }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.changePrice | currency }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.changeInPercent / 100 | percent }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      <div class="row mt-3">
+          <div class="col-md-12">
+              <h1>Watchlist</h1>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Symbol</th>
+                    <th>Name</th>
+                    <th>Previous Closed</th>
+                    <th>Current Price</th>
+                    <th>Change Price</th>
+                    <th>Change In Percent</th>
+                    <th>Volume</th>
+                    <th>Last UpDate Time</th>
+                    <th>Classify</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let stock of stocks">
+                    <td (click)="trade(stock.symbol)">{{ stock.id }}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.symbol }}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.name }}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.previousClosed | currency}}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.price | currency }}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.changePrice | currency }}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.changeInPercent / 100 | percent }}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
+                    <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+      </div>
+</div>

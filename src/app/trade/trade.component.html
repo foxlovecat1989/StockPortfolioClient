@@ -5,7 +5,7 @@
         <div class="col-md-8 mt-3">
         <h1>Trade Records</h1>
         <h2>Filter by: <input type="date" [(ngModel)]="selectedDate" name="selectedDate" (change)="dateChanged()" /></h2>
-      <div *ngIf="isLoading">
+        <div *ngIf="isLoading">
         <div class="row row-striped" *ngFor="let trade of trades" >
           <div class="col-md-2 text-right">
             <h1 class="display-4"><span class="badge bg-dark rounded-pill">{{ trade.getTradeDateAsDate() | date:'dd' }}</span></h1>
