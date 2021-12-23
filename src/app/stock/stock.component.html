@@ -1,36 +1,37 @@
 <div class="container">
-  <div class="row"></div>
-    <h1 class="mt-5">Stock</h1>
-    <div class="col-md-12">
-      <div>
-    </div>
+  <div class="row">
+      <div class="col-md-12 mt-5">
+      <h1>Stock</h1>
       <table class="table">
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Name</th>
-            <th>Previous Closed</th>
-            <th>Current Price</th>
-            <th>Change Price</th>
-            <th>Change In Percent</th>
-            <th>Volume</th>
-            <th>Last UpDate Time</th>
-            <th>Classify</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let stock of stocks">
-            <td (click)="add(stock.symbol)">{{ stock.symbol }}</td>
-            <td (click)="add(stock.symbol)">{{ stock.name }}</td>
-            <td (click)="add(stock.symbol)">{{ stock.previousClosed | currency}}</td>
-            <td (click)="add(stock.symbol)">{{ stock.price | currency }}</td>
-            <td (click)="add(stock.symbol)">{{ stock.changePrice | currency }}</td>
-            <td (click)="add(stock.symbol)">{{ stock.changeInPercent / 100 | percent }}</td>
-            <td (click)="add(stock.symbol)">{{ stock.volume | number }}</td>
-            <td (click)="add(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
-            <td (click)="add(stock.symbol)">{{ stock.classify.name }}</td>
-          </tr>
-        </tbody>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Name</th>
+              <th>Previous Closed</th>
+              <th>Current Price</th>
+              <th>Change Price</th>
+              <th>Change In Percent</th>
+              <th>Volume</th>
+              <th>Last UpDate Time</th>
+              <th>Classify</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let stock of stocks">
+              <td (click)="trade(stock.symbol)">{{ stock.symbol }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.name }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.previousClosed | currency}}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.price | currency }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.changePrice | currency }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.changeInPercent / 100 | percent }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
+              <td><button type="button" class="btn btn-outline-danger" (click)="addToWatchlist(stock)">Watch</button></td>
+            </tr>
+          </tbody>
       </table>
     </div>
   </div>

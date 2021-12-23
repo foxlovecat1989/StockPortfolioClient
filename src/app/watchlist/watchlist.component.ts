@@ -127,16 +127,6 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.deleteWatchlist = deleteWatchlist;
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
-
   private checkAndGetUser() {
     this.authService.checkUserLoggedIn();
     this.user = this.authService.getUserFromLocalCache();
