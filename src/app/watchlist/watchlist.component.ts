@@ -22,10 +22,10 @@ import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-e
 })
 export class WatchlistComponent implements OnInit, OnDestroy {
 
+  private subscriptions: Subscription[] = [];
   watchlists!: Array<Watchlist>;
   selectedWatchlist!: Watchlist;
   stocks!: Array<Tstock>;
-  private subscriptions: Subscription[] = [];
   isRefreshing = false;
   user!: User;
 
@@ -53,23 +53,12 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.loadingData();
   }
 
-  private checkAndGetUser() {
-    this.authService.checkUserLoggedIn();
-    this.user = this.authService.getUserFromLocalCache();
-  }
-
-  private loadingData() {
-    this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
-    this.selectedWatchlist = this.watchlists[0];
-    this.stocks = this.selectedWatchlist.tstocks!;
-  }
-
-  public reloadStocks(){
-    this.stocks = this.selectedWatchlist.tstocks!;
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  reloadStocks(){
+    this.stocks = this.selectedWatchlist.tstocks!;
   }
 
   trade(symbol: string){
@@ -83,11 +72,17 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     ));
   }
 
-  public new(){
+  new(){
 
   }
 
-  public refreshPrice(){
+  remove(stock: Tstock){
+    this.selectedWatchlist.tstocks = this.selectedWatchlist.tstocks.filter(next => stock !== next);
+    this.notificationService.sendNotification(NotificationType.INFO, `Remove item ${stock.symbol}`);
+    this.reloadStocks();
+  }
+
+  refreshPrice(){
     this.isRefreshing = true;
     this.notificationService.sendNotification(NotificationType.INFO, `Refresh Price, please wait...`);
     this.subscriptions.push(this.stockService.refreshStockPrice().subscribe(
@@ -116,6 +111,17 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  private checkAndGetUser() {
+    this.authService.checkUserLoggedIn();
+    this.user = this.authService.getUserFromLocalCache();
+  }
+
+  private loadingData() {
+    this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
+    this.selectedWatchlist = this.watchlists[0];
+    this.stocks = this.selectedWatchlist.tstocks!;
   }
 
 }

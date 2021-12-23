@@ -53,7 +53,7 @@
                     <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
                     <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
                     <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
-                    <td></td>
+                    <td><button type="button" class="btn btn-outline-danger" (click)="remove(stock)">Remove</button></td>
                   </tr>
                 </tbody>
               </table>
