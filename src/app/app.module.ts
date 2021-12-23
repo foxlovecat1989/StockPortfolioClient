@@ -32,6 +32,7 @@ import { TradeExecuteModalComponent } from './trade/trade-execute-modal/trade-ex
 import { InventoryComponent } from './inventory/inventory.component';
 import { StockComponent } from './stock/stock.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
+import { WatchlistModalComponent } from './watchlist/watchlist-modal/watchlist-modal.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
     TradeExecuteModalComponent,
     InventoryComponent,
     StockComponent,
-    WatchlistComponent
+    WatchlistComponent,
+    WatchlistModalComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +68,8 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
     NgbModule
   ],
   entryComponents:[
-    TradeExecuteModalComponent
+    TradeExecuteModalComponent,
+    WatchlistModalComponent
   ],
   providers: [
     NotificationService,

@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormGroup  } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -12,8 +11,8 @@ import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
 import { ReloadFormService } from '../service/reload-form.service';
 import { StockService } from '../service/stock.service';
-import { WatchlistService } from '../service/watchlist.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
+import { WatchlistModalComponent } from './watchlist-modal/watchlist-modal.component';
 
 @Component({
   selector: 'app-watchlist',
@@ -34,13 +33,12 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   selectedTstock!: Tstock;
 
   constructor(
-    private watchlistService: WatchlistService,
     private notificationService: NotificationService,
     private stockService: StockService,
     private authService: AuthenticationService,
     private modalService: NgbModal,
-    private reloadFormService: ReloadFormService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private reload: ReloadFormService
   ) {
     this.modalOptions = {
       backdrop:'static',
@@ -51,6 +49,13 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.checkAndGetUser();
     this.loadingData();
+    this.subscriptions.push(
+      this.reload.reloadEvent.subscribe(
+        next => {
+          this.loadingData();
+        }
+      )
+    );
   }
 
   ngOnDestroy(): void {
@@ -67,13 +72,13 @@ export class WatchlistComponent implements OnInit, OnDestroy {
       next => {
         this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS TO load the data...`);
         this.selectedTstock = next;
-        this.open();
+        this.openTradeModal();
       }
     ));
   }
 
   new(){
-
+    this.openCreateWatchlistModal();
   }
 
   remove(stock: Tstock){
@@ -98,9 +103,14 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     ));
   }
 
-  open() {
+  openTradeModal() {
     const modalRef = this.modalService.open(TradeExecuteModalComponent);
     modalRef.componentInstance.tstock = this.selectedTstock;
+  }
+
+  openCreateWatchlistModal() {
+    const modalRef = this.modalService.open(WatchlistModalComponent);
+    modalRef.componentInstance.watchlists = this.watchlists;
   }
 
   private getDismissReason(reason: any): string {
