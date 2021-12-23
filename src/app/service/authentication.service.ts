@@ -73,13 +73,14 @@ export class AuthenticationService {
 
     this.loggedInUsername = decodedTokenSub;
     this.isUserLoggedInEvent.emit(true);
-    
+
     return true;
   }
 
-  public checkUserLoggedIn() : void {
+  public checkUserLoggedIn() : boolean {
     if (!this.isUserLoggedIn())
-      this.router.navigateByUrl('/login')
-  }
+      this.router.navigate(['login']);
 
+    return this.isUserLoggedIn();
+  }
 }
