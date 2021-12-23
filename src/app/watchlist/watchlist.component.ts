@@ -84,7 +84,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   }
 
   public new(){
-    
+
   }
 
   public refreshPrice(){

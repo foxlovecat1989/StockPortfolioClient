@@ -38,6 +38,7 @@
                     <th>Volume</th>
                     <th>Last UpDate Time</th>
                     <th>Classify</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
@@ -52,6 +53,7 @@
                     <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
                     <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
                     <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
+                    <td></td>
                   </tr>
                 </tbody>
               </table>

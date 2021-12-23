@@ -1,42 +1,53 @@
 <div class="container">
-  <div class="row"></div>
-    <h1 class="mt-5">Inventory Report</h1>
-    <div class="col-md-12">
-      <div>
-          <button type="button" (click)="refreshPrice()" class="btn btn-outline-info">
-            Get The Lastest Price
-            <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
-          </button>
+  <div class="row mt-3">
+      <div class="col-md-4 mt-3">
+        <div class="row">
+          <div class="col-md-auto">
+            <h1>Inventory Report</h1>
+          </div>
+          <div class="col-md-auto">
+            <button type="button" (click)="refreshPrice()" class="btn btn-outline-info ml-1">Refresh Price:
+              <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
+            </button>
+          </div>
+        </div>
       </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Stock</th>
-            <th>Classify</th>
-            <th>Amount</th>
-            <th>Current Price</th>
-            <th>Total Worth</th>
-            <th>Total Cost</th>
-            <th>Average Price</th>
-            <th>Income</th>
-            <th>Rate of Return</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let inventoryReport of inventoryReports">
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.id }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.stockName }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.classifyName }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.amountInInventory | number }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.currentPrice | currency }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.currentTotalWorth | currency }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.totalCost | currency }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.avgPriceInInventory | currency }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.income | currency }}</td>
-            <td (click)="trade(inventoryReport)">{{ inventoryReport.rateOfReturn | percent:'2.2-2' }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+      <div class="col-md-auto">
+      </div>
   </div>
+  <div class="row mt-3">
+      <div class="col-md-12">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Stock</th>
+                <th>Classify</th>
+                <th>Amount</th>
+                <th>Current Price</th>
+                <th>Total Worth</th>
+                <th>Total Cost</th>
+                <th>Average Price</th>
+                <th>Income</th>
+                <th>Rate of Return</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let inventoryReport of inventoryReports">
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.id }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.stockName }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.classifyName }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.amountInInventory | number }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.currentPrice | currency }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.currentTotalWorth | currency }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.totalCost | currency }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.avgPriceInInventory | currency }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.income | currency }}</td>
+                <td (click)="trade(inventoryReport)">{{ inventoryReport.rateOfReturn | percent:'2.2-2' }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </div>
+</div>
