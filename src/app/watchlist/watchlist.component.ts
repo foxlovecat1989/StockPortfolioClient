@@ -55,16 +55,6 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.subToReloadFormEvent();
   }
 
-  private subToReloadFormEvent() {
-    this.subscriptions.push(
-      this.reload.reloadEvent.subscribe(
-        next => {
-          this.refreshWatchlists();
-        }
-      )
-    );
-  }
-
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
@@ -112,17 +102,17 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     ));
   }
 
-  openTradeModal() {
+  private openTradeModal() {
     const modalRef = this.modalService.open(TradeExecuteModalComponent);
     modalRef.componentInstance.tstock = this.selectedTstock;
   }
 
-  openCreateWatchlistModal() {
+  private openCreateWatchlistModal() {
     const modalRef = this.modalService.open(WatchlistModalComponent);
     modalRef.componentInstance.watchlists = this.watchlists;
   }
 
-  openConfirmModal(deleteWatchlist: Watchlist) {
+  private openConfirmModal(deleteWatchlist: Watchlist) {
     const modalRef = this.modalService.open(ConfirmModalComponent);
     modalRef.componentInstance.deleteWatchlist = deleteWatchlist;
   }
@@ -148,6 +138,16 @@ export class WatchlistComponent implements OnInit, OnDestroy {
             this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS to refresh Data...`);
         },
         (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    );
+  }
+
+  private subToReloadFormEvent() {
+    this.subscriptions.push(
+      this.reload.reloadEvent.subscribe(
+        next => {
+          this.refreshWatchlists();
+        }
+      )
     );
   }
 
