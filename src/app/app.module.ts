@@ -33,6 +33,7 @@ import { InventoryComponent } from './inventory/inventory.component';
 import { StockComponent } from './stock/stock.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { WatchlistModalComponent } from './watchlist/watchlist-modal/watchlist-modal.component';
+import { ConfirmModalComponent } from './watchlist/confirm-modal/confirm-modal.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { WatchlistModalComponent } from './watchlist/watchlist-modal/watchlist-m
     InventoryComponent,
     StockComponent,
     WatchlistComponent,
-    WatchlistModalComponent
+    WatchlistModalComponent,
+    ConfirmModalComponent
   ],
   imports: [
     BrowserModule,

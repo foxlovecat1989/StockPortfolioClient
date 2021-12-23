@@ -10,7 +10,10 @@
           <div class="col-md-4 mt-3">
             <div class="row">
               <div class="col-md-auto">
-                <button type="button" class="btn btn-outline-secondary" (click)="new()">Create</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="createWatchlist()">Create</button>
+              </div>
+              <div class="col-md-auto">
+                <button class="btn btn-outline-danger" (click)="deleteWatchlist(selectedWatchlist)">Delete</button>
               </div>
               <div class="col-md-auto">
                 <button type="button" (click)="refreshPrice()" class="btn btn-outline-info ml-1">Refresh Price:

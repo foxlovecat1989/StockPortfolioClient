@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NotificationType } from '../enum/notification-type.enum';
 import { Tstock } from '../model/Tstock';
 import { User } from '../model/user';
@@ -11,6 +12,7 @@ import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
 import { ReloadFormService } from '../service/reload-form.service';
 import { StockService } from '../service/stock.service';
+import { WatchlistService } from '../service/watchlist.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
 import { WatchlistModalComponent } from './watchlist-modal/watchlist-modal.component';
 
@@ -38,7 +40,8 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute,
-    private reload: ReloadFormService
+    private reload: ReloadFormService,
+    private watchlistService: WatchlistService
   ) {
     this.modalOptions = {
       backdrop:'static',
@@ -49,10 +52,14 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.checkAndGetUser();
     this.loadingData();
+    this.subToReloadFormEvent();
+  }
+
+  private subToReloadFormEvent() {
     this.subscriptions.push(
       this.reload.reloadEvent.subscribe(
         next => {
-          this.loadingData();
+          this.refreshWatchlists();
         }
       )
     );
@@ -67,18 +74,21 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   }
 
   trade(symbol: string){
-    this.notificationService.sendNotification(NotificationType.INFO, `Loading data, please wait...`);
     this.subscriptions.push(this.stockService.getStockBySymbol(symbol).subscribe(
       next => {
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS TO load the data...`);
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS Loading data...`);
         this.selectedTstock = next;
         this.openTradeModal();
       }
     ));
   }
 
-  new(){
+  createWatchlist(){
     this.openCreateWatchlistModal();
+  }
+
+  deleteWatchlist(deleteWatchlist: Watchlist){
+    this.openConfirmModal(deleteWatchlist);
   }
 
   remove(stock: Tstock){
@@ -89,11 +99,10 @@ export class WatchlistComponent implements OnInit, OnDestroy {
 
   refreshPrice(){
     this.isRefreshing = true;
-    this.notificationService.sendNotification(NotificationType.INFO, `Refresh Price, please wait...`);
     this.subscriptions.push(this.stockService.refreshStockPrice().subscribe(
       next => {
         this.isRefreshing = false;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS TO refresh price...`);
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS to Refresh Price...`);
         this.loadingData();
       },
       (errorResponse: HttpErrorResponse) => {
@@ -111,6 +120,11 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   openCreateWatchlistModal() {
     const modalRef = this.modalService.open(WatchlistModalComponent);
     modalRef.componentInstance.watchlists = this.watchlists;
+  }
+
+  openConfirmModal(deleteWatchlist: Watchlist) {
+    const modalRef = this.modalService.open(ConfirmModalComponent);
+    modalRef.componentInstance.deleteWatchlist = deleteWatchlist;
   }
 
   private getDismissReason(reason: any): string {
@@ -132,6 +146,19 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
     this.selectedWatchlist = this.watchlists[0];
     this.stocks = this.selectedWatchlist.tstocks!;
+  }
+
+  private refreshWatchlists(){
+    this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber).subscribe(
+        response => {
+            this.watchlists = response;
+            this.selectedWatchlist = this.watchlists[0];
+            this.stocks = this.selectedWatchlist.tstocks!;
+            this.reloadStocks();
+            this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS to refresh Data...`);
+        },
+        (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    );
   }
 
 }
