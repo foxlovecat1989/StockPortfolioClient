@@ -34,6 +34,7 @@ import { StockComponent } from './stock/stock.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { WatchlistModalComponent } from './watchlist/watchlist-modal/watchlist-modal.component';
 import { ConfirmModalComponent } from './watchlist/confirm-modal/confirm-modal.component';
+import { AddStockToWatchlistModalComponent } from './stock/add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { ConfirmModalComponent } from './watchlist/confirm-modal/confirm-modal.c
     StockComponent,
     WatchlistComponent,
     WatchlistModalComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    AddStockToWatchlistModalComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +73,8 @@ import { ConfirmModalComponent } from './watchlist/confirm-modal/confirm-modal.c
   ],
   entryComponents:[
     TradeExecuteModalComponent,
-    WatchlistModalComponent
+    WatchlistModalComponent,
+    AddStockToWatchlistModalComponent
   ],
   providers: [
     NotificationService,

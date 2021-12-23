@@ -8,9 +8,11 @@ import { User } from '../model/user';
 import { Watchlist } from '../model/Watchlist';
 import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
+import { ReloadFormService } from '../service/reload-form.service';
 import { StockService } from '../service/stock.service';
 import { WatchlistService } from '../service/watchlist.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
+import { AddStockToWatchlistModalComponent } from './add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
 
 @Component({
   selector: 'app-stock',
@@ -30,9 +32,9 @@ export class StockComponent implements OnInit {
   constructor(
     private stockService: StockService,
     private notificationService: NotificationService,
-    private watchlistService: WatchlistService,
     private authService: AuthenticationService,
-    private modalService: NgbModal,
+    private watchlistService: WatchlistService,
+    private modalService: NgbModal
   ) {
     this.modalOptions = {
       backdrop:'static',
@@ -57,7 +59,10 @@ export class StockComponent implements OnInit {
   }
 
   addToWatchlist(stock: Tstock){
-    console.log(stock)
+      const modalRef = this.modalService.open(AddStockToWatchlistModalComponent);
+      modalRef.componentInstance.watchlists =
+        this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber);
+      modalRef.componentInstance.stockId = stock.id;
   }
 
   trade(symbol: string){

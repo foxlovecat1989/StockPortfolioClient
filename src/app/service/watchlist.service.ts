@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { CustomHttpRespone } from '../model/Custom-http-response';
+import { Tstock } from '../model/Tstock';
 import { User } from '../model/user';
 import { Watchlist } from '../model/Watchlist';
 
@@ -19,7 +20,11 @@ export class WatchlistService {
     return this.http.get<Array<Watchlist>>(`${environment.apiUrl}/api/v1/watchlist/${userNumber}`);
   }
 
-  createWatchlist(formData: FormData): Observable<Watchlist>{
+  createWatchlist(name: string, userId: string): Observable<Watchlist>{
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('userId', userId);
+
     return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist`, formData);
   }
 
@@ -27,11 +32,12 @@ export class WatchlistService {
     return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/watchlist/${watchlistId}`);
   }
 
-  createWatchlistFormData(name: string, userId: string): FormData {
+  addStockToWatchlist(stockId: string, watchlistId: string): Observable<Watchlist>{
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('userId', userId);
+    formData.append('stockId', stockId);
+    formData.append('watchlistId', watchlistId);
 
-    return formData;
+    return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist/add`, formData);
   }
+
 }
