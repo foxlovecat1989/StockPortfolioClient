@@ -1,10 +1,12 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup  } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from '../enum/notification-type.enum';
 import { Tstock } from '../model/Tstock';
+import { User } from '../model/user';
 import { Watchlist } from '../model/Watchlist';
 import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
@@ -20,16 +22,16 @@ import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-e
 })
 export class WatchlistComponent implements OnInit, OnDestroy {
 
-  watchlists = new Array<Watchlist>();
+  watchlists!: Array<Watchlist>;
   selectedWatchlist!: Watchlist;
   stocks!: Array<Tstock>;
   private subscriptions: Subscription[] = [];
   isRefreshing = false;
+  user!: User;
 
   closeResult!: string;
   modalOptions!: NgbModalOptions;
   selectedTstock!: Tstock;
-  watchlistForm!: FormGroup;
 
   constructor(
     private watchlistService: WatchlistService,
@@ -37,8 +39,8 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     private stockService: StockService,
     private authService: AuthenticationService,
     private modalService: NgbModal,
-    private reload: ReloadFormService,
-    private formBuilder: FormBuilder
+    private reloadFormService: ReloadFormService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.modalOptions = {
       backdrop:'static',
@@ -47,24 +49,23 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.checkAndGetUser();
     this.loadingData();
-    this.watchlistForm = this.formBuilder.group({
-      watchlist: [this.selectedWatchlist, Validators.required]
-    });
+  }
+
+  private checkAndGetUser() {
+    this.authService.checkUserLoggedIn();
+    this.user = this.authService.getUserFromLocalCache();
   }
 
   private loadingData() {
-    const userNumber = this.authService.getUserFromLocalCache().userNumber;
-    this.notificationService.sendNotification(NotificationType.INFO, 'Loading...');
-    this.subscriptions.push(this.watchlistService.getWatchlistsByUserNumber(userNumber).subscribe(
-      response => {
-        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to load...');
-        this.watchlists = response;
-        this.selectedWatchlist = this.watchlists.pop()!;
-        this.stocks = this.selectedWatchlist.tstocks!;
-      },
-      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-    ));
+    this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
+    this.selectedWatchlist = this.watchlists[0];
+    this.stocks = this.selectedWatchlist.tstocks!;
+  }
+
+  public reloadStocks(){
+    this.stocks = this.selectedWatchlist.tstocks!;
   }
 
   ngOnDestroy(): void {
