@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AdminComponent } from '../admin/admin.component';
+import { ManageUserComponent } from '../admin/manage-user/manage-user.component';
 import { DashboardComponent } from '../components/dashboard/dashboard.component';
 import { LoginComponent } from '../components/login/login.component';
 import { LogoutComponent } from '../components/logout/logout.component';
@@ -12,6 +12,7 @@ import { PrefetchWatchlistService } from '../service/prefetch-watchlist.service'
 import { StockComponent } from '../stock/stock.component';
 import { TradeComponent } from '../trade/trade.component';
 import { UserProfileComponent } from '../user/user-profile/user-profile.component';
+import { UserComponent } from '../user/user.component';
 import { WatchlistComponent } from '../watchlist/watchlist.component';
 
 const routes: Routes = [
@@ -31,7 +32,7 @@ const routes: Routes = [
         path: 'user/watchlist', component: WatchlistComponent, resolve: {watchlists: PrefetchWatchlistService}, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticationGuard]
+        path: 'user/profile', component: UserComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'user/report', component: InventoryComponent, canActivate: [AuthenticationGuard]
@@ -46,7 +47,7 @@ const routes: Routes = [
         path: 'register', component: RegisterComponent
       },
       {
-        path: 'admin/management', component: AdminComponent, canActivate: [AuthenticationGuard]
+        path: 'admin/management/users', component: ManageUserComponent, canActivate: [AuthenticationGuard]
       },
     ]
   },

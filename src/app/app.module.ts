@@ -24,7 +24,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { UserComponent } from './user/user.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';
 import { LogoutComponent } from './components/logout/logout.component';
-import { AdminComponent } from './admin/admin.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { TradeComponent } from './trade/trade.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -35,6 +34,9 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
 import { WatchlistModalComponent } from './watchlist/watchlist-modal/watchlist-modal.component';
 import { ConfirmModalComponent } from './watchlist/confirm-modal/confirm-modal.component';
 import { AddStockToWatchlistModalComponent } from './stock/add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
+import { AddUserModalComponent } from './admin/manage-user/add-user-modal/add-user-modal.component';
+import { UpdateUserModalComponent } from './admin/manage-user/update-user-modal/update-user-modal.component';
+import { DeleteUserModalComponent } from './admin/manage-user/delete-user-modal/delete-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,6 @@ import { AddStockToWatchlistModalComponent } from './stock/add-stock-to-watchlis
     UserComponent,
     UserProfileComponent,
     LogoutComponent,
-    AdminComponent,
     ManageUserComponent,
     TradeComponent,
     TradeExecuteModalComponent,
@@ -55,7 +56,10 @@ import { AddStockToWatchlistModalComponent } from './stock/add-stock-to-watchlis
     WatchlistComponent,
     WatchlistModalComponent,
     ConfirmModalComponent,
-    AddStockToWatchlistModalComponent
+    AddStockToWatchlistModalComponent,
+    AddUserModalComponent,
+    UpdateUserModalComponent,
+    DeleteUserModalComponent
   ],
   imports: [
     BrowserModule,

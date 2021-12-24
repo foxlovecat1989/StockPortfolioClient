@@ -17,27 +17,27 @@
         </mat-list-item>
 
         <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/stock'">bar_chart</mat-icon>
+          <mat-icon mat-list-icon [routerLink]="'/user/stock'">bar_chart</mat-icon>
           <span *ngIf="isExpanded">Stock</span>
         </mat-list-item>
 
         <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/watchlist'">query_stats</mat-icon>
+          <mat-icon mat-list-icon [routerLink]="'/user/watchlist'">query_stats</mat-icon>
           <span *ngIf="isExpanded">Watchlist</span>
         </mat-list-item>
 
         <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/profile'">account_circle</mat-icon>
+          <mat-icon mat-list-icon [routerLink]="'/user/profile'">account_circle</mat-icon>
           <span *ngIf="isExpanded">Profile</span>
         </mat-list-item>
 
         <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/trade'">today</mat-icon>
+          <mat-icon mat-list-icon [routerLink]="'/user/trade'">today</mat-icon>
           <span *ngIf="isExpanded">Trade</span>
         </mat-list-item>
 
         <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/report'">request_page</mat-icon>
+          <mat-icon mat-list-icon [routerLink]="'/user/report'">request_page</mat-icon>
           <span *ngIf="isExpanded">Report</span>
         </mat-list-item>
 
@@ -47,8 +47,8 @@
         </mat-list-item>
 
         <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'admin/management'">manage_accounts</mat-icon>
-          <span *ngIf="isExpanded">Admin</span>
+          <mat-icon mat-list-icon [routerLink]="'admin/management/users'">manage_accounts</mat-icon>
+          <span *ngIf="isExpanded">ManageUsers</span>
         </mat-list-item>
 
       </mat-nav-list>
@@ -59,7 +59,7 @@
         <div class="move-left">
           <h4>M y S t o c k</h4>
         </div>
-        <div class="nav-item nav-link move-right mr-3" *ngIf="isLogin">
+        <div class="nav-item nav-link move-right mr-3" *ngIf="isLogin" (click)="userProfile()">
           Welcome, {{user?.username}}
           <i class="fa fa-user"></i>
         </div>

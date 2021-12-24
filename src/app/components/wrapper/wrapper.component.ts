@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 @Component({
@@ -15,6 +16,7 @@ export class WrapperComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -29,6 +31,10 @@ export class WrapperComponent implements OnInit {
 
   toggleExpanded(){
     this.isExpanded = !this.isExpanded;
+  }
+
+  userProfile(){
+    this.router.navigate(['user', 'profile']);
   }
 
 }

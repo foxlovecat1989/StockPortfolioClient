@@ -11,6 +11,8 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class ManageUserComponent implements OnInit {
 
+  role!: string;
+  selectedUser!: User;
   users!: User[];
 
   constructor(
@@ -31,15 +33,11 @@ export class ManageUserComponent implements OnInit {
     );
   }
 
-  onEditUser(user: User){
+  add(){
 
   }
 
-  onDeleteUser(username: string){
-
-  }
-
-  onSelectUser(user: User){
+  view(user: User){
 
   }
 }

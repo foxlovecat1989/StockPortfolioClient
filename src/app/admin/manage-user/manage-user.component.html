@@ -1,28 +1,37 @@
-<h1>Manage User</h1>
-<a class="btn btn-outline-success mb-3">Add</a>
+<div class="container">
   <div class="row">
-    <div class="col-md-6">
-      <table class="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of users">
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.email }}</td>
-            <td>
-              <button type="button" class="btn btn-outline-primary">view</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-md-6">
-
-    </div>
+    <div class="col-md-10 mt-5">
+        <h1>Manage User</h1>
+        <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Number</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>LastLogin</th>
+                    <th>Enable</th>
+                    <th>Lock</th>
+                    <th>Role</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let user of users">
+                      <td (click)="view(user)">{{ user.id }}</td>
+                      <td (click)="view(user)">{{ user.userNumber }}</td>
+                      <td (click)="view(user)">{{ user.username }}</td>
+                      <td (click)="view(user)">{{ user.email }}</td>
+                      <td (click)="view(user)">{{ user.lastLoginDateDisplay | date:'yyyy-MM-dd HH:mm' }}</td>
+                      <td (click)="view(user)">{{ user.isEnabled }}</td>
+                      <td (click)="view(user)">{{ user.isAccountNonLocked }}</td>
+                      <td (click)="view(user)">{{ user.userRole }}</td>
+                  </tr>
+                </tbody>
+            </table>
+      </div>
   </div>
+</div>
+
+
+

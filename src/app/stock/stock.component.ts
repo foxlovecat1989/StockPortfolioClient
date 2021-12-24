@@ -8,7 +8,6 @@ import { User } from '../model/user';
 import { Watchlist } from '../model/Watchlist';
 import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
-import { ReloadFormService } from '../service/reload-form.service';
 import { StockService } from '../service/stock.service';
 import { WatchlistService } from '../service/watchlist.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
