@@ -10,6 +10,7 @@
                     <th>Number</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Joindate</th>
                     <th>LastLogin</th>
                     <th>Enable</th>
                     <th>Lock</th>
@@ -22,6 +23,7 @@
                       <td (click)="view(user)">{{ user.userNumber }}</td>
                       <td (click)="view(user)">{{ user.username }}</td>
                       <td (click)="view(user)">{{ user.email }}</td>
+                      <td (click)="view(user)">{{ user.joinDate | date:'yyyy-MM-dd' }}</td>
                       <td (click)="view(user)">{{ user.lastLoginDateDisplay | date:'yyyy-MM-dd HH:mm' }}</td>
                       <td (click)="view(user)">{{ user.isEnabled }}</td>
                       <td (click)="view(user)">{{ user.isAccountNonLocked }}</td>
