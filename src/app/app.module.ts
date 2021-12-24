@@ -37,6 +37,7 @@ import { AddStockToWatchlistModalComponent } from './stock/add-stock-to-watchlis
 import { AddUserModalComponent } from './admin/manage-user/add-user-modal/add-user-modal.component';
 import { UpdateUserModalComponent } from './admin/manage-user/update-user-modal/update-user-modal.component';
 import { DeleteUserModalComponent } from './admin/manage-user/delete-user-modal/delete-user-modal.component';
+import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { DeleteUserModalComponent } from './admin/manage-user/delete-user-modal/
     AddStockToWatchlistModalComponent,
     AddUserModalComponent,
     UpdateUserModalComponent,
-    DeleteUserModalComponent
+    DeleteUserModalComponent,
+    ViewUserModalComponent
   ],
   imports: [
     BrowserModule,
