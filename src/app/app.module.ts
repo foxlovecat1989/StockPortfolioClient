@@ -80,7 +80,11 @@ import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view
   entryComponents:[
     TradeExecuteModalComponent,
     WatchlistModalComponent,
-    AddStockToWatchlistModalComponent
+    AddStockToWatchlistModalComponent,
+    ViewUserModalComponent,
+    AddUserModalComponent,
+    UpdateUserModalComponent,
+    DeleteUserModalComponent
   ],
   providers: [
     NotificationService,
