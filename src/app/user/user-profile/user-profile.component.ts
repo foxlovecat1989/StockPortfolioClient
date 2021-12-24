@@ -44,27 +44,27 @@ export class UserProfileComponent implements OnInit {
     this.profileImage = profileImage;
   }
 
-  onUpdateCurrentUser(user: User): void {
-    this.refreshing = true;
-    this.currentUsername = this.authenticationService.getUserFromLocalCache().username;
-    const formData = this.userService.createUserFormDate(this.currentUsername, user, this.profileImage!);
-    this.subscriptions.push(
-      this.userService.updateUser(formData).subscribe(
-        (response: User) => {
-          this.authenticationService.addUserToLocalCache(response);
-          this.getUsers(false);
-          this.fileName = "";
-          this.profileImage = null;
-          this.notificationService.sendNotification(NotificationType.SUCCESS, `${response.username} ${response.username} updated successfully`);
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-          this.refreshing = false;
-          this.profileImage = null;
-        }
-      )
-      );
-  }
+  // onUpdateCurrentUser(user: User): void {
+  //   this.refreshing = true;
+  //   this.currentUsername = this.authenticationService.getUserFromLocalCache().username;
+  //   const formData = this.userService.createUserFormDate(this.currentUsername, user, this.profileImage!);
+  //   this.subscriptions.push(
+  //     this.userService.updateUser(formData).subscribe(
+  //       (response: User) => {
+  //         this.authenticationService.addUserToLocalCache(response);
+  //         this.getUsers(false);
+  //         this.fileName = "";
+  //         this.profileImage = null;
+  //         this.notificationService.sendNotification(NotificationType.SUCCESS, `${response.username} ${response.username} updated successfully`);
+  //       },
+  //       (errorResponse: HttpErrorResponse) => {
+  //         this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+  //         this.refreshing = false;
+  //         this.profileImage = null;
+  //       }
+  //     )
+  //     );
+  // }
 
   getUsers(showNotification: boolean): void {
     this.refreshing = true;

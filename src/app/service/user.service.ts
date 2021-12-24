@@ -20,8 +20,9 @@ export class UserService {
     return this.http.post<User>(`${environment.apiUrl}/api/v1/user`, formData);
   }
 
-  public updateUser(formData: FormData): Observable<User> {
-    return this.http.patch<User>(`${environment.apiUrl}/api/v1/user`, formData);
+  public updateUser(user: User): Observable<User> {
+    const loginUserNumber = user.userNumber;
+    return this.http.patch<User>(`${environment.apiUrl}/api/v1/user/${loginUserNumber}`, user);
   }
 
   public resetPassword(email: string): Observable<CustomHttpRespone> {

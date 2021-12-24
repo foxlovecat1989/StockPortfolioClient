@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModalOptions, ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
+import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { UserService } from 'src/app/service/user.service';
 import { ViewUserModalComponent } from './view-user-modal/view-user-modal.component';
 
@@ -11,18 +14,22 @@ import { ViewUserModalComponent } from './view-user-modal/view-user-modal.compon
   templateUrl: './manage-user.component.html',
   styleUrls: ['./manage-user.component.css']
 })
-export class ManageUserComponent implements OnInit {
+export class ManageUserComponent implements OnInit, OnDestroy {
 
   role!: string;
+  user!: User;
   selectedUser!: User;
   users!: User[];
+  private subscriptions: Subscription[] = [];
 
   closeResult!: string;
   modalOptions:NgbModalOptions;
 
   constructor(
     private userService: UserService,
+    private authService: AuthenticationService,
     private notificationService: NotificationService,
+    private reloadFormService: ReloadFormService,
     private modalService: NgbModal
     ) {
       this.modalOptions = {
@@ -32,10 +39,28 @@ export class ManageUserComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.getUsers();
+    this.checkAndSetUser();
+    this.subToReloadEvent();
+    this.loadingData();
   }
 
-  getUsers(){
+  private subToReloadEvent() {
+    this.subscriptions.push(this.reloadFormService.reloadEvent.subscribe(
+      this.loadingData()
+    ));
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  private checkAndSetUser() {
+    const isLogin = this.authService.isUserLoggedIn();
+    if (isLogin)
+      this.user = this.authService.getUserFromLocalCache();
+  }
+
+  loadingData(){
     this.userService.getUsers().subscribe(
       (response: User[]) => {
         this.users = response;
