@@ -32,7 +32,6 @@ import { WatchlistModalComponent } from './watchlist/watchlist-modal/watchlist-m
 import { ConfirmModalComponent } from './watchlist/confirm-modal/confirm-modal.component';
 import { AddStockToWatchlistModalComponent } from './stock/add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
 import { AddUserModalComponent } from './admin/manage-user/add-user-modal/add-user-modal.component';
-import { UpdateUserModalComponent } from './admin/manage-user/update-user-modal/update-user-modal.component';
 import { DeleteUserModalComponent } from './admin/manage-user/delete-user-modal/delete-user-modal.component';
 import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view-user-modal.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
@@ -40,8 +39,9 @@ import { ManageStockComponent } from './admin/manage-stock/manage-stock.componen
 import { ViewStockModalComponent } from './admin/manage-stock/view-stock-modal/view-stock-modal.component';
 import { AddStockModalComponent } from './admin/manage-stock/add-stock-modal/add-stock-modal.component';
 import { ManageClassifyComponent } from './admin/manage-classify/manage-classify.component';
-import { AddClassifyComponent } from './admin/manage-classify/add-classify/add-classify.component';
-import { ViewClassifyComponent } from './admin/manage-classify/view-classify/view-classify.component';
+import { AddClassifyModalComponent } from './admin/manage-classify/add-classify-modal/add-classify-modal.component';
+import { ViewClassifyModalComponent } from './admin/manage-classify/view-classify-modal/view-classify-modal.component';
+import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-classify-modal/delete-classify-modal.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,6 @@ import { ViewClassifyComponent } from './admin/manage-classify/view-classify/vie
     ConfirmModalComponent,
     AddStockToWatchlistModalComponent,
     AddUserModalComponent,
-    UpdateUserModalComponent,
     DeleteUserModalComponent,
     ViewUserModalComponent,
     UserdetailComponent,
@@ -68,8 +67,9 @@ import { ViewClassifyComponent } from './admin/manage-classify/view-classify/vie
     ViewStockModalComponent,
     AddStockModalComponent,
     ManageClassifyComponent,
-    AddClassifyComponent,
-    ViewClassifyComponent
+    AddClassifyModalComponent,
+    ViewClassifyModalComponent,
+    DeleteClassifyModalComponent
   ],
   imports: [
     BrowserModule,
@@ -91,8 +91,11 @@ import { ViewClassifyComponent } from './admin/manage-classify/view-classify/vie
     AddStockToWatchlistModalComponent,
     ViewUserModalComponent,
     AddUserModalComponent,
-    UpdateUserModalComponent,
-    DeleteUserModalComponent
+    DeleteUserModalComponent,
+    AddStockModalComponent,
+    ViewStockModalComponent,
+    AddClassifyModalComponent,
+    ViewClassifyModalComponent
   ],
   providers: [
     NotificationService,

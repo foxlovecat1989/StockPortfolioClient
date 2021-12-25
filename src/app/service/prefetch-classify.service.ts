@@ -15,6 +15,6 @@ export class PrefetchClassifyService implements Resolve<Observable<Array<Classif
   ) { }
 
   resolve() {
-    return this.classifyService.getClassify();
+    return this.classifyService.getClassifies();
   }
 }

@@ -14,6 +14,7 @@ import { StockComponent } from './stock/stock.component';
 import { TradeComponent } from './trade/trade.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
+import { ManageClassifyComponent } from './admin/manage-classify/manage-classify.component';
 
 const routes: Routes = [
   {
@@ -50,7 +51,7 @@ const routes: Routes = [
         path: 'admin/management/stocks', component: ManageStockComponent, resolve: {classifies: PrefetchClassifyService}, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'admin/management/classifies', component: ManageStockComponent, canActivate: [AuthenticationGuard]
+        path: 'admin/management/classifies', component: ManageClassifyComponent, canActivate: [AuthenticationGuard]
       }
     ]
   },

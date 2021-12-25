@@ -1,1 +1,25 @@
-<p>manage-classify works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 mt-5">
+        <h1>Manage Classify</h1>
+        <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let classify of classifies">
+                      <td (click)="view(classify)">{{ classify.classifyId }}</td>
+                      <td (click)="view(classify)">{{ classify.name }}</td>
+                  </tr>
+                </tbody>
+            </table>
+      </div>
+  </div>
+</div>
+
+
+
