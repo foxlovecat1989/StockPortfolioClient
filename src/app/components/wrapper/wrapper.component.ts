@@ -34,7 +34,7 @@ export class WrapperComponent implements OnInit {
   }
 
   userProfile(){
-    this.router.navigate(['user', 'profile']);
+    this.router.navigate(['user', 'userdetail']);
   }
 
 }

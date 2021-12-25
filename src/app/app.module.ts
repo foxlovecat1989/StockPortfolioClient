@@ -21,7 +21,6 @@ import { NotificationModule } from './notification.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { TradeComponent } from './trade/trade.component';
@@ -37,6 +36,7 @@ import { AddUserModalComponent } from './admin/manage-user/add-user-modal/add-us
 import { UpdateUserModalComponent } from './admin/manage-user/update-user-modal/update-user-modal.component';
 import { DeleteUserModalComponent } from './admin/manage-user/delete-user-modal/delete-user-modal.component';
 import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view-user-modal.component';
+import { UserdetailComponent } from './userdetail/userdetail.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,6 @@ import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view
     LoginComponent,
     WrapperComponent,
     DashboardComponent,
-    UserProfileComponent,
     LogoutComponent,
     ManageUserComponent,
     TradeComponent,
@@ -59,7 +58,8 @@ import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view
     AddUserModalComponent,
     UpdateUserModalComponent,
     DeleteUserModalComponent,
-    ViewUserModalComponent
+    ViewUserModalComponent,
+    UserdetailComponent
   ],
   imports: [
     BrowserModule,

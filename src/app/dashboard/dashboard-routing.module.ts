@@ -11,7 +11,7 @@ import { InventoryComponent } from '../inventory/inventory.component';
 import { PrefetchWatchlistService } from '../service/prefetch-watchlist.service';
 import { StockComponent } from '../stock/stock.component';
 import { TradeComponent } from '../trade/trade.component';
-import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { UserdetailComponent } from '../userdetail/userdetail.component';
 import { WatchlistComponent } from '../watchlist/watchlist.component';
 
 const routes: Routes = [
@@ -31,7 +31,7 @@ const routes: Routes = [
         path: 'user/watchlist', component: WatchlistComponent, resolve: {watchlists: PrefetchWatchlistService}, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'user/profile', component: UserProfileComponent, canActivate: [AuthenticationGuard]
+        path: 'user/userdetail', component: UserdetailComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'user/report', component: InventoryComponent, canActivate: [AuthenticationGuard]

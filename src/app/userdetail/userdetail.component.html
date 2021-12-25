@@ -1,15 +1,12 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-12">
-        <div class="modal-header bg-pink">
-          <h4 class="modal-title">Profile</h4>
-          <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
+  <div class="row mt-5 justify-content-md-center">
+    <div class="col-md-8">
+        <div class="bg-pink">
+          <h4 class="">User Detail</h4>
         </div>
         <div class="row mt-3">
             <div class="col-md-auto">
-              <div class="d-flex justify-content-center rounded bg-grey">
+              <div class="justify-content-center rounded bg-grey">
                 <img class="rounded" height="135" width="135" src="{{ user?.profileImageUrl }}" alt="">
               </div>
               <div class="col-md-12 mt-3">
@@ -20,7 +17,7 @@
               </div>
             </div>
             <div class="col-md-8">
-              <div class="modal-body bg-grey font-weight-500">
+              <div class="font-weight-500">
                 <form [formGroup]="userForm">
                     <div class="form-group col-12 mt-3">
                       <label for="userNumber">Number</label>
@@ -67,15 +64,18 @@
                             UnLocked
                           </label>
                         </div>
+                          <div class="row mt-3">
+                              <div class="col-md-auto">
+                                <button type="button" class="btn btn-outline-danger" (click)="resetPassword()">Reset password</button>
+                              </div>
+                              <div class="col-md-auto">
+                                <button type="button" class="btn btn-outline-primary" (click)="execute()" [disabled]="userForm.invalid">Update</button>
+                              </div>
+                          </div>
                     </fieldset>
                 </form>
               </div>
             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-danger" (click)="resetPassword()">Reset password</button>
-          <button type="button" class="btn btn-outline-primary" (click)="execute()" [disabled]="userForm.invalid">Update</button>
-          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>
         </div>
     </div>
   </div>

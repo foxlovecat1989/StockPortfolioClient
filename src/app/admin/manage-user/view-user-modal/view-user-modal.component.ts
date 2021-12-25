@@ -50,6 +50,10 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     this.initForm();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   private loadingRecentTrades() {
     this.subscriptions.push(this.tradeService.getRecentTrades(this.selectedUser.userNumber).subscribe(
       response => {
@@ -61,10 +65,6 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
       (errorResponse: HttpErrorResponse) =>
           this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
     ));
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   private initForm() {
