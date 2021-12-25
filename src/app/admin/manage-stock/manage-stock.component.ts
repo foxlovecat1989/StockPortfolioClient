@@ -31,10 +31,10 @@ export class ManageStockComponent implements OnInit, OnDestroy {
   constructor(
     private authService: AuthenticationService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService,
     private stockService: StockService,
     private modalService: NgbModal,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private reloadFormService: ReloadFormService
   ) {
     this.modalOptions = {
       backdrop:'static',
@@ -43,6 +43,7 @@ export class ManageStockComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.listenToReloadEvent();
     this.checkAndSetUser();
     this.loadingData();
   }
@@ -62,7 +63,7 @@ export class ManageStockComponent implements OnInit, OnDestroy {
   }
 
   add(){
-
+    this.openAdd();
   }
 
   view(stock: Tstock){
@@ -84,6 +85,13 @@ export class ManageStockComponent implements OnInit, OnDestroy {
 
   private openAdd() {
     const modalRef = this.modalService.open(AddStockModalComponent);
+    modalRef.componentInstance.classifies = this.classifies;
+  }
+
+  private listenToReloadEvent() {
+    this.subscriptions.push(this.reloadFormService.reloadEvent.subscribe(
+      response => this.loadingData()
+    ));
   }
 
 }
