@@ -6,9 +6,11 @@ import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-boot
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { UserRole } from 'src/app/enum/user-role';
+import { Trade } from 'src/app/model/Trade';
 import { User } from 'src/app/model/user';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { TradeService } from 'src/app/service/trade.service';
 import { UserService } from 'src/app/service/user.service';
 import { DeleteUserModalComponent } from '../delete-user-modal/delete-user-modal.component';
 
@@ -22,9 +24,10 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
   @Input('selectedUser')
   selectedUser!: User;
   userForm!: FormGroup;
+  recentTrades!: Array<Trade>;
   keysOfRole = Object.keys(UserRole);
   closeResult!: string;
-  modalOptions:NgbModalOptions;
+  modalOptions: NgbModalOptions;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -33,6 +36,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private notificationService: NotificationService,
     private reloadFormService: ReloadFormService,
+    private tradeService: TradeService,
     private modalService: NgbModal
     ) {
       this.modalOptions = {
@@ -42,7 +46,21 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
+    this.loadingRecentTrades();
     this.initForm();
+  }
+
+  private loadingRecentTrades() {
+    this.subscriptions.push(this.tradeService.getRecentTrades(this.selectedUser.userNumber).subscribe(
+      response => {
+        this.recentTrades = response;
+        this.notificationService.sendNotification(
+              NotificationType.SUCCESS,
+              `Succuess to get recent trades by ${this.selectedUser.userNumber}`);
+      },
+      (errorResponse: HttpErrorResponse) =>
+          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    ));
   }
 
   ngOnDestroy(): void {

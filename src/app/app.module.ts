@@ -21,8 +21,7 @@ import { NotificationModule } from './notification.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { UserComponent } from './user/user.component';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { TradeComponent } from './trade/trade.component';
@@ -46,7 +45,6 @@ import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view
     LoginComponent,
     WrapperComponent,
     DashboardComponent,
-    UserComponent,
     UserProfileComponent,
     LogoutComponent,
     ManageUserComponent,

@@ -25,10 +25,8 @@ export class TradeService {
       map(
         datas => {
           const trades = new Array<Trade>();
-          console.log(datas)
           datas.forEach(data => {
             trades.push(Trade.fromHttp(data));
-
           })
 
 
@@ -38,7 +36,7 @@ export class TradeService {
     );
   }
 
-  getTradesByDate(userId: number, date: string) : Observable<Trade[]> {
+  getTradesByDate(userId: number, date: string) : Observable<Array<Trade>> {
 
     return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trade/findAll/${userId}/${date}`)
       .pipe(
@@ -51,6 +49,10 @@ export class TradeService {
           }
         )
       );
+  }
+
+  getRecentTrades(userNumber: string) : Observable<Array<Trade>> {
+    return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trade/recentTrade/findAll/${userNumber}`);
   }
 
   public createTrade(tradeObject: TradeObject): Observable<Trade>{

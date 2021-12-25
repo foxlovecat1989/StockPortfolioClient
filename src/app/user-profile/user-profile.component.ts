@@ -1,12 +1,19 @@
+import { formatDate } from '@angular/common';
 import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { DeleteUserModalComponent } from 'src/app/admin/manage-user/delete-user-modal/delete-user-modal.component';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
+import { UserRole } from 'src/app/enum/user-role';
 import { FileUploadStatus } from 'src/app/model/File-upload.status';
+import { Trade } from 'src/app/model/Trade';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
+import { TradeService } from 'src/app/service/trade.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -16,27 +23,67 @@ import { UserService } from 'src/app/service/user.service';
 })
 export class UserProfileComponent implements OnInit {
 
-  public users!: User[];
-  public user!: User;
-  public refreshing!: boolean;
-  public selectedUser!: User;
-  public fileName!: string;
-  public profileImage!: File | null;
+  user!: User;
+  recentTrades!: Array<Trade>;
+  fileName!: string;
+  userForm!: FormGroup;
+  profileImage!: File | null;
+  keysOfRole = Object.keys(UserRole);
   private subscriptions: Subscription[] = [];
-  public editUser = new User();
-  private currentUsername!: string;
   public fileStatus = new FileUploadStatus();
-  isAdmin = true;
   imageUrl!: string;
+  closeResult!: string;
+  modalOptions: NgbModalOptions;
 
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
     private notificationService: NotificationService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private modalService: NgbModal,
+    public activeModal: NgbActiveModal,
+    private tradeService: TradeService,
+    private formBuilder: FormBuilder
+  ) {
+    this.modalOptions = {
+      backdrop:'static',
+      backdropClass:'customBackdrop'
+    }
+  }
 
   ngOnInit(): void {
+    this.loadingRecentTrades();
+    this.initForm();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  private loadingRecentTrades() {
+    this.subscriptions.push(this.tradeService.getRecentTrades(this.user.userNumber).subscribe(
+      response => {
+        this.recentTrades = response;
+        this.notificationService.sendNotification(
+              NotificationType.SUCCESS,
+              `Succuess to get recent trades by ${this.user.userNumber}`);
+      },
+      (errorResponse: HttpErrorResponse) =>
+          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    ));
+  }
+
+  private initForm() {
+    this.userForm = this.formBuilder.group({
+      userNumber: this.user.userNumber,
+      username: this.user.username,
+      email: this.user.email,
+      joinDate: formatDate(this.user.joinDate, 'MMM-dd', 'en-Us'),
+      lastLoginDateDisplay: formatDate(this.user.joinDate, 'MM-dd HH:mm', 'en-Us'),
+      isEnabled: this.user.isEnabled,
+      isAccountNonLocked: this.user.isAccountNonLocked,
+      userRole: this.user.userRole
+    });
   }
 
   onProfileImageChange(fileName: string, profileImage: File): void {
@@ -44,48 +91,6 @@ export class UserProfileComponent implements OnInit {
     this.profileImage = profileImage;
   }
 
-  // onUpdateCurrentUser(user: User): void {
-  //   this.refreshing = true;
-  //   this.currentUsername = this.authenticationService.getUserFromLocalCache().username;
-  //   const formData = this.userService.createUserFormDate(this.currentUsername, user, this.profileImage!);
-  //   this.subscriptions.push(
-  //     this.userService.updateUser(formData).subscribe(
-  //       (response: User) => {
-  //         this.authenticationService.addUserToLocalCache(response);
-  //         this.getUsers(false);
-  //         this.fileName = "";
-  //         this.profileImage = null;
-  //         this.notificationService.sendNotification(NotificationType.SUCCESS, `${response.username} ${response.username} updated successfully`);
-  //       },
-  //       (errorResponse: HttpErrorResponse) => {
-  //         this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-  //         this.refreshing = false;
-  //         this.profileImage = null;
-  //       }
-  //     )
-  //     );
-  // }
-
-  getUsers(showNotification: boolean): void {
-    this.refreshing = true;
-    this.subscriptions.push(
-      this.userService.getUsers().subscribe(
-        (response: User[]) => {
-          this.userService.addUsersToLocalCache(response);
-          this.users = response;
-          this.refreshing = false;
-          if (showNotification) {
-            this.notificationService.sendNotification(NotificationType.SUCCESS, `${response.length} user(s) loaded successfully.`);
-          }
-        },
-        (errorResponse: HttpErrorResponse) => {
-          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-          this.refreshing = false;
-        }
-      )
-    );
-
-  }
 
   onUpdateProfileImage(): void {
     const formData = new FormData();
@@ -133,5 +138,13 @@ export class UserProfileComponent implements OnInit {
     this.authenticationService.logOut();
     this.router.navigate(['/login']);
     this.notificationService.sendNotification(NotificationType.SUCCESS, `You've been successfully logged out`);
+  }
+
+  resetPassword(){
+
+  }
+
+  execute(){
+    
   }
 }
