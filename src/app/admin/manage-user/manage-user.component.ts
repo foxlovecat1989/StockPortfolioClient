@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { UserService } from 'src/app/service/user.service';
+import { AddUserModalComponent } from './add-user-modal/add-user-modal.component';
 import { ViewUserModalComponent } from './view-user-modal/view-user-modal.component';
 
 @Component({
@@ -70,7 +71,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   }
 
   add(){
-
+    this.openAdd();
   }
 
   view(user: User){
@@ -81,5 +82,9 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   private openView() {
     const modalRef = this.modalService.open(ViewUserModalComponent);
     modalRef.componentInstance.selectedUser = this.selectedUser;
+  }
+
+  private openAdd() {
+    const modalRef = this.modalService.open(AddUserModalComponent);
   }
 }

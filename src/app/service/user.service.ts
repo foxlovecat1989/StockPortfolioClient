@@ -16,8 +16,8 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrl}/api/v1/user/findAll`);
   }
 
-  public addUser(formData: FormData): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1/user`, formData);
+  public addUser(user: User): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/user`, user);
   }
 
   public updateUser(user: User): Observable<User> {
