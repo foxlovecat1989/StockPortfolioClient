@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
 import { Tstock } from 'src/app/model/Tstock';
-import { ClassifyService } from 'src/app/service/classify.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { StockService } from 'src/app/service/stock.service';
@@ -24,7 +23,6 @@ export class ViewStockModalComponent implements OnInit,OnDestroy {
   classifies!: Array<Classify>;
 
   closeResult!: string;
-  modalOptions: NgbModalOptions;
   private subscriptions: Subscription[] = [];
 
   stockForm!: FormGroup;
@@ -34,13 +32,7 @@ export class ViewStockModalComponent implements OnInit,OnDestroy {
     private stockService: StockService,
     private notificationService: NotificationService,
     private reloadFormService: ReloadFormService,
-    private modalService: NgbModal
-  ) {
-    this.modalOptions = {
-      backdrop:'static',
-      backdropClass:'customBackdrop'
-    }
-  }
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -51,6 +43,7 @@ export class ViewStockModalComponent implements OnInit,OnDestroy {
   }
 
   execute(){
+    this.notificationService.sendNotification(NotificationType.INFO, `Processing update data...`);
     this.selectedStock.name = this.stockForm.controls['name'].value;
     this.selectedStock.classify = this.stockForm.controls['classify'].value;
     this.subscriptions.push(this.stockService.updateStock(this.selectedStock).subscribe(
