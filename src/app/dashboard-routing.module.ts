@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ManageStockComponent } from '../admin/manage-stock/manage-stock.component';
-import { ManageUserComponent } from '../admin/manage-user/manage-user.component';
-import { LoginComponent } from '../login/login.component';
-import { LogoutComponent } from '../logout/logout.component';
-import { RegisterComponent } from '../register/register.component';
-import { WrapperComponent } from '../wrapper/wrapper.component';
-import { AuthenticationGuard } from '../guard/authentication.guard';
-import { InventoryComponent } from '../inventory/inventory.component';
-import { PrefetchClassifyService } from '../service/prefetch-classify.service';
-import { PrefetchWatchlistService } from '../service/prefetch-watchlist.service';
-import { StockComponent } from '../stock/stock.component';
-import { TradeComponent } from '../trade/trade.component';
-import { UserdetailComponent } from '../userdetail/userdetail.component';
-import { WatchlistComponent } from '../watchlist/watchlist.component';
+import { ManageStockComponent } from './admin/manage-stock/manage-stock.component';
+import { ManageUserComponent } from './admin/manage-user/manage-user.component';
+import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
+import { RegisterComponent } from './register/register.component';
+import { WrapperComponent } from './wrapper/wrapper.component';
+import { AuthenticationGuard } from './guard/authentication.guard';
+import { InventoryComponent } from './inventory/inventory.component';
+import { PrefetchClassifyService } from './service/prefetch-classify.service';
+import { PrefetchWatchlistService } from './service/prefetch-watchlist.service';
+import { StockComponent } from './stock/stock.component';
+import { TradeComponent } from './trade/trade.component';
+import { UserdetailComponent } from './userdetail/userdetail.component';
+import { WatchlistComponent } from './watchlist/watchlist.component';
 
 const routes: Routes = [
   {
