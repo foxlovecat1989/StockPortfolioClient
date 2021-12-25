@@ -6,7 +6,7 @@ import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { HeaderType } from 'src/app/enum/header-type.enum';
-import { User } from 'src/app/model/User';
+import { User } from 'src/app/model/user';
 
 @Component({
   selector: 'app-login',

@@ -1,4 +1,4 @@
-import { Tstock } from "./Tstock";
+import { Tstock } from "./tstock";
 import { User } from "./user";
 
 export class Watchlist{

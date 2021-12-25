@@ -5,9 +5,9 @@ import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng
 import { Subscription } from 'rxjs';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NotificationType } from '../enum/notification-type.enum';
-import { Tstock } from '../model/Tstock';
+import { Tstock } from '../model/tstock';
 import { User } from '../model/user';
-import { Watchlist } from '../model/Watchlist';
+import { Watchlist } from '../model/watchlist';
 import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';
 import { ReloadFormService } from '../service/reload-form.service';

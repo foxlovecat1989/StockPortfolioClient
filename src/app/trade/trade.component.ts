@@ -6,8 +6,8 @@ import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng
 import { Subscription } from 'rxjs';
 import { NotificationType } from '../enum/notification-type.enum';
 import { TradeType } from '../enum/TradeType.enum';
-import { Trade } from '../model/Trade';
-import { Tstock } from '../model/Tstock';
+import { Trade } from '../model/trade';
+import { Tstock } from '../model/tstock';
 import { User } from '../model/user';
 import { AuthenticationService } from '../service/authentication.service';
 import { NotificationService } from '../service/notification.service';

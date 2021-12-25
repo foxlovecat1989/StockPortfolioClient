@@ -3,7 +3,7 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
-import { Watchlist } from 'src/app/model/Watchlist';
+import { Watchlist } from 'src/app/model/watchlist';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { WatchlistService } from 'src/app/service/watchlist.service';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable } from 'rxjs';
-import { Watchlist } from '../model/Watchlist';
+import { Watchlist } from '../model/watchlist';
 import { AuthenticationService } from './authentication.service';
 import { WatchlistService } from './watchlist.service';
 

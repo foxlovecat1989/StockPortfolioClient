@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
-import { Watchlist } from 'src/app/model/Watchlist';
+import { Watchlist } from 'src/app/model/watchlist';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';

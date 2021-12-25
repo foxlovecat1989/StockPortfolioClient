@@ -4,7 +4,7 @@ import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
-import { Tstock } from 'src/app/model/Tstock';
+import { Tstock } from 'src/app/model/tstock';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';

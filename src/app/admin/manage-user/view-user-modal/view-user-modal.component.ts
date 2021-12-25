@@ -6,7 +6,7 @@ import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-boot
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { UserRole } from 'src/app/enum/user-role';
-import { Trade } from 'src/app/model/Trade';
+import { Trade } from 'src/app/model/trade';
 import { User } from 'src/app/model/user';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';

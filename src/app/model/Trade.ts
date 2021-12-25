@@ -1,5 +1,5 @@
 import { TradeType } from "../enum/TradeType.enum";
-import { Tstock } from "./Tstock";
+import { Tstock } from "./tstock";
 export class Trade {
   tradeId!: number;
   tstock!: Tstock;

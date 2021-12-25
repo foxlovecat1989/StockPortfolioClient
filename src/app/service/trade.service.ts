@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Trade } from '../model/Trade';
-import { TradeObject } from '../model/Trade-object';
+import { Trade } from '../model/trade';
+import { TradeObject } from '../model/trade-object';
 import { AuthenticationService } from './authentication.service';
 import { UserService } from './user.service';
 

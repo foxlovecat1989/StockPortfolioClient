@@ -5,7 +5,7 @@ import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-boot
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
-import { Tstock } from 'src/app/model/Tstock';
+import { Tstock } from 'src/app/model/tstock';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { StockService } from 'src/app/service/stock.service';

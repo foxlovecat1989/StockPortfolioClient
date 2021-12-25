@@ -1,6 +1,6 @@
 import { TradeType } from "../enum/TradeType.enum";
-import { Tstock } from "./Tstock";
-import { User } from "./User";
+import { Tstock } from "./tstock";
+import { User } from "./user";
 
 export class TradeObject{
   tstock!: Tstock;

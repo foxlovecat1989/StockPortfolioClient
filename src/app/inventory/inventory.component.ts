@@ -4,8 +4,8 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from '../enum/notification-type.enum';
-import { InventoryReport } from '../model/InventoryReport';
-import { Tstock } from '../model/Tstock';
+import { InventoryReport } from '../model/inventoryReport';
+import { Tstock } from '../model/tstock';
 import { AuthenticationService } from '../service/authentication.service';
 import { InventoryReportService } from '../service/inventory-report.service';
 import { NotificationService } from '../service/notification.service';

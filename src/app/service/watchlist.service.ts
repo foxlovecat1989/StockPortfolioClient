@@ -2,10 +2,10 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { CustomHttpRespone } from '../model/Custom-http-response';
-import { Tstock } from '../model/Tstock';
+import { CustomHttpRespone } from '../model/custom-http-response';
+import { Tstock } from '../model/tstock';
 import { User } from '../model/user';
-import { Watchlist } from '../model/Watchlist';
+import { Watchlist } from '../model/watchlist';
 
 @Injectable({
   providedIn: 'root'
