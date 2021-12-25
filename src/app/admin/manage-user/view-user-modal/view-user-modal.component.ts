@@ -1,13 +1,16 @@
+import { formatDate } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
+import { UserRole } from 'src/app/enum/user-role';
 import { User } from 'src/app/model/user';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { UserService } from 'src/app/service/user.service';
+import { DeleteUserModalComponent } from '../delete-user-modal/delete-user-modal.component';
 
 @Component({
   selector: 'app-view-user-modal',
@@ -19,6 +22,9 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
   @Input('selectedUser')
   selectedUser!: User;
   userForm!: FormGroup;
+  keysOfRole = Object.keys(UserRole);
+  closeResult!: string;
+  modalOptions:NgbModalOptions;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -26,8 +32,14 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService
-    ) {}
+    private reloadFormService: ReloadFormService,
+    private modalService: NgbModal
+    ) {
+      this.modalOptions = {
+        backdrop:'static',
+        backdropClass:'customBackdrop'
+      }
+    }
 
   ngOnInit(): void {
     this.initForm();
@@ -42,8 +54,8 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
       userNumber: this.selectedUser.userNumber,
       username: this.selectedUser.username,
       email: this.selectedUser.email,
-      joinDate: this.selectedUser.joinDate,
-      lastLoginDateDisplay: this.selectedUser.lastLoginDateDisplay,
+      joinDate: formatDate(this.selectedUser.joinDate, 'MMM-dd', 'en-Us'),
+      lastLoginDateDisplay: formatDate(this.selectedUser.joinDate, 'MM-dd HH:mm', 'en-Us'),
       isEnabled: this.selectedUser.isEnabled,
       isAccountNonLocked: this.selectedUser.isAccountNonLocked,
       userRole: this.selectedUser.userRole
@@ -68,5 +80,19 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
         this.activeModal.close();
       }
     ));
+  }
+
+  remove(){
+    this.activeModal.close();
+    this.openDelete();
+  }
+
+  resetPassword(){
+
+  }
+
+  private openDelete() {
+    const modalRef = this.modalService.open(DeleteUserModalComponent);
+    modalRef.componentInstance.selectedUser = this.selectedUser;
   }
 }

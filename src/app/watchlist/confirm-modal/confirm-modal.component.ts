@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
@@ -13,7 +13,7 @@ import { WatchlistService } from 'src/app/service/watchlist.service';
   templateUrl: './confirm-modal.component.html',
   styleUrls: ['./confirm-modal.component.css']
 })
-export class ConfirmModalComponent implements OnInit {
+export class ConfirmModalComponent implements OnInit, OnDestroy{
 
   @Input('deleteWatchlist')
   deleteWatchlist!: Watchlist;
@@ -25,6 +25,10 @@ export class ConfirmModalComponent implements OnInit {
     private reload: ReloadFormService,
     private watchlistService: WatchlistService
     ) {}
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
 
   ngOnInit(): void {
 

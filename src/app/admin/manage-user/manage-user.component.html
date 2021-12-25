@@ -7,6 +7,7 @@
                 <thead>
                   <tr>
                     <th>ID</th>
+                    <th>Photo</th>
                     <th>Number</th>
                     <th>Name</th>
                     <th>Email</th>
@@ -20,11 +21,14 @@
                 <tbody>
                   <tr *ngFor="let user of users">
                       <td (click)="view(user)">{{ user.id }}</td>
+                      <td (click)="view(user)">
+                        <img height="40" width="40" src="{{user?.profileImageUrl}}" class="rounded-circle img-fluid img-thumbnail" alt="img{{ user.username }}"/>
+                      </td>
                       <td (click)="view(user)">{{ user.userNumber }}</td>
                       <td (click)="view(user)">{{ user.username }}</td>
                       <td (click)="view(user)">{{ user.email }}</td>
-                      <td (click)="view(user)">{{ user.joinDate | date:'yyyy-MM-dd' }}</td>
-                      <td (click)="view(user)">{{ user.lastLoginDateDisplay | date:'yyyy-MM-dd HH:mm' }}</td>
+                      <td (click)="view(user)">{{ user.joinDate | date:'mediumDate' }}</td>
+                      <td (click)="view(user)">{{ user.lastLoginDateDisplay | date:'MMM-dd-yyyy HH:mm' }}</td>
                       <td (click)="view(user)">{{ user.isEnabled }}</td>
                       <td (click)="view(user)">{{ user.isAccountNonLocked }}</td>
                       <td (click)="view(user)">{{ user.userRole }}</td>

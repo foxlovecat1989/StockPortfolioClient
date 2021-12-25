@@ -82,14 +82,4 @@ export class ManageUserComponent implements OnInit, OnDestroy {
     const modalRef = this.modalService.open(ViewUserModalComponent);
     modalRef.componentInstance.selectedUser = this.selectedUser;
   }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
-  }
 }
