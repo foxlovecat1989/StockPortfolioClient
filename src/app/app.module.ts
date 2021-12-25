@@ -39,7 +39,6 @@ import { UserdetailComponent } from './userdetail/userdetail.component';
 import { ManageStockComponent } from './admin/manage-stock/manage-stock.component';
 import { ViewStockModalComponent } from './admin/manage-stock/view-stock-modal/view-stock-modal.component';
 import { AddStockModalComponent } from './admin/manage-stock/add-stock-modal/add-stock-modal.component';
-import { DeleteStockModalComponent } from './admin/manage-stock/delete-stock-modal/delete-stock-modal.component';
 
 @NgModule({
   declarations: [
@@ -64,8 +63,7 @@ import { DeleteStockModalComponent } from './admin/manage-stock/delete-stock-mod
     UserdetailComponent,
     ManageStockComponent,
     ViewStockModalComponent,
-    AddStockModalComponent,
-    DeleteStockModalComponent
+    AddStockModalComponent
   ],
   imports: [
     BrowserModule,
