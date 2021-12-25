@@ -33,12 +33,17 @@
 
         <mat-list-item [routerLink]="'admin/management/users'">
           <mat-icon mat-list-icon>manage_accounts</mat-icon>
-          <span *ngIf="isExpanded">ManageUsers</span>
+          <span *ngIf="isExpanded">ManageUser</span>
         </mat-list-item>
 
         <mat-list-item [routerLink]="'admin/management/stocks'">
           <mat-icon mat-list-icon>polymer</mat-icon>
-          <span *ngIf="isExpanded">ManageStocks</span>
+          <span *ngIf="isExpanded">ManageStock</span>
+        </mat-list-item>
+
+        <mat-list-item [routerLink]="'admin/management/classify'">
+          <mat-icon mat-list-icon>dashboard_customize</mat-icon>
+          <span *ngIf="isExpanded">ManageClassify</span>
         </mat-list-item>
 
       </mat-nav-list>

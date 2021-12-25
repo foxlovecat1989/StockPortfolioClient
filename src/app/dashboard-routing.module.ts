@@ -20,6 +20,15 @@ const routes: Routes = [
     path: '', component: WrapperComponent,
     children: [
       {
+        path: 'login', component: LoginComponent
+      },
+      {
+        path: 'logout', component: LogoutComponent
+      },
+      {
+        path: 'register', component: RegisterComponent
+      },
+      {
         path: 'user/trade', component: TradeComponent, canActivate: [AuthenticationGuard]
       },
       {
@@ -35,20 +44,14 @@ const routes: Routes = [
         path: 'user/report', component: InventoryComponent, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'login', component: LoginComponent
-      },
-      {
-        path: 'logout', component: LogoutComponent
-      },
-      {
-        path: 'register', component: RegisterComponent
-      },
-      {
         path: 'admin/management/users', component: ManageUserComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'admin/management/stocks', component: ManageStockComponent, resolve: {classifies: PrefetchClassifyService}, canActivate: [AuthenticationGuard]
       },
+      {
+        path: 'admin/management/classifies', component: ManageStockComponent, canActivate: [AuthenticationGuard]
+      }
     ]
   },
   {
