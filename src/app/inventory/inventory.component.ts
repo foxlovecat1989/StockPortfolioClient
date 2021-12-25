@@ -62,7 +62,6 @@ export class InventoryComponent implements OnInit, OnDestroy {
   private loadingData() {
     this.notificationService.sendNotification(NotificationType.INFO, `Loading Data, please wait...`);
     const userId = this.authService.getUserFromLocalCache().id;
-    console.log(userId);
     this.subscriptions.push(this.inventoryReportService.getInventoryReport(+userId).subscribe(
       next => {
         this.inventoryReports = next;
