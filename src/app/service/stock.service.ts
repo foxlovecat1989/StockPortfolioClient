@@ -29,8 +29,8 @@ export class StockService {
     return this.http.post<Tstock>(`${environment.apiUrl}/api/v1/stock`, formData);
   }
 
-  public updateStock(formData: FormData): Observable<Tstock> {
-    return this.http.patch<Tstock>(`${environment.apiUrl}/api/v1/stock`, formData);
+  public updateStock(stock: Tstock): Observable<Tstock> {
+    return this.http.patch<Tstock>(`${environment.apiUrl}/api/v1/stock`, stock);
   }
 
   public refreshStockPrice(): Observable<any> {

@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <div class="modal-header bg-pink">
+          <h4 class="modal-title">Stock Detail</h4>
+          <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-8">
+              <div class="modal-body bg-grey font-weight-500">
+                <form [formGroup]="stockForm">
+                    <div class="form-group col-12 mt-3">
+                      <label for="id">Id</label>
+                      <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly>
+                    </div>
+
+                    <div class="form-group col-12 mt-3">
+                      <label for="symbol">Symbol</label>
+                      <input type="text" class="form-control" id="symbol" name="symbol" formControlName="symbol" readonly>
+                    </div>
+
+                    <div class="form-group col-12 mt-3">
+                      <label for="name">Name</label>
+                      <input type="text" class="form-control" id="name" name="name" formControlName="name">
+                    </div>
+
+                    <div class="form-group col-12 mt-3">
+                      <label for="userRole">classify</label>
+                      <select name="classify"  id="classify" class="form-control" formControlName="classify">
+                        <option [ngValue]="selectedStock.classify" disabled>{{ selectedStock.classify.name }}</option>
+                        <option *ngFor="let classify of classifies" [ngValue]="classify">{{ classify.name }}</option>
+                      </select>
+                    </div>
+                </form>
+              </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-primary" (click)="execute()">Update</button>
+          <button type="button" class="btn btn-outline-danger" (click)="remove()"><i class="fas fa-trash"></i></button>
+          <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>
+        </div>
+    </div>
+  </div>
+</div>

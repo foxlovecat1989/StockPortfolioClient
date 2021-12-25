@@ -11,44 +11,34 @@
           </mat-icon>
         </mat-list-item>
 
-        <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'dashboard'">home</mat-icon>
-          <span *ngIf="isExpanded">Dashboard</span>
-        </mat-list-item>
-
-        <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/stock'">bar_chart</mat-icon>
+        <mat-list-item [routerLink]="'user/stock'">
+          <mat-icon mat-list-icon>bar_chart</mat-icon>
           <span *ngIf="isExpanded">Stock</span>
         </mat-list-item>
 
-        <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/watchlist'">query_stats</mat-icon>
+        <mat-list-item [routerLink]="'user/watchlist'">
+          <mat-icon mat-list-icon>query_stats</mat-icon>
           <span *ngIf="isExpanded">Watchlist</span>
         </mat-list-item>
 
-        <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/userdetail'">account_circle</mat-icon>
-          <span *ngIf="isExpanded">Profile</span>
-        </mat-list-item>
-
-        <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/trade'">today</mat-icon>
+        <mat-list-item [routerLink]="'user/trade'">
+          <mat-icon mat-list-icon>today</mat-icon>
           <span *ngIf="isExpanded">Trade</span>
         </mat-list-item>
 
-        <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'user/report'">request_page</mat-icon>
+        <mat-list-item [routerLink]="'user/report'">
+          <mat-icon mat-list-icon>request_page</mat-icon>
           <span *ngIf="isExpanded">Report</span>
         </mat-list-item>
 
-        <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'logout'">logout</mat-icon>
-          <span *ngIf="isExpanded">Logout</span>
+        <mat-list-item [routerLink]="'admin/management/users'">
+          <mat-icon mat-list-icon>manage_accounts</mat-icon>
+          <span *ngIf="isExpanded">ManageUsers</span>
         </mat-list-item>
 
-        <mat-list-item>
-          <mat-icon mat-list-icon [routerLink]="'admin/management/users'">manage_accounts</mat-icon>
-          <span *ngIf="isExpanded">ManageUsers</span>
+        <mat-list-item [routerLink]="'admin/management/stocks'">
+          <mat-icon mat-list-icon>polymer</mat-icon>
+          <span *ngIf="isExpanded">ManageStocks</span>
         </mat-list-item>
 
       </mat-nav-list>

@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10 mt-5">
+        <h1>Manage Stock</h1>
+        <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Symbol</th>
+                    <th>Classify</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let stock of stocks">
+                      <td (click)="view(stock)">{{ stock.id }}</td>
+                      <td (click)="view(stock)">{{ stock.name }}</td>
+                      <td (click)="view(stock)">{{ stock.symbol }}</td>
+                      <td (click)="view(stock)">{{ stock.classify.name }}</td>
+                  </tr>
+                </tbody>
+            </table>
+      </div>
+  </div>
+</div>
+
+
+

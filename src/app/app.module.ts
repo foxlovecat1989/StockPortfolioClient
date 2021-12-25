@@ -20,7 +20,6 @@ import { NotificationService } from './service/notification.service';
 import { NotificationModule } from './notification.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WrapperComponent } from './components/wrapper/wrapper.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { TradeComponent } from './trade/trade.component';
@@ -37,6 +36,10 @@ import { UpdateUserModalComponent } from './admin/manage-user/update-user-modal/
 import { DeleteUserModalComponent } from './admin/manage-user/delete-user-modal/delete-user-modal.component';
 import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view-user-modal.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
+import { ManageStockComponent } from './admin/manage-stock/manage-stock.component';
+import { ViewStockModalComponent } from './admin/manage-stock/view-stock-modal/view-stock-modal.component';
+import { AddStockModalComponent } from './admin/manage-stock/add-stock-modal/add-stock-modal.component';
+import { DeleteStockModalComponent } from './admin/manage-stock/delete-stock-modal/delete-stock-modal.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,6 @@ import { UserdetailComponent } from './userdetail/userdetail.component';
     RegisterComponent,
     LoginComponent,
     WrapperComponent,
-    DashboardComponent,
     LogoutComponent,
     ManageUserComponent,
     TradeComponent,
@@ -59,7 +61,11 @@ import { UserdetailComponent } from './userdetail/userdetail.component';
     UpdateUserModalComponent,
     DeleteUserModalComponent,
     ViewUserModalComponent,
-    UserdetailComponent
+    UserdetailComponent,
+    ManageStockComponent,
+    ViewStockModalComponent,
+    AddStockModalComponent,
+    DeleteStockModalComponent
   ],
   imports: [
     BrowserModule,
