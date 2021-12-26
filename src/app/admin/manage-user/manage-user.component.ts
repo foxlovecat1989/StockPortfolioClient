@@ -1,8 +1,10 @@
 
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -30,6 +32,8 @@ export class ManageUserComponent implements OnInit, OnDestroy {
 
   constructor(
     private authService: AuthenticationService,
+    private userService: UserService,
+    private notificationService: NotificationService,
     private reloadFormService: ReloadFormService,
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute
@@ -43,7 +47,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.checkAndSetUser();
     this.listenToReloadEvent();
-    this.loadingData();
+    this.prefetchData();
   }
 
   ngOnDestroy(): void {
@@ -51,6 +55,22 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   }
 
   loadingData(){
+    this.isRefreshing = true;
+    this.notificationService.sendNotification(NotificationType.SUCCESS, `Loading...`);
+    this.userService.getUsers().subscribe(
+      users => {
+        this.users = users;
+        this.isRefreshing = false;
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to load data`);
+      },
+      (errorResponse:HttpErrorResponse) => {
+        this.isRefreshing = false;
+        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+      }
+    );
+  }
+
+  prefetchData(){
     this.users = this.activatedRoute.snapshot.data['users'];
   }
 
