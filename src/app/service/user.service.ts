@@ -28,6 +28,10 @@ export class UserService {
     return this.http.post<User>(`${environment.apiUrl}/api/v1/user`, user);
   }
 
+  public register(user: User): Observable<User> {
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/registration`, user);
+  }
+
   updateUser(user: User): Observable<User> {
     return this.http.patch<User>(`${environment.apiUrl}/api/v1/user/update`, user);
   }

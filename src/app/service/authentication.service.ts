@@ -27,10 +27,6 @@ export class AuthenticationService {
     return this.http.post<User>(`${environment.apiUrl}/api/v1/user/login`, user, { observe: 'response' });
   }
 
-  public register(user: User): Observable<User> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1/registration`, user);
-  }
-
   public logOut(): void {
     this.token != null;
     this.loggedInUsername != null;
