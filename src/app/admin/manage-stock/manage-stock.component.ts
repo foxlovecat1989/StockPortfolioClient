@@ -71,6 +71,21 @@ export class ManageStockComponent implements OnInit, OnDestroy {
     this.openView();
   }
 
+  searchStocks(searchTerm: string): void {
+    const results = new Array<Tstock>();
+    for (const stock of this.stockService.getStocksFromLocalCache()!) {
+      if (
+        stock.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+        stock.symbol.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        ){
+          results.push(stock);
+        }
+    this.stocks = results;
+    if (results.length === 0 || !searchTerm)
+      this.stocks = this.stockService.getStocksFromLocalCache()!;
+     }
+  }
+
   private checkAndSetUser() {
     const isLogin = this.authService.isUserLoggedIn();
     if (isLogin)

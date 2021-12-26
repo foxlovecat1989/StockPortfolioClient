@@ -21,19 +21,31 @@ export class StockService {
     return this.http.get<Tstock>(`${environment.apiUrl}/api/v1/stock?stockName=${name}`);
   }
 
-  public getStocks(): Observable<Tstock[]> {
+  getStocks(): Observable<Tstock[]> {
     return this.http.get<Tstock[]>(`${environment.apiUrl}/api/v1/stock/findAll`);
   }
 
-  public addStock(stock: Tstock): Observable<Tstock> {
+  addStock(stock: Tstock): Observable<Tstock> {
     return this.http.post<Tstock>(`${environment.apiUrl}/api/v1/stock`, stock);
   }
 
-  public updateStock(stock: Tstock): Observable<Tstock> {
+  updateStock(stock: Tstock): Observable<Tstock> {
     return this.http.patch<Tstock>(`${environment.apiUrl}/api/v1/stock`, stock);
   }
 
-  public refreshStockPrice(): Observable<any> {
+  refreshStockPrice(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/api/v1/stock/refresh`);
   }
+
+  addStocksToLocalCache(stocks: Array<Tstock>): void {
+    localStorage.setItem('stocks', JSON.stringify(stocks));
+  }
+
+  getStocksFromLocalCache(): Array<Tstock> | null {
+    if (localStorage.getItem('stocks')) {
+        return JSON.parse(localStorage.getItem('stocks')!);
+    }
+    return null;
+  }
+
 }

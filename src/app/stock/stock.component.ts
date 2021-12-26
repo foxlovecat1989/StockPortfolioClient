@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from '../enum/notification-type.enum';
@@ -18,7 +18,7 @@ import { AddStockToWatchlistModalComponent } from './add-stock-to-watchlist-moda
   templateUrl: './stock.component.html',
   styleUrls: ['./stock.component.css']
 })
-export class StockComponent implements OnInit {
+export class StockComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
   stocks!: Array<Tstock>;
@@ -46,15 +46,8 @@ export class StockComponent implements OnInit {
     this.loadingData();
   }
 
-  private loadingData() {
-    this.notificationService.sendNotification(NotificationType.INFO, 'Loading...');
-    this.subscriptions.push(this.stockService.getStocks().subscribe(
-      stocks => {
-        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success...');
-        this.stocks = stocks;
-      },
-      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-    ));
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
   addToWatchlist(stock: Tstock){
@@ -74,23 +67,40 @@ export class StockComponent implements OnInit {
     ));
   }
 
-  private openTradeModal() {
-    const modalRef = this.modalService.open(TradeExecuteModalComponent);
-    modalRef.componentInstance.tstock = this.selectedStock;
+  searchStocks(searchTerm: string): void {
+    const results = new Array<Tstock>();
+    for (const stock of this.stockService.getStocksFromLocalCache()!) {
+      if (
+        stock.name.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+        stock.symbol.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        ){
+          results.push(stock);
+        }
+    this.stocks = results;
+    if (results.length === 0 || !searchTerm)
+      this.stocks = this.stockService.getStocksFromLocalCache()!;
+     }
+  }
+
+
+  private loadingData() {
+    this.notificationService.sendNotification(NotificationType.INFO, 'Loading...');
+    this.subscriptions.push(this.stockService.getStocks().subscribe(
+      stocks => {
+        this.stockService.addStocksToLocalCache(stocks);
+        this.stocks = stocks;
+        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to load stocks');
+      },
+      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    ));
   }
 
   private checkAndGetUser() {
     this.authService.checkUserLoggedIn();
     this.user = this.authService.getUserFromLocalCache();
   }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
+  private openTradeModal() {
+    const modalRef = this.modalService.open(TradeExecuteModalComponent);
+    modalRef.componentInstance.tstock = this.selectedStock;
   }
 }

@@ -2,7 +2,14 @@
   <div class="row">
     <div class="col-md-10 mt-5">
         <h1>Manage Stock</h1>
-        <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
+        <div class="col-md-2">
+          <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
+          <form class="form-control">
+            <input name="searchTerm" #searchInput="ngModel" class="form-control mr-sm-2" ngModel
+            (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search stocks...">
+          </form>
+        </div>
+
             <table class="table">
                 <thead>
                   <tr>

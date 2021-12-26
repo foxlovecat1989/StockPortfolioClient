@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { User } from '../model/user';
 
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -36,6 +37,7 @@ export class AuthenticationService {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('users');
+    localStorage.removeItem('stocks');
   }
 
   public saveToken(token: string): void {
