@@ -45,10 +45,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
             `A new account was created for ${response.username}. Please check your email for enable account.`
           );
           this.showLoading = false;
-          this.router.navigate(['/login']);
+          this.router.navigate(['login']);
         },
         (errorResponse: HttpErrorResponse) => {
-          this.showLoading = true;
+          this.showLoading = false;
           this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
         }
       )

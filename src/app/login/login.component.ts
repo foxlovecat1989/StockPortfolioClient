@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
@@ -28,7 +28,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authenticationService.checkUserLoggedIn();
   }
 
-  public onLogin(user: User): void {
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  onLogin(user: User): void {
     this.showLoading = true;
     this.subscriptions.push(
       this.authenticationService.login(user).subscribe(
@@ -37,8 +41,8 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.authenticationService.saveToken(token!);
           this.authenticationService.addUserToLocalCache(response.body!);
           this.authenticationService.isUserLoggedInEvent.emit(true);
-          this.router.navigateByUrl('/dashboard');
           this.showLoading = false;
+          this.router.navigate(['user', 'stock']);
         },
         (errorResponse: HttpErrorResponse) => {
           this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
@@ -47,9 +51,4 @@ export class LoginComponent implements OnInit, OnDestroy {
       )
     );
   }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
 }
