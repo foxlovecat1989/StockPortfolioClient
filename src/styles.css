@@ -48,3 +48,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 .font-weight-500{
   font-weight: 500;
 }
+.font-detail{
+  font-weight: 500;
+  color: rgb(24, 23, 23);
+}

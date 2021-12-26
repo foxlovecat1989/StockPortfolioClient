@@ -1,74 +1,65 @@
 <div class="container">
   <div class="row mt-3">
     <div class="col-md-12">
-        <div class="modal-header bg-pink">
-          <h4 class="modal-title">User Detail</h4>
-          <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
+        <div class="row bg-pink">
+          <div class="modal-header">
+              <h4 class="modal-title">User Detail</h4>
+              <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
         </div>
-        <div class="row mt-3">
+        <div class="row bg-grey justify-content-center">
             <div class="col-md-auto">
-              <div class="d-flex justify-content-center rounded bg-grey">
-                <img class="rounded" height="135" width="135" src="{{ selectedUser?.profileImageUrl }}" alt="">
+              <div class="col-md-auto rounded mt-3 mb-3">
+                <img class="rounded" height="135" width="135" src="{{ selectedUser?.profileImageUrl }}" alt="img{{ selectedUser.username }}">
               </div>
-              <div class="col-md-12 mt-3">
-                  <h3>Recently Trade:</h3>
-                  <div *ngFor="let trade of recentTrades">
-                      - {{ trade.tstock.name }}
+              <div class="col-md-auto font-detail">
+                  <div *ngFor="let trade of recentTrades" class="font-detail">
+                    <i class="fas fa-search-dollar"> {{ trade.tstock.name }} - {{trade.tstock.symbol}}</i>
                   </div>
               </div>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-7">
               <div class="modal-body bg-grey font-weight-500">
-                <form [formGroup]="userForm">
-                    <div class="form-group col-12 mt-3">
-                      <label for="userNumber">Number</label>
-                      <input type="text" class="form-control" id="userNumber" name="userNumber" formControlName="userNumber" readonly>
-                    </div>
+                  <form [formGroup]="userForm">
+                      <div class="form-group col-12 mt-3">
+                        <label for="userNumber">Number</label>
+                        <input type="text" class="form-control" id="userNumber" name="userNumber" formControlName="userNumber" readonly>
+                      </div>
 
-                    <div class="form-group col-12 mt-3">
-                      <label for="username">Name</label>
-                      <input type="text" class="form-control" id="username" name="username" formControlName="username">
-                    </div>
+                      <div class="form-group col-12 mt-3">
+                        <label for="username">Name</label>
+                        <input type="text" class="form-control" id="username" name="username" formControlName="username">
+                      </div>
 
-                    <div class="form-group col-12 mt-3">
-                      <label for="email">Email</label>
-                      <input type="text" class="form-control" id="email" name="email" formControlName="email">
-                    </div>
+                      <div class="form-group col-12 mt-3">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" formControlName="email">
+                      </div>
 
-                    <div class="form-group col-12 mt-3">
-                      <label for="joinDate">Join Date</label>
-                      <input type="text" class="form-control" id="joinDate" name="joinDate" formControlName="joinDate" readonly>
-                    </div>
-
-                    <div class="form-group col-12 mt-3">
-                      <label for="lastLoginDateDisplay">LastLoginDate</label>
-                      <input type="text" class="form-control" id="lastLoginDateDisplay" name="lastLoginDateDisplay" formControlName="lastLoginDateDisplay" readonly>
-                    </div>
-
-                    <div class="form-group col-12 mt-3">
-                      <label for="userRole">Role</label>
-                      <select name="userRole"  id="userRole" class="form-control" formControlName="userRole">
-                        <option [ngValue]="selectedUser.userRole" disabled>{{ selectedUser.userRole }}</option>
-                        <option *ngFor="let key of keysOfRole" [ngValue]="key">ROLE_{{ key }}</option>
-                      </select>
-                    </div>
-                    <fieldset class="mt-3">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" formControlName="enabled" id="enabled">
-                          <label class="form-check-label" for="enabled">
-                            Enabled
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" formControlName="accountNonLocked" id="accountNonLocked">
-                          <label class="form-check-label" for="accountNonLocked">
-                            UnLocked
-                          </label>
-                        </div>
-                    </fieldset>
-                </form>
+                      <div class="form-group col-12 mt-3">
+                        <label for="userRole">Role</label>
+                        <select name="userRole"  id="userRole" class="form-control" formControlName="userRole">
+                          <option [ngValue]="selectedUser.userRole" disabled>{{ selectedUser.userRole }}</option>
+                          <option *ngFor="let key of keysOfRole" [ngValue]="key">ROLE_{{ key }}</option>
+                        </select>
+                      </div>
+                      <fieldset class="mt-3">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" formControlName="enabled" id="enabled">
+                            <label class="form-check-label" for="enabled">
+                              Enabled
+                            </label>
+                          </div>
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" formControlName="accountNonLocked" id="accountNonLocked">
+                            <label class="form-check-label" for="accountNonLocked">
+                              UnLocked
+                            </label>
+                          </div>
+                      </fieldset>
+                  </form>
               </div>
             </div>
         </div>
