@@ -5,54 +5,42 @@
   </button>
 </div>
 <div class="modal-body bg-grey font-weight-500">
-  <form [formGroup]="userForm">
-      <div class="form-group col-6">
-        <label for="userNumber">Number</label>
-        <input type="text" class="form-control" id="userNumber" name="userNumber" formControlName="userNumber" readonly>
-      </div>
+    <form [formGroup]="userForm">
+        <div class="form-group col-6 mb-3">
+          <label for="username">Name</label>
+          <input type="text" class="form-control" id="username" name="username" formControlName="username">
+        </div>
 
-      <div class="form-group col-6">
-        <label for="username">Name</label>
-        <input type="text" class="form-control" id="username" name="username" formControlName="username">
-      </div>
+        <div class="form-group col-6 mb-3">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" id="email" name="email" formControlName="email">
+        </div>
 
-      <div class="form-group col-6">
-        <label for="email">Email</label>
-        <input type="text" class="form-control" id="email" name="email" formControlName="email">
-      </div>
+        <div class="form-group col-6 mt-3">
+          <label for="userRole">Role</label>
+          <select name="userRole"  id="userRole" class="form-control" formControlName="userRole">
+            <option [ngValue]="user.userRole" disabled>{{ 'ROLE_' + user.userRole }}</option>
+            <option *ngFor="let key of keysOfRole" [ngValue]="key">{{ 'ROLE_' + key }}</option>
+          </select>
+        </div>
+        <fieldset class="mt-3">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" formControlName="enabled" id="enabled">
+              <label class="form-check-label" for="enabled">
+                Enabled
+              </label>
+            </div>
 
-      <div class="form-group col-6">
-        <label for="joinDate">Join Date</label>
-        <input type="text" class="form-control" id="joinDate" name="joinDate" formControlName="joinDate" readonly>
-      </div>
-
-      <div class="form-group col-6">
-        <label for="lastLoginDateDisplay">LastLoginDate</label>
-        <input type="text" class="form-control" id="lastLoginDateDisplay" name="lastLoginDateDisplay" formControlName="lastLoginDateDisplay" readonly>
-      </div>
-
-      <div class="form-group col-6">
-        <label for="userRole">Role</label>
-        <select name="userRole"  id="userRole" class="form-control" formControlName="userRole">
-          <option *ngFor="let key of keysOfRole" [ngValue]="user.userRole">ROLE_{{ key }}</option>
-        </select>
-      </div>
-
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="enabled" id="enabled">
-        <label class="form-check-label" for="enabled">
-          Enabled
-        </label>
-      </div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" formControlName="!accountNonLocked" id="accountNonLocked">
-        <label class="form-check-label" for="accountNonLocked">
-          Locked
-        </label>
-      </div>
-  </form>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" formControlName="accountNonLocked" id="accountNonLocked">
+              <label class="form-check-label" for="accountNonLocked">
+                UnLocked
+              </label>
+            </div>
+        </fieldset>
+    </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-primary" (click)="execute()" [disabled]="userForm.invalid">Execute</button>
+  <button type="button" class="btn btn-outline-primary" (click)="execute()">Execute</button>
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>
 </div>

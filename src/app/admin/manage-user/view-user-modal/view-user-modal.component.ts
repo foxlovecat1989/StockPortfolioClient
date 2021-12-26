@@ -79,7 +79,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
       userRole: this.selectedUser.userRole
     });
   }
-  // 
+  //
 
   execute(){
     this.selectedUser.username = this.userForm.controls['username'].value;

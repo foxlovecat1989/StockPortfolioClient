@@ -75,7 +75,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
 
   private listenToReloadEvent() {
     this.subscriptions.push(this.reloadFormService.reloadEvent.subscribe(
-      this.loadingData()
+      response => this.loadingData()
     ));
   }
 
