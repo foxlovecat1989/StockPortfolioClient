@@ -23,6 +23,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   user!: User;
   selectedUser!: User;
   users!: Array<User>;
+  isRefreshing = false;
   private subscriptions: Subscription[] = [];
 
   closeResult!: string;
@@ -52,12 +53,19 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   }
 
   loadingData(){
+    this.isRefreshing = true;
     this.userService.getUsers().subscribe(
       (response) => {
+        this.isRefreshing = false;
+        this.userService.addUsersToLocalCache(response);
         this.users = response;
         this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to get users');
       }
     );
+  }
+
+  refreshUser(){
+    this.loadingData();
   }
 
   add(){
@@ -67,6 +75,20 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   view(user: User){
     this.selectedUser = user;
     this.openView();
+  }
+
+  public searchUsers(searchTerm: string): void {
+    const results = new Array<User>();
+    for (const user of this.userService.getUsersFromLocalCache()!) {
+      if (user.username.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          user.userNumber.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          user.email.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
+          results.push(user);
+      }
+    }
+    this.users = results;
+    if (results.length === 0 || !searchTerm)
+      this.users = this.userService.getUsersFromLocalCache()!;
   }
 
   private checkAndSetUser() {
