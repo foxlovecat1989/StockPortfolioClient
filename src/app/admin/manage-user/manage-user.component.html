@@ -14,7 +14,7 @@
                     <th>Joindate</th>
                     <th>LastLogin</th>
                     <th>Enable</th>
-                    <th>Lock</th>
+                    <th>UnLock</th>
                     <th>Role</th>
                   </tr>
                 </thead>
@@ -29,8 +29,14 @@
                       <td (click)="view(user)">{{ user.email }}</td>
                       <td (click)="view(user)">{{ user.joinDate | date:'mediumDate' }}</td>
                       <td (click)="view(user)">{{ user.lastLoginDateDisplay | date:'MMM-dd-yyyy HH:mm' }}</td>
-                      <td (click)="view(user)">{{ user.isEnabled }}</td>
-                      <td (click)="view(user)">{{ user.isAccountNonLocked }}</td>
+                      <td (click)="view(user)">
+                        <span [hidden]="!user?.enabled" class="badge bg-success">Active</span>
+                        <span [hidden]="user?.enabled" class="badge bg-danger">Inactive</span>
+                      </td>
+                      <td (click)="view(user)">
+                        <span [hidden]="!user?.accountNonLocked" class="badge bg-success">UnLocked</span>
+                        <span [hidden]="user?.accountNonLocked" class="badge bg-danger">Locked</span>
+                      </td>
                       <td (click)="view(user)">{{ user.userRole }}</td>
                   </tr>
                 </tbody>

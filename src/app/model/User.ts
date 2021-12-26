@@ -7,8 +7,8 @@ export class User {
   lastLoginDateDisplay!: string;
   joinDate!: string;
   profileImageUrl!: string;
-  isEnabled!: boolean;
-  isAccountNonLocked!: boolean;
+  enabled!: boolean;
+  accountNonLocked!: boolean;
   userRole!: string;
 
   static fromHttp(user: User): User{
@@ -18,10 +18,11 @@ export class User {
     newUser.userNumber = user.userNumber;
     newUser.email = user.email;
     newUser.lastLoginDate = user.lastLoginDate;
+    newUser.lastLoginDateDisplay = user.lastLoginDateDisplay;
     newUser.joinDate = user.joinDate;
     newUser.profileImageUrl = user.profileImageUrl;
-    newUser.isEnabled = user.isEnabled;
-    newUser.isAccountNonLocked = user.isAccountNonLocked;
+    newUser.enabled = user.enabled;
+    newUser.accountNonLocked = user.accountNonLocked;
     newUser.userRole = user.userRole;
 
     return newUser;

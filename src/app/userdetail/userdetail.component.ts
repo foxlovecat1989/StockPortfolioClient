@@ -77,8 +77,8 @@ export class UserdetailComponent implements OnInit, OnDestroy {
       email: this.user.email,
       joinDate: formatDate(this.user.joinDate, 'MMM-dd', 'en-Us'),
       lastLoginDateDisplay: formatDate(this.user.joinDate, 'MM-dd HH:mm', 'en-Us'),
-      isEnabled: this.user.isEnabled,
-      isAccountNonLocked: this.user.isAccountNonLocked,
+      isEnabled: this.user.enabled,
+      isAccountNonLocked: this.user.accountNonLocked,
       userRole: this.user.userRole
     });
   }
@@ -90,8 +90,8 @@ export class UserdetailComponent implements OnInit, OnDestroy {
   execute(){
     this.user.username = this.userForm.controls['username'].value;
     this.user.email = this.userForm.controls['email'].value;
-    this.user.isEnabled = this.userForm.controls['isEnabled'].value;
-    this.user.isAccountNonLocked = this.userForm.controls['isAccountNonLocked'].value;
+    this.user.enabled = this.userForm.controls['isEnabled'].value;
+    this.user.accountNonLocked = this.userForm.controls['isAccountNonLocked'].value;
     this.user.userRole = this.userForm.controls['userRole'].value;
 
     this.subscriptions.push(this.userService.updateUser(this.user).subscribe(

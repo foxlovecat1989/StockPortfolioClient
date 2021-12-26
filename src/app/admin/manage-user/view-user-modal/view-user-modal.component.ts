@@ -74,8 +74,8 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
       email: this.selectedUser.email,
       joinDate: formatDate(this.selectedUser.joinDate, 'MMM-dd', 'en-Us'),
       lastLoginDateDisplay: formatDate(this.selectedUser.joinDate, 'MM-dd HH:mm', 'en-Us'),
-      isEnabled: this.selectedUser.isEnabled,
-      isAccountNonLocked: this.selectedUser.isAccountNonLocked,
+      isEnabled: this.selectedUser.enabled,
+      isAccountNonLocked: this.selectedUser.accountNonLocked,
       userRole: this.selectedUser.userRole
     });
   }
@@ -83,8 +83,8 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
   execute(){
     this.selectedUser.username = this.userForm.controls['username'].value;
     this.selectedUser.email = this.userForm.controls['email'].value;
-    this.selectedUser.isEnabled = this.userForm.controls['isEnabled'].value;
-    this.selectedUser.isAccountNonLocked = this.userForm.controls['isAccountNonLocked'].value;
+    this.selectedUser.enabled = this.userForm.controls['enabled'].value;
+    this.selectedUser.accountNonLocked = this.userForm.controls['accountNonLocked'].value;
     this.selectedUser.userRole = this.userForm.controls['userRole'].value;
 
     this.subscriptions.push(this.userService.updateUser(this.selectedUser).subscribe(
