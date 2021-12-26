@@ -7,7 +7,8 @@
         <div class="row mt-3">
             <div class="col-md-auto">
               <div class="justify-content-center rounded bg-grey">
-                <img class="rounded" height="135" width="135" src="{{ user?.profileImageUrl }}" alt="">
+                <img class="rounded" height="135" width="135" src="{{ user?.profileImageUrl }}" alt="img{{ user.username }}">
+
               </div>
               <div class="col-md-12 mt-3">
                   <h3>Recently Trade:</h3>
@@ -48,6 +49,16 @@
                       <label for="lastLoginDateDisplay">Role</label>
                       <input type="text" class="form-control" id="userRole" name="userRole" formControlName="userRole" readonly>
                     </div>
+
+                    <div class="form-group col-12 mt-3">
+                          <label for="profileImage">Image</label>
+                          <input
+                              type="file" accept="image/*" name="profileImage"
+                              (change)="onProfileImageChange($any($event).target.files[0].name, $any($event).target.files[0])" class="form-control">
+                    </div>
+
+
+
                     <fieldset class="mt-3">
                           <div class="row mt-3">
                               <div class="col-md-auto">
@@ -58,6 +69,7 @@
                               </div>
                           </div>
                     </fieldset>
+
                 </form>
               </div>
             </div>

@@ -23,6 +23,9 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
   keysOfRole = Object.keys(UserRole);
   userRoleEnum = UserRole;
   closeResult!: string;
+  fileName!: string;
+  profileImage!: File;
+
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -43,18 +46,9 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  private initForm() {
-    this.user.userRole = 'USER';
-    this.user.accountNonLocked = true;
-    this.user.enabled = true;
-
-    this.userForm = this.formBuilder.group({
-      username: this.user.username,
-      email: this.user.email,
-      enabled: this.user.enabled,
-      accountNonLocked: this.user.accountNonLocked,
-      userRole: this.user.userRole
-    });
+  onProfileImageChange(fileName: string, profileImage: File): void {
+    this.fileName =  fileName;
+    this.profileImage = profileImage;
   }
 
   execute(){
@@ -77,5 +71,19 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
         this.activeModal.close();
       }
     ));
+  }
+
+  private initForm() {
+    this.user.userRole = 'USER';
+    this.user.accountNonLocked = false;
+    this.user.enabled = false;
+
+    this.userForm = this.formBuilder.group({
+      username: this.user.username,
+      email: this.user.email,
+      enabled: this.user.enabled,
+      accountNonLocked: this.user.accountNonLocked,
+      userRole: this.user.userRole
+    });
   }
 }

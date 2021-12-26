@@ -55,6 +55,7 @@ export class UserdetailComponent implements OnInit, OnDestroy {
 
   }
 
+
   execute(){
     this.notificationService.sendNotification(NotificationType.INFO, `Proccessing...`);
     this.user.username = this.userForm.controls['username'].value;
@@ -68,6 +69,11 @@ export class UserdetailComponent implements OnInit, OnDestroy {
         this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
       }
     ));
+  }
+
+  onProfileImageChange(fileName: string, profileImage: File): void {
+    this.fileName =  fileName;
+    this.profileImage = profileImage;
   }
 
   private checkAndSetUser() {

@@ -27,6 +27,8 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
   recentTrades!: Array<Trade>;
   userForm!: FormGroup;
   keysOfRole = Object.keys(UserRole);
+  fileName!: string;
+  profileImage!: File;
   closeResult!: string;
   modalOptions: NgbModalOptions;
   private subscriptions: Subscription[] = [];
@@ -74,6 +76,11 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
         this.activeModal.close();
       }
     ));
+  }
+
+  onProfileImageChange(fileName: string, profileImage: File): void {
+    this.fileName =  fileName;
+    this.profileImage = profileImage;
   }
 
   remove(){
