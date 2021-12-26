@@ -3,7 +3,7 @@
     <div class="col-md-10 mt-5">
         <h1>Manage User</h1>
         <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
-            <table class="table">
+            <table class="table table-striped">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -37,7 +37,7 @@
                         <span [hidden]="!user?.accountNonLocked" class="badge bg-success">UnLocked</span>
                         <span [hidden]="user?.accountNonLocked" class="badge bg-danger">Locked</span>
                       </td>
-                      <td (click)="view(user)">{{ user.userRole }}</td>
+                      <td (click)="view(user)">{{ user.userRole.slice(5, user.userRole.length) }}</td>
                   </tr>
                 </tbody>
             </table>

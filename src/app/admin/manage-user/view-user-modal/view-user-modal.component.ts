@@ -74,8 +74,8 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
       email: this.selectedUser.email,
       joinDate: formatDate(this.selectedUser.joinDate, 'MMM-dd', 'en-Us'),
       lastLoginDateDisplay: formatDate(this.selectedUser.joinDate, 'MM-dd HH:mm', 'en-Us'),
-      isEnabled: this.selectedUser.enabled,
-      isAccountNonLocked: this.selectedUser.accountNonLocked,
+      enabled: this.selectedUser.enabled,
+      accountNonLocked: this.selectedUser.accountNonLocked,
       userRole: this.selectedUser.userRole
     });
   }

@@ -49,8 +49,8 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
       email: this.user.email,
       joinDate: formatDate(this.user.joinDate, 'MMM-dd', 'en-Us'),
       lastLoginDateDisplay: formatDate(this.user.joinDate, 'MM-dd HH:mm', 'en-Us'),
-      isEnabled: this.user.enabled,
-      isAccountNonLocked: this.user.accountNonLocked,
+      enabled: this.user.enabled,
+      accountNonLocked: this.user.accountNonLocked,
       userRole: UserRole.USER
     });
   }
