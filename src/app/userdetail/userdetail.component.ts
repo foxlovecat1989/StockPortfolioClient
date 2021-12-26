@@ -96,7 +96,7 @@ export class UserdetailComponent implements OnInit, OnDestroy {
       email: this.user.email,
       joinDate: formatDate(this.user.joinDate, 'MMM-dd', 'en-Us'),
       lastLoginDateDisplay: formatDate(this.user.joinDate, 'MM-dd HH:mm', 'en-Us'),
-      userRole: this.user.userRole
+      userRole: this.user.userRole.substring(5)
     });
   }
 }

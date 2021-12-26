@@ -41,8 +41,8 @@
                       <div class="form-group col-12 mt-3">
                         <label for="userRole">Role</label>
                         <select name="userRole"  id="userRole" class="form-control" formControlName="userRole">
-                          <option [ngValue]="selectedUser.userRole" disabled>{{ selectedUser.userRole }}</option>
-                          <option *ngFor="let key of keysOfRole" [ngValue]="key">ROLE_{{ key }}</option>
+                          <option [ngValue]="selectedUser.userRole" disabled>{{ selectedUser.userRole.substring(5) }}</option>
+                          <option *ngFor="let key of keysOfRole" [ngValue]="key">{{ key }}</option>
                         </select>
                       </div>
                       <fieldset class="mt-3">
