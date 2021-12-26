@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
@@ -15,7 +15,7 @@ import { StockService } from 'src/app/service/stock.service';
   templateUrl: './view-stock-modal.component.html',
   styleUrls: ['./view-stock-modal.component.css']
 })
-export class ViewStockModalComponent implements OnInit,OnDestroy {
+export class ViewStockModalComponent implements OnInit, OnDestroy {
 
   @Input('selectedStock')
   selectedStock!: Tstock;
@@ -43,7 +43,7 @@ export class ViewStockModalComponent implements OnInit,OnDestroy {
   }
 
   execute(){
-    this.notificationService.sendNotification(NotificationType.INFO, `Processing update data...`);
+    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.selectedStock.name = this.stockForm.controls['name'].value;
     this.selectedStock.classify = this.stockForm.controls['classify'].value;
     this.subscriptions.push(this.stockService.updateStock(this.selectedStock).subscribe(
