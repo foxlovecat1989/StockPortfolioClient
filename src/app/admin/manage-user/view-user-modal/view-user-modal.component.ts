@@ -55,32 +55,8 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  private loadingRecentTrades() {
-    this.subscriptions.push(this.tradeService.getRecentTrades(this.selectedUser.userNumber).subscribe(
-      response => {
-        this.recentTrades = response;
-        this.notificationService.sendNotification(
-              NotificationType.SUCCESS,
-              `Succuess to get recent trades by ${this.selectedUser.userNumber}`);
-      },
-      (errorResponse: HttpErrorResponse) =>
-          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-    ));
-  }
-
-  private initForm() {
-    this.userForm = this.formBuilder.group({
-      userNumber: this.selectedUser.userNumber,
-      username: this.selectedUser.username,
-      email: this.selectedUser.email,
-      enabled: this.selectedUser.enabled,
-      accountNonLocked: this.selectedUser.accountNonLocked,
-      userRole: this.selectedUser.userRole
-    });
-  }
-  //
-
   execute(){
+    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.selectedUser.username = this.userForm.controls['username'].value;
     this.selectedUser.email = this.userForm.controls['email'].value;
     this.selectedUser.enabled = this.userForm.controls['enabled'].value;
@@ -107,6 +83,30 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
 
   resetPassword(){
 
+  }
+
+  private initForm() {
+    this.userForm = this.formBuilder.group({
+      userNumber: this.selectedUser.userNumber,
+      username: this.selectedUser.username,
+      email: this.selectedUser.email,
+      enabled: this.selectedUser.enabled,
+      accountNonLocked: this.selectedUser.accountNonLocked,
+      userRole: this.selectedUser.userRole
+    });
+  }
+
+  private loadingRecentTrades() {
+    this.subscriptions.push(this.tradeService.getRecentTrades(this.selectedUser.userNumber).subscribe(
+      response => {
+        this.recentTrades = response;
+        this.notificationService.sendNotification(
+              NotificationType.SUCCESS,
+              `Succuess to get recent trades by ${this.selectedUser.userNumber}`);
+      },
+      (errorResponse: HttpErrorResponse) =>
+          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    ));
   }
 
   private openDelete() {
