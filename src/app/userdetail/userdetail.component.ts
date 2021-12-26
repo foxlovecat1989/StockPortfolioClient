@@ -51,6 +51,25 @@ export class UserdetailComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
+  resetPassword(){
+
+  }
+
+  execute(){
+    this.notificationService.sendNotification(NotificationType.INFO, `Proccessing...`);
+    this.user.username = this.userForm.controls['username'].value;
+    this.user.email = this.userForm.controls['email'].value;
+
+    this.subscriptions.push(this.userService.updateUserNameOrEmail(this.user).subscribe(
+      resposne => {
+          this.notificationService.sendNotification(NotificationType.SUCCESS, `Update user detials successfully`);
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+      }
+    ));
+  }
+
   private checkAndSetUser() {
     const isLogin = this.authenticationService.checkUserLoggedIn();
     if (isLogin)
@@ -77,31 +96,7 @@ export class UserdetailComponent implements OnInit, OnDestroy {
       email: this.user.email,
       joinDate: formatDate(this.user.joinDate, 'MMM-dd', 'en-Us'),
       lastLoginDateDisplay: formatDate(this.user.joinDate, 'MM-dd HH:mm', 'en-Us'),
-      isEnabled: this.user.enabled,
-      isAccountNonLocked: this.user.accountNonLocked,
       userRole: this.user.userRole
     });
-  }
-
-  resetPassword(){
-
-  }
-
-  execute(){
-    this.user.username = this.userForm.controls['username'].value;
-    this.user.email = this.userForm.controls['email'].value;
-    this.user.enabled = this.userForm.controls['isEnabled'].value;
-    this.user.accountNonLocked = this.userForm.controls['isAccountNonLocked'].value;
-    this.user.userRole = this.userForm.controls['userRole'].value;
-
-    this.subscriptions.push(this.userService.updateUser(this.user).subscribe(
-      resposne => {
-          this.notificationService.sendNotification(NotificationType.SUCCESS, `Update user detials successfully`);
-          this.initForm();
-      },
-      (errorResponse: HttpErrorResponse) => {
-        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-      }
-    ));
   }
 }
