@@ -4,11 +4,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
-import { Watchlist } from 'src/app/model/watchlist';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { UserService } from 'src/app/service/user.service';
-import { WatchlistService } from 'src/app/service/watchlist.service';
 
 @Component({
   selector: 'app-delete-user-modal',
@@ -33,6 +31,7 @@ export class DeleteUserModalComponent implements OnInit {
   }
 
   executeDelete(){
+    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.subscriptions.push(this.userService.deleteUser(this.selectedUser.id).subscribe(
       response => {
         this.reload.reloadEvent.emit();
