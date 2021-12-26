@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row mt-3">
+  <div class="row">
     <div class="col-md-12">
         <div class="row bg-pink">
           <div class="modal-header">
@@ -16,7 +16,7 @@
               </div>
               <div class="col-md-auto font-detail">
                   <div *ngFor="let trade of recentTrades" class="font-detail">
-                    <i class="fas fa-search-dollar"> {{ trade.tstock.name }} - {{trade.tstock.symbol}}</i>
+                    <i class="fas fa-search-dollar mt-3"> {{ trade.tstock.name }} - {{trade.tstock.symbol}}</i>
                   </div>
               </div>
             </div>
@@ -63,7 +63,7 @@
               </div>
             </div>
         </div>
-        <div class="modal-footer mt-3">
+        <div class="modal-footer">
           <button type="button" class="btn btn-outline-danger" (click)="resetPassword()">Reset password</button>
           <button type="button" class="btn btn-outline-primary" (click)="execute()" [disabled]="userForm.invalid">Update</button>
           <button type="button" class="btn btn-outline-danger" (click)="remove()"><i class="fas fa-trash"></i></button>

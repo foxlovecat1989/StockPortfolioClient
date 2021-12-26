@@ -1,4 +1,4 @@
-import { formatDate } from '@angular/common';
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
@@ -23,8 +23,9 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
 
   @Input('selectedUser')
   selectedUser!: User;
-  userForm!: FormGroup;
+  @Input('recentTrades')
   recentTrades!: Array<Trade>;
+  userForm!: FormGroup;
   keysOfRole = Object.keys(UserRole);
   closeResult!: string;
   modalOptions: NgbModalOptions;

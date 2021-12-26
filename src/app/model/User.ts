@@ -1,4 +1,4 @@
-import { UserRole } from "../enum/user-role";
+
 
 export class User {
   id!: string;
@@ -29,5 +29,6 @@ export class User {
 
     return newUser;
   }
+
 }
 

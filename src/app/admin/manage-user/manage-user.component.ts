@@ -1,3 +1,4 @@
+
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -6,6 +7,7 @@ import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { TradeService } from 'src/app/service/trade.service';
 import { UserService } from 'src/app/service/user.service';
 import { AddUserModalComponent } from './add-user-modal/add-user-modal.component';
 import { ViewUserModalComponent } from './view-user-modal/view-user-modal.component';
@@ -20,7 +22,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   role!: string;
   user!: User;
   selectedUser!: User;
-  users!: User[];
+  users!: Array<User>;
   private subscriptions: Subscription[] = [];
 
   closeResult!: string;
