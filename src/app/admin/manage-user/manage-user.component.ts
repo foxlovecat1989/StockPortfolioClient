@@ -1,13 +1,12 @@
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
-import { TradeService } from 'src/app/service/trade.service';
 import { UserService } from 'src/app/service/user.service';
 import { AddUserModalComponent } from './add-user-modal/add-user-modal.component';
 import { ViewUserModalComponent } from './view-user-modal/view-user-modal.component';
@@ -30,11 +29,10 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   modalOptions:NgbModalOptions;
 
   constructor(
-    private userService: UserService,
     private authService: AuthenticationService,
-    private notificationService: NotificationService,
     private reloadFormService: ReloadFormService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private activatedRoute: ActivatedRoute
     ) {
       this.modalOptions = {
         backdrop:'static',
@@ -53,15 +51,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   }
 
   loadingData(){
-    this.isRefreshing = true;
-    this.userService.getUsers().subscribe(
-      (response) => {
-        this.isRefreshing = false;
-        this.userService.addUsersToLocalCache(response);
-        this.users = response;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to get users');
-      }
-    );
+    this.users = this.activatedRoute.snapshot.data['users'];
   }
 
   refreshUser(){
@@ -77,18 +67,19 @@ export class ManageUserComponent implements OnInit, OnDestroy {
     this.openView();
   }
 
-  public searchUsers(searchTerm: string): void {
+  searchUsers(searchTerm: string): void {
     const results = new Array<User>();
-    for (const user of this.userService.getUsersFromLocalCache()!) {
-      if (user.username.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.userNumber.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
-          user.email.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
+    this.users.forEach(user => {
+      if (
+          user.username.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1 ||
+          user.email.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          ) {
           results.push(user);
       }
-    }
-    this.users = results;
-    if (results.length === 0 || !searchTerm)
-      this.users = this.userService.getUsersFromLocalCache()!;
+      this.users = results;
+      if (results.length === 0 || !searchTerm)
+        this.loadingData();
+    });
   }
 
   private checkAndSetUser() {

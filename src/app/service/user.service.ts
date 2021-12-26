@@ -18,6 +18,7 @@ export class UserService {
         users => {
           const newUsers = new Array<User>();
           users.forEach(user => newUsers.push(User.fromHttp(user)));
+          
           return newUsers;
         }
       )
@@ -28,7 +29,7 @@ export class UserService {
     return this.http.post<User>(`${environment.apiUrl}/api/v1/user`, user);
   }
 
-  public register(user: User): Observable<User> {
+  register(user: User): Observable<User> {
     return this.http.post<User>(`${environment.apiUrl}/api/v1/registration`, user);
   }
 
@@ -41,6 +42,14 @@ export class UserService {
     return this.http.patch<User>(`${environment.apiUrl}/api/v1/user/modified`, user);
   }
 
+  deleteUser(username: string): Observable<CustomHttpRespone> {
+    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/${username}`);
+  }
+
+  addUsersToLocalCache(users: User[]): void {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
+
   resetPassword(email: string): Observable<CustomHttpRespone> {
     return this.http.get<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/resetpassword/${email}`);
   }
@@ -50,33 +59,5 @@ export class UserService {
     {reportProgress: true,
       observe: 'events'
     });
-  }
-
-  deleteUser(username: string): Observable<CustomHttpRespone> {
-    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/${username}`);
-  }
-
-  addUsersToLocalCache(users: User[]): void {
-    localStorage.setItem('users', JSON.stringify(users));
-  }
-
-  getUsersFromLocalCache(): User[] | null {
-    if (localStorage.getItem('users')) {
-        return JSON.parse(localStorage.getItem('users')!);
-    }
-    return null;
-  }
-
-  createUserFormDate(loggedInUsername: string, user: User, profileImage: File): FormData {
-    const formData = new FormData();
-    formData.append('currentUsername', loggedInUsername);
-    formData.append('username', user.username);
-    formData.append('email', user.email);
-    formData.append('role', user.userRole);
-    formData.append('profileImage', profileImage);
-    formData.append('isActive', JSON.stringify(user.enabled));
-    formData.append('isNonLocked', JSON.stringify(user.accountNonLocked));
-
-    return formData;
   }
 }
