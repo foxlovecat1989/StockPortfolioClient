@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgbModalOptions, ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
@@ -41,29 +41,17 @@ export class ManageUserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.checkAndSetUser();
-    this.subToReloadEvent();
+    this.listenToReloadEvent();
     this.loadingData();
-  }
-
-  private subToReloadEvent() {
-    this.subscriptions.push(this.reloadFormService.reloadEvent.subscribe(
-      this.loadingData()
-    ));
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  private checkAndSetUser() {
-    const isLogin = this.authService.isUserLoggedIn();
-    if (isLogin)
-      this.user = this.authService.getUserFromLocalCache();
-  }
-
   loadingData(){
     this.userService.getUsers().subscribe(
-      (response: User[]) => {
+      (response) => {
         this.users = response;
         this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to get users');
       }
@@ -77,6 +65,18 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   view(user: User){
     this.selectedUser = user;
     this.openView();
+  }
+
+  private checkAndSetUser() {
+    const isLogin = this.authService.isUserLoggedIn();
+    if (isLogin)
+      this.user = this.authService.getUserFromLocalCache();
+  }
+
+  private listenToReloadEvent() {
+    this.subscriptions.push(this.reloadFormService.reloadEvent.subscribe(
+      this.loadingData()
+    ));
   }
 
   private openView() {
