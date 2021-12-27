@@ -18,7 +18,7 @@ export class UserService {
         users => {
           const newUsers = new Array<User>();
           users.forEach(user => newUsers.push(User.fromHttp(user)));
-          
+
           return newUsers;
         }
       )
@@ -42,8 +42,8 @@ export class UserService {
     return this.http.patch<User>(`${environment.apiUrl}/api/v1/user/modified`, user);
   }
 
-  deleteUser(username: string): Observable<CustomHttpRespone> {
-    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/${username}`);
+  deleteUser(userNumber: string): Observable<CustomHttpRespone> {
+    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/${userNumber}`);
   }
 
   addUsersToLocalCache(users: User[]): void {

@@ -30,13 +30,17 @@ export class DeleteUserModalComponent implements OnInit {
 
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
   executeDelete(){
-    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
-    this.subscriptions.push(this.userService.deleteUser(this.selectedUser.id).subscribe(
+    this.notificationService.sendNotification(NotificationType.INFO, `Processing delete...`);
+    this.subscriptions.push(this.userService.deleteUser(this.selectedUser.userNumber).subscribe(
       response => {
-        this.reload.reloadEvent.emit();
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to delete ${this.selectedUser.username}`);
         this.activeModal.close();
+        this.reload.reloadEvent.emit();
       },
       (errorResponse: HttpErrorResponse) => {
         this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
