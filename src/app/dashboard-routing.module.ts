@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { ManageStockComponent } from './admin/manage-stock/manage-stock.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { AuthenticationGuard } from './guard/authentication.guard';
@@ -14,6 +13,7 @@ import { TradeComponent } from './trade/trade.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { ManageClassifyComponent } from './admin/manage-classify/manage-classify.component';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
         path: 'login', component: LoginComponent
       },
       {
-        path: 'logout', component: LogoutComponent
+        path: 'logout', component: UserLogoutComponent
       },
       {
         path: 'register', component: RegisterComponent

@@ -38,7 +38,6 @@ export class UserService {
   }
 
   updateUserNameOrEmail(user: User): Observable<User> {
-
     return this.http.patch<User>(`${environment.apiUrl}/api/v1/user/modified`, user);
   }
 

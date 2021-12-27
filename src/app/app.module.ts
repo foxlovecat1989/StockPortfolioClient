@@ -20,7 +20,6 @@ import { NotificationService } from './service/notification.service';
 import { NotificationModule } from './notification.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WrapperComponent } from './wrapper/wrapper.component';
-import { LogoutComponent } from './logout/logout.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
 import { TradeComponent } from './trade/trade.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -42,6 +41,7 @@ import { ManageClassifyComponent } from './admin/manage-classify/manage-classify
 import { AddClassifyModalComponent } from './admin/manage-classify/add-classify-modal/add-classify-modal.component';
 import { ViewClassifyModalComponent } from './admin/manage-classify/view-classify-modal/view-classify-modal.component';
 import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-classify-modal/delete-classify-modal.component';
+import { UserLogoutComponent } from './user-logout/user-logout.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,6 @@ import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-cla
     RegisterComponent,
     LoginComponent,
     WrapperComponent,
-    LogoutComponent,
     ManageUserComponent,
     TradeComponent,
     TradeExecuteModalComponent,
@@ -69,7 +68,9 @@ import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-cla
     ManageClassifyComponent,
     AddClassifyModalComponent,
     ViewClassifyModalComponent,
-    DeleteClassifyModalComponent
+    DeleteClassifyModalComponent,
+    UserLogoutComponent,
+
   ],
   imports: [
     BrowserModule,
