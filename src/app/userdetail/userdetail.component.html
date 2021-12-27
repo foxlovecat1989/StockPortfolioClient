@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row mt-5 justify-content-md-center">
+  <div class="row mt-3 justify-content-md-center">
     <div class="col-md-8">
         <div class="bg-pink">
           <h4 class="">User Detail</h4>
@@ -21,46 +21,49 @@
               <div class="font-weight-500">
                 <form [formGroup]="userForm">
                     <div class="form-group col-12 mt-3">
-                      <label for="userNumber">Number</label>
+                      <label for="userNumber" class="form-label">Number</label>
                       <input type="text" class="form-control" id="userNumber" name="userNumber" formControlName="userNumber" readonly>
                     </div>
 
                     <div class="form-group col-12 mt-3">
-                      <label for="username">Name</label>
+                      <label for="username" class="form-label">Name</label>
                       <input type="text" class="form-control" id="username" name="username" formControlName="username">
                     </div>
 
                     <div class="form-group col-12 mt-3">
-                      <label for="email">Email</label>
+                      <label for="email" class="form-label">Email</label>
                       <input type="text" class="form-control" id="email" name="email" formControlName="email">
                     </div>
 
                     <div class="form-group col-12 mt-3">
-                      <label for="joinDate">Join Date</label>
+                      <label for="joinDate" class="form-label">Join Date</label>
                       <input type="text" class="form-control" id="joinDate" name="joinDate" formControlName="joinDate" readonly>
                     </div>
 
                     <div class="form-group col-12 mt-3">
-                      <label for="lastLoginDateDisplay">LastLoginDate</label>
+                      <label for="lastLoginDateDisplay" class="form-label">LastLoginDate</label>
                       <input type="text" class="form-control" id="lastLoginDateDisplay" name="lastLoginDateDisplay" formControlName="lastLoginDateDisplay" readonly>
                     </div>
 
                     <div class="form-group col-12 mt-3">
-                      <label for="lastLoginDateDisplay">Role</label>
+                      <label for="lastLoginDateDisplay" class="form-label">Role</label>
                       <input type="text" class="form-control" id="userRole" name="userRole" formControlName="userRole" readonly>
                     </div>
 
                     <div class="form-group col-12 mt-3">
-                          <label for="profileImage">Image</label>
+                      <label for="profileImage" class="form-label">Image</label>
+                      <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                           <input
                               type="file" accept="image/*" name="profileImage"
                               (change)="onProfileImageChange($any($event).target.files[0].name, $any($event).target.files[0])" class="form-control">
+                          <button type="button" class="btn btn-outline-primary" (click)="onUpdateProfileImage()">Upload</button>
+                      </div>
                     </div>
 
 
 
                     <fieldset class="mt-3">
-                          <div class="row mt-3">
+                          <div class="row mt-3 mb-3">
                               <div class="col-md-auto">
                                 <button type="button" class="btn btn-outline-danger" (click)="resetPassword()">Reset password</button>
                               </div>
