@@ -61,7 +61,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
       users => {
         this.users = users;
         this.isRefreshing = false;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to load data`);
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to load user`);
       },
       (errorResponse:HttpErrorResponse) => {
         this.isRefreshing = false;
@@ -97,9 +97,10 @@ export class ManageUserComponent implements OnInit, OnDestroy {
           results.push(user);
       }
       this.users = results;
-      if (results.length === 0 || !searchTerm)
-        this.loadingData();
     });
+    if (results.length === 0 && !searchTerm){
+      this.loadingData();
+    }
   }
 
   private checkAndSetUser() {
