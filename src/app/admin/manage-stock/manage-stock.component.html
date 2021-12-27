@@ -6,14 +6,14 @@
           <h1>Manage Stock</h1>
           <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
         </div>
-        <div class="col-sm-9">
+        <div class="col-sm-7">
         </div>
       </div>
     </div>
-    <div class="col-md-2 col-sm-4">
+    <div class="col-md-4 col-sm-5">
       <form class="form-control mt-5">
         <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel
-        (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search stocks...">
+        (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search...">
       </form>
     </div>
   </div>

@@ -4,7 +4,6 @@
           <div class="row mt-3">
             <div class="col-sm-auto">
               <h1>Stock</h1>
-
             </div>
             <div class="col-sm-9">
               <button type="button" (click)="refresh()" class="btn btn-outline-info">
@@ -13,12 +12,12 @@
             </div>
           </div>
         </div>
-        <div class="col-md-6 col-sm-4">
+        <div class="col-md-5 col-sm-4">
         </div>
-        <div class="col-md-2 col-sm-4">
+        <div class="col-md-3 col-sm-4 mt-5">
           <form class="form-control">
             <input name="searchTerm" #searchInput="ngModel" class="form-control mr-sm-2" ngModel
-            (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search stocks...">
+            (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search...">
           </form>
         </div>
     </div>
