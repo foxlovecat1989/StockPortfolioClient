@@ -1,5 +1,5 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
@@ -7,6 +7,7 @@ import { Classify } from 'src/app/model/classify';
 import { Tstock } from 'src/app/model/tstock';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { ClassifyService } from 'src/app/service/classify.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { StockService } from 'src/app/service/stock.service';
@@ -33,7 +34,7 @@ export class ManageStockComponent implements OnInit, OnDestroy {
     private notificationService: NotificationService,
     private stockService: StockService,
     private modalService: NgbModal,
-    private activatedRoute: ActivatedRoute,
+    private classifyService: ClassifyService,
     private reloadFormService: ReloadFormService
   ) {
     this.modalOptions = {
@@ -50,16 +51,6 @@ export class ManageStockComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
-
-  loadingData(){
-    this.classifies = this.activatedRoute.snapshot.data['classifies'];
-    this.stockService.getStocks().subscribe(
-      (response: Array<Tstock>) => {
-        this.stocks = response;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to get stocks');
-      }
-    );
   }
 
   add(){
@@ -84,6 +75,19 @@ export class ManageStockComponent implements OnInit, OnDestroy {
     if (results.length === 0 || !searchTerm)
       this.stocks = this.stockService.getStocksFromLocalCache()!;
      }
+  }
+
+  private loadingData(){
+    this.notificationService.sendNotification(NotificationType.INFO, `Proccessing...`);
+    this.subscriptions.push(this.classifyService.getClassifies().subscribe(next => this.classifies = next));
+    this.subscriptions.push(this.stockService.getStocks().subscribe(
+      (response: Array<Tstock>) => {
+        this.stocks = response;
+        this.stockService.addStocksToLocalCache(response);
+        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to load stocks');
+      },
+      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    ));
   }
 
   private checkAndSetUser() {

@@ -8,7 +8,6 @@ import { RegisterComponent } from './register/register.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { InventoryComponent } from './inventory/inventory.component';
-import { PrefetchClassifyService } from './service/prefetch-classify.service';
 import { PrefetchWatchlistService } from './service/prefetch-watchlist.service';
 import { StockComponent } from './stock/stock.component';
 import { TradeComponent } from './trade/trade.component';
@@ -49,7 +48,7 @@ const routes: Routes = [
         path: 'admin/management/users', component: ManageUserComponent, resolve: {users: PrefetchUserService}, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'admin/management/stocks', component: ManageStockComponent, resolve: {classifies: PrefetchClassifyService}, canActivate: [AuthenticationGuard]
+        path: 'admin/management/stocks', component: ManageStockComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'admin/management/classifies', component: ManageClassifyComponent, canActivate: [AuthenticationGuard]

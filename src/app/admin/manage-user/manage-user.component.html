@@ -1,66 +1,66 @@
 <div class="container">
+  <div class="row mt-3">
+    <div class="col-sm-5">
+      <div class="row">
+        <div class="col-sm-4">
+            <h1>Manage User</h1>
+            <a class="btn btn-outline-success" (click)="add()">Add</a>
+            <button type="button" (click)="refreshUser()" class="btn btn-outline-info">
+              <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
+            </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-auto mt-5">
+      <form class="form-control">
+        <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel
+        (ngModelChange)="searchUsers(searchInput.value)" type="search" placeholder="Search users...">
+      </form>
+    </div>
+
+  </div>
   <div class="row">
     <div class="col-md-12 mt-3">
-            <div class="row mt-3">
-              <h1>Manage User</h1>
-                  <div class="col-md-6">
-                    <a class="btn btn-outline-success" (click)="add()">Add</a>
-                    <button type="button" (click)="refreshUser()" class="btn btn-outline-info ml-1">
-                      <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
-                    </button>
-                  </div>
-                  <div class="col-md-2 mt-3 move-right">
-                    <form class="form-control">
-                      <input name="searchTerm" #searchInput="ngModel" class="form-control mr-sm-2" ngModel
-                      (ngModelChange)="searchUsers(searchInput.value)" type="search" placeholder="Search users...">
-                    </form>
-                  </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 mt-3">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Photo</th>
-                        <th>Number</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Joindate</th>
-                        <th>LastLogin</th>
-                        <th>Enable</th>
-                        <th>UnLock</th>
-                        <th>Role</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let user of users">
-                          <td (click)="view(user)">{{ user.id }}</td>
-                          <td (click)="view(user)">
-                            <img height="40" width="40" src="{{user?.profileImageUrl}}" class="rounded-circle img-fluid img-thumbnail" alt="img{{ user.username }}"/>
-                          </td>
-                          <td (click)="view(user)">{{ user.userNumber }}</td>
-                          <td (click)="view(user)">{{ user.username }}</td>
-                          <td (click)="view(user)">{{ user.email }}</td>
-                          <td (click)="view(user)">{{ user.joinDate | date:'mediumDate' }}</td>
-                          <td (click)="view(user)">{{ user.lastLoginDateDisplay | date:'MMM-dd-yyyy HH:mm' }}</td>
-                          <td (click)="view(user)">
-                            <span [hidden]="!user?.enabled" class="badge bg-success">Active</span>
-                            <span [hidden]="user?.enabled" class="badge bg-danger">Inactive</span>
-                          </td>
-                          <td (click)="view(user)">
-                            <span [hidden]="!user?.accountNonLocked" class="badge bg-success">UnLocked</span>
-                            <span [hidden]="user?.accountNonLocked" class="badge bg-danger">Locked</span>
-                          </td>
-                          <td (click)="view(user)">{{ user.userRole.substring(5) }}</td>
-                      </tr>
-                    </tbody>
-                </table>
-                </div>
-            </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Photo</th>
+            <th>Number</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Joindate</th>
+            <th>LastLogin</th>
+            <th>Enable</th>
+            <th>UnLock</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+              <td (click)="view(user)">{{ user.id }}</td>
+              <td (click)="view(user)">
+                <img height="40" width="40" src="{{user?.profileImageUrl}}" class="rounded-circle img-fluid img-thumbnail" alt="img{{ user.username }}"/>
+              </td>
+              <td (click)="view(user)">{{ user.userNumber }}</td>
+              <td (click)="view(user)">{{ user.username }}</td>
+              <td (click)="view(user)">{{ user.email }}</td>
+              <td (click)="view(user)">{{ user.joinDate | date:'mediumDate' }}</td>
+              <td (click)="view(user)">{{ user.lastLoginDateDisplay | date:'MMM-dd-yyyy HH:mm' }}</td>
+              <td (click)="view(user)">
+                <span [hidden]="!user?.enabled" class="badge bg-success">Active</span>
+                <span [hidden]="user?.enabled" class="badge bg-danger">Inactive</span>
+              </td>
+              <td (click)="view(user)">
+                <span [hidden]="!user?.accountNonLocked" class="badge bg-success">UnLocked</span>
+                <span [hidden]="user?.accountNonLocked" class="badge bg-danger">Locked</span>
+              </td>
+              <td (click)="view(user)">{{ user.userRole.substring(5) }}</td>
+          </tr>
+        </tbody>
+    </table>
     </div>
   </div>
 </div>
-
-
-
