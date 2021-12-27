@@ -88,10 +88,6 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     this.openDelete();
   }
 
-  resetPassword(){
-
-  }
-
   private initForm() {
     this.userForm = this.formBuilder.group({
       userNumber: this.selectedUser.userNumber,
