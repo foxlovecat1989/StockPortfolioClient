@@ -63,7 +63,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     this.selectedUser.email = this.userForm.controls['email'].value;
     this.selectedUser.enabled = this.userForm.controls['enabled'].value;
     this.selectedUser.accountNonLocked = this.userForm.controls['accountNonLocked'].value;
-    this.selectedUser.userRole = this.userForm.controls['userRole'].value;
+    this.selectedUser.userRole = 'ROLE_' + this.userForm.controls['userRole'].value;
 
     this.subscriptions.push(this.userService.updateUser(this.selectedUser).subscribe(
       resposne => {

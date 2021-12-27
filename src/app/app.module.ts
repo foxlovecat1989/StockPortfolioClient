@@ -42,6 +42,7 @@ import { AddClassifyModalComponent } from './admin/manage-classify/add-classify-
 import { ViewClassifyModalComponent } from './admin/manage-classify/view-classify-modal/view-classify-modal.component';
 import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-classify-modal/delete-classify-modal.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
+import { ResetPasswordComponent } from './rest-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,7 @@ import { UserLogoutComponent } from './user-logout/user-logout.component';
     ViewClassifyModalComponent,
     DeleteClassifyModalComponent,
     UserLogoutComponent,
-
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

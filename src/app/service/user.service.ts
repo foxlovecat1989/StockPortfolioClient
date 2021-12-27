@@ -50,7 +50,7 @@ export class UserService {
   }
 
   resetPassword(email: string): Observable<CustomHttpRespone> {
-    return this.http.get<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/resetpassword/${email}`);
+    return this.http.get<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/reset/password/${email}`);
   }
 
   updateProfileImage(formData: FormData): Observable<HttpEvent<User>> {
@@ -60,5 +60,5 @@ export class UserService {
     });
   }
 
-  
+
 }
