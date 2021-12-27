@@ -15,6 +15,7 @@ import { WatchlistComponent } from './watchlist/watchlist.component';
 import { ManageClassifyComponent } from './admin/manage-classify/manage-classify.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { ResetPasswordComponent } from './rest-password/reset-password.component';
+import { ChartsComponent } from './charts/charts.component';
 
 
 const routes: Routes = [
@@ -32,6 +33,9 @@ const routes: Routes = [
       },
       {
         path: 'reset', component: ResetPasswordComponent
+      },
+      {
+        path: 'charts', component: ChartsComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'user/trade', component: TradeComponent, canActivate: [AuthenticationGuard]

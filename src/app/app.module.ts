@@ -43,6 +43,8 @@ import { ViewClassifyModalComponent } from './admin/manage-classify/view-classif
 import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-classify-modal/delete-classify-modal.component';
 import { UserLogoutComponent } from './user-logout/user-logout.component';
 import { ResetPasswordComponent } from './rest-password/reset-password.component';
+import { ChartsComponent } from './charts/charts.component';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,8 @@ import { ResetPasswordComponent } from './rest-password/reset-password.component
     ViewClassifyModalComponent,
     DeleteClassifyModalComponent,
     UserLogoutComponent,
-    ResetPasswordComponent
+    ResetPasswordComponent,
+    ChartsComponent
   ],
   imports: [
     BrowserModule,
@@ -85,7 +88,8 @@ import { ResetPasswordComponent } from './rest-password/reset-password.component
     MatIconModule,
     MatListModule,
     MatToolbarModule,
-    NgbModule
+    NgbModule,
+    NgApexchartsModule
   ],
   entryComponents:[
     TradeExecuteModalComponent,
