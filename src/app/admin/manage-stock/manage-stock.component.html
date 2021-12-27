@@ -1,36 +1,41 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-10 mt-5">
-        <h1>Manage Stock</h1>
-        <div class="col-md-2">
+  <div class="row no-gutters mt-3">
+    <div class="col-md-4 col-sm-4">
+      <div class="row mt-3">
+        <div class="col-sm-auto">
+          <h1>Manage Stock</h1>
           <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
-          <form class="form-control">
-            <input name="searchTerm" #searchInput="ngModel" class="form-control mr-sm-2" ngModel
-            (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search stocks...">
-          </form>
         </div>
-
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Symbol</th>
-                    <th>Classify</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let stock of stocks">
-                      <td (click)="view(stock)">{{ stock.id }}</td>
-                      <td (click)="view(stock)">{{ stock.name }}</td>
-                      <td (click)="view(stock)">{{ stock.symbol }}</td>
-                      <td (click)="view(stock)">{{ stock.classify.name }}</td>
-                  </tr>
-                </tbody>
-            </table>
+        <div class="col-sm-9">
+        </div>
       </div>
+    </div>
+    <div class="col-md-2 col-sm-4">
+      <form class="form-control mt-5">
+        <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel
+        (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search stocks...">
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Classify</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let stock of stocks">
+              <td (click)="view(stock)">{{ stock.name }}</td>
+              <td (click)="view(stock)">{{ stock.symbol }}</td>
+              <td (click)="view(stock)">{{ stock.classify.name }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
-
-
 
