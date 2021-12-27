@@ -47,7 +47,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.checkAndSetUser();
     this.listenToReloadEvent();
-    this.prefetchData();
+    this.loadingData();
   }
 
   ngOnDestroy(): void {
@@ -68,10 +68,6 @@ export class ManageUserComponent implements OnInit, OnDestroy {
         this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
       }
     );
-  }
-
-  prefetchData(){
-    this.users = this.activatedRoute.snapshot.data['users'];
   }
 
   refreshUser(){

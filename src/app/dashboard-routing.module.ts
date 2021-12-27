@@ -14,7 +14,6 @@ import { TradeComponent } from './trade/trade.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
 import { WatchlistComponent } from './watchlist/watchlist.component';
 import { ManageClassifyComponent } from './admin/manage-classify/manage-classify.component';
-import { PrefetchUserService } from './service/prefetch-user.service';
 
 const routes: Routes = [
   {
@@ -45,7 +44,7 @@ const routes: Routes = [
         path: 'user/report', component: InventoryComponent, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'admin/management/users', component: ManageUserComponent, resolve: {users: PrefetchUserService}, canActivate: [AuthenticationGuard]
+        path: 'admin/management/users', component: ManageUserComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'admin/management/stocks', component: ManageStockComponent, canActivate: [AuthenticationGuard]
