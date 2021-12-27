@@ -25,6 +25,7 @@ export class StockComponent implements OnInit, OnDestroy {
   selectedWatchlist!: Watchlist;
   selectedStock!: Tstock;
   user!: User;
+  isRefreshing = false;
   closeResult!: string;
   modalOptions!: NgbModalOptions;
 
@@ -80,6 +81,21 @@ export class StockComponent implements OnInit, OnDestroy {
     if (results.length === 0 || !searchTerm)
       this.stocks = this.stockService.getStocksFromLocalCache()!;
      }
+  }
+
+  refresh(){
+    this.isRefreshing = true;
+    this.subscriptions.push(this.stockService.refreshStockPrice().subscribe(
+      next => {
+        this.isRefreshing = false;
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to refresh...`);
+        this.loadingData();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.isRefreshing = false;
+        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+      }
+    ));
   }
 
 
