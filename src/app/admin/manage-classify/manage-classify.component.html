@@ -1,22 +1,25 @@
+
 <div class="container">
-  <div class="row">
-    <div class="col-md-4 mt-5">
-        <h1>Manage Classify</h1>
-        <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let classify of classifies">
-                      <td (click)="view(classify)">{{ classify.classifyId }}</td>
-                      <td (click)="view(classify)">{{ classify.name }}</td>
-                  </tr>
-                </tbody>
-            </table>
-      </div>
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h1>Manage Classify</h1>
+      <a class="btn btn-outline-success" (click)="add()">Add</a>
+    </div>
+    <div class="col-md-3 mt-3">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let classify of classifies">
+              <td (click)="view(classify)">{{ classify.classifyId }}</td>
+              <td (click)="view(classify)">{{ classify.name }}</td>
+          </tr>
+        </tbody>
+    </table>
+    </div>
   </div>
 </div>

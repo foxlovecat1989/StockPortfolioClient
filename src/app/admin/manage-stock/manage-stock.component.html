@@ -1,24 +1,16 @@
 <div class="container">
-  <div class="row no-gutters mt-3">
-    <div class="col-md-4 col-sm-4">
-      <div class="row mt-3">
-        <div class="col-sm-auto">
-          <h1>Manage Stock</h1>
-          <a class="btn btn-outline-success mb-3" (click)="add()">Add</a>
-        </div>
-        <div class="col-sm-6">
-        </div>
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <h1>Manage Stock</h1>
+      <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+        <a class="btn btn-outline-success" (click)="add()">Add</a>
+        <form class="form-control">
+          <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel
+          (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search...">
+        </form>
       </div>
     </div>
-    <div class="col-md-2 col-sm-3">
-      <form class="form-control mt-5">
-        <input name="searchTerm" #searchInput="ngModel" class="form-control" ngModel
-        (ngModelChange)="searchStocks(searchInput.value)" type="search" placeholder="Search...">
-      </form>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-6">
+    <div class="col-md-8 mt-3">
       <table class="table table-striped">
         <thead>
           <tr>
