@@ -10,7 +10,6 @@ import { Watchlist } from '../../model/watchlist';
 import { AuthenticationService } from '../../service/authentication.service';
 import { NotificationService } from '../../service/notification.service';
 import { StockService } from '../../service/stock.service';
-import { WatchlistService } from '../../service/watchlist.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -34,7 +33,6 @@ export class StockComponent implements OnInit, OnDestroy {
     private stockService: StockService,
     private notificationService: NotificationService,
     private authService: AuthenticationService,
-    private watchlistService: WatchlistService,
     private activatedRoute: ActivatedRoute,
     private modalService: NgbModal
   ) {
@@ -102,10 +100,7 @@ export class StockComponent implements OnInit, OnDestroy {
               this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
       ));
 
-    this.subscriptions.push(
-        this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber).subscribe(
-            (response: Array<Watchlist>) => this.watchlists = response
-        ));
+      this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
   }
 
   private checkAndGetUser(): void {
@@ -118,7 +113,7 @@ export class StockComponent implements OnInit, OnDestroy {
     const modalRef = this.modalService.open(ChartsComponent, this.modalOptions);
     modalRef.componentInstance.selectedMonthInterval = this.selectedMonthInterval;
     modalRef.componentInstance.selectedStock = stock;
-    modalRef.componentInstance.watchlists = this.activatedRoute.snapshot.data['watchlists'];
+    modalRef.componentInstance.watchlists = this.watchlists;
     modalRef.componentInstance.title = stock.symbol;
     modalRef.componentInstance.user = this.user;
   }
