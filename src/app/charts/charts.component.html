@@ -1,19 +1,28 @@
-<div class="container">
-  <div class="row mt-5">
-    <div class="col-md-12">
-      <h1 style="text-align:center">Candlestick Chart</h1>
-      <div id="chart">
-        <apx-chart
-          [series]="chartOptions.series"
-          [chart]="chartOptions.chart"
-          [xaxis]="chartOptions.xaxis"
-          [yaxis]="chartOptions.yaxis"
-          [title]="chartOptions.title"
-        ></apx-chart>
+
+      <div class="modal-header">
+        <h4 class="modal-title">{{ selectedStock.name }} - {{ selectedStock.symbol }}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </div>
-  </div>
-</div>
+      <div class="modal-body">
+            <div id="chart">
+              <apx-chart
+                [series]="chartOptions.series"
+                [chart]="chartOptions.chart"
+                [xaxis]="chartOptions.xaxis"
+                [yaxis]="chartOptions.yaxis"
+                [title]="chartOptions.title"
+              ></apx-chart>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-info" (click)="addOneMonth()">
+          <span class="material-icons">add</span>One Month</button>
+        <button type="button" class="btn btn-outline-success" (click)="addToWatch()">
+          <span class="material-icons">post_add</span>Watch</button>
+        <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+      </div>
 
 
 
