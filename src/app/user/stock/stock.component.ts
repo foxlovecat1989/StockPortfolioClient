@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { ChartsComponent } from '../../charts/charts.component';
+import { ChartsComponent } from './charts/charts.component';
 import { NotificationType } from '../../enum/notification-type.enum';
 import { Tstock } from '../../model/tstock';
 import { User } from '../../model/user';

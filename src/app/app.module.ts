@@ -43,7 +43,7 @@ import { ViewClassifyModalComponent } from './admin/manage-classify/view-classif
 import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-classify-modal/delete-classify-modal.component';
 import { UserLogoutComponent } from './common/user-logout/user-logout.component';
 import { ResetPasswordComponent } from './common/login/rest-password/reset-password.component';
-import { ChartsComponent } from './charts/charts.component';
+import { ChartsComponent } from './user/stock/charts/charts.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 
 @NgModule({
