@@ -3,15 +3,15 @@ import { HttpErrorResponse, HttpEvent, HttpEventType } from '@angular/common/htt
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { NotificationType } from '../enum/notification-type.enum';
-import { UserRole } from '../enum/user-role';
-import { FileUploadStatus } from '../model/file-upload.status';
-import { Trade } from '../model/trade';
-import { User } from '../model/user';
-import { AuthenticationService } from '../service/authentication.service';
-import { NotificationService } from '../service/notification.service';
-import { TradeService } from '../service/trade.service';
-import { UserService } from '../service/user.service';
+import { NotificationType } from '../../enum/notification-type.enum';
+import { UserRole } from '../../enum/user-role';
+import { FileUploadStatus } from '../../model/file-upload.status';
+import { Trade } from '../../model/trade';
+import { User } from '../../model/user';
+import { AuthenticationService } from '../../service/authentication.service';
+import { NotificationService } from '../../service/notification.service';
+import { TradeService } from '../../service/trade.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-userdetail',

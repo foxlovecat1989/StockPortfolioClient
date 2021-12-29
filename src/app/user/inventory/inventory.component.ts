@@ -3,14 +3,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { NotificationType } from '../enum/notification-type.enum';
-import { InventoryReport } from '../model/inventoryReport';
-import { Tstock } from '../model/tstock';
-import { AuthenticationService } from '../service/authentication.service';
-import { InventoryReportService } from '../service/inventory-report.service';
-import { NotificationService } from '../service/notification.service';
-import { ReloadFormService } from '../service/reload-form.service';
-import { StockService } from '../service/stock.service';
+import { NotificationType } from '../../enum/notification-type.enum';
+import { InventoryReport } from '../../model/inventoryReport';
+import { Tstock } from '../../model/tstock';
+import { AuthenticationService } from '../../service/authentication.service';
+import { InventoryReportService } from '../../service/inventory-report.service';
+import { NotificationService } from '../../service/notification.service';
+import { ReloadFormService } from '../../service/reload-form.service';
+import { StockService } from '../../service/stock.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
 
 @Component({

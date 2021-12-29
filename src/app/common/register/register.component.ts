@@ -8,7 +8,7 @@ import { NotificationService } from 'src/app/service/notification.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PasswordValidators } from 'src/app/validators/password.validators';
 import { UsernameValidators } from 'src/app/validators/username.validators';
-import { UserService } from '../service/user.service';
+import { UserService } from '../../service/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',

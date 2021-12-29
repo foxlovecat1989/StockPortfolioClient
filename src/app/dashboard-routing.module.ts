@@ -2,18 +2,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ManageStockComponent } from './admin/manage-stock/manage-stock.component';
 import { ManageUserComponent } from './admin/manage-user/manage-user.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent } from './common/login/login.component';
+import { RegisterComponent } from './common/register/register.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { AuthenticationGuard } from './guard/authentication.guard';
-import { InventoryComponent } from './inventory/inventory.component';
-import { StockComponent } from './stock/stock.component';
-import { TradeComponent } from './trade/trade.component';
-import { UserdetailComponent } from './userdetail/userdetail.component';
-import { WatchlistComponent } from './watchlist/watchlist.component';
+import { InventoryComponent } from './user/inventory/inventory.component';
+import { StockComponent } from './user/stock/stock.component';
+import { TradeComponent } from './user/trade/trade.component';
+import { UserdetailComponent } from './user/userdetail/userdetail.component';
+import { WatchlistComponent } from './user/watchlist/watchlist.component';
 import { ManageClassifyComponent } from './admin/manage-classify/manage-classify.component';
-import { UserLogoutComponent } from './user-logout/user-logout.component';
-import { ResetPasswordComponent } from './rest-password/reset-password.component';
+import { UserLogoutComponent } from './common/user-logout/user-logout.component';
+import { ResetPasswordComponent } from './common/login/rest-password/reset-password.component';
 import { ChartsComponent } from './charts/charts.component';
 
 

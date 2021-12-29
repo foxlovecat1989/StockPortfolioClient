@@ -4,16 +4,16 @@ import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-boot
 
 import {ChartComponent,ApexAxisChartSeries,ApexChart,ApexYAxis,ApexXAxis,ApexTitleSubtitle} from "ng-apexcharts";
 import { Subscription } from 'rxjs';
-import { NotificationType } from '../enum/notification-type.enum';
-import { StockReport } from '../model/stock-report';
-import { Tstock } from '../model/tstock';
-import { User } from '../model/user';
-import { Watchlist } from '../model/watchlist';
-import { AuthenticationService } from '../service/authentication.service';
-import { NotificationService } from '../service/notification.service';
-import { StockService } from '../service/stock.service';
-import { WatchlistService } from '../service/watchlist.service';
-import { AddStockToWatchlistModalComponent } from '../stock/add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
+import { NotificationType } from '../../../enum/notification-type.enum';
+import { StockReport } from '../../../model/stock-report';
+import { Tstock } from '../../../model/tstock';
+import { User } from '../../../model/user';
+import { Watchlist } from '../../../model/watchlist';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { NotificationService } from '../../../service/notification.service';
+import { StockService } from '../../../service/stock.service';
+import { WatchlistService } from '../../../service/watchlist.service';
+import { AddStockToWatchlistModalComponent } from '../add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries | any;

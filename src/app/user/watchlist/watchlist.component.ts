@@ -4,15 +4,15 @@ import { ActivatedRoute } from '@angular/router';
 import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
-import { NotificationType } from '../enum/notification-type.enum';
-import { Tstock } from '../model/tstock';
-import { User } from '../model/user';
-import { Watchlist } from '../model/watchlist';
-import { AuthenticationService } from '../service/authentication.service';
-import { NotificationService } from '../service/notification.service';
-import { ReloadFormService } from '../service/reload-form.service';
-import { StockService } from '../service/stock.service';
-import { WatchlistService } from '../service/watchlist.service';
+import { NotificationType } from '../../enum/notification-type.enum';
+import { Tstock } from '../../model/tstock';
+import { User } from '../../model/user';
+import { Watchlist } from '../../model/watchlist';
+import { AuthenticationService } from '../../service/authentication.service';
+import { NotificationService } from '../../service/notification.service';
+import { ReloadFormService } from '../../service/reload-form.service';
+import { StockService } from '../../service/stock.service';
+import { WatchlistService } from '../../service/watchlist.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
 import { WatchlistModalComponent } from './watchlist-modal/watchlist-modal.component';
 
@@ -92,7 +92,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.stockService.refreshStockPrice().subscribe(
       next => {
         this.isRefreshing = false;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS to Refresh Price...`);
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS refreshed price`);
         this.loadingData();
       },
       (errorResponse: HttpErrorResponse) => {

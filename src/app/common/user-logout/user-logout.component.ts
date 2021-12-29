@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotificationType } from '../enum/notification-type.enum';
-import { AuthenticationService } from '../service/authentication.service';
-import { NotificationService } from '../service/notification.service';
+import { NotificationType } from '../../enum/notification-type.enum';
+import { AuthenticationService } from '../../service/authentication.service';
+import { NotificationService } from '../../service/notification.service';
 
 @Component({
   selector: 'app-user-logout',
