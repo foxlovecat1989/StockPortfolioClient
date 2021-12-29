@@ -26,7 +26,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   watchlists!: Array<Watchlist>;
   selectedWatchlist!: Watchlist;
-  stocks!: Array<Tstock>;
+  stocks!: Array<Tstock> | null;
   isRefreshing = false;
   user!: User;
 
@@ -118,14 +118,33 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   }
 
   private checkAndGetUser() {
-    this.authService.checkUserLoggedIn();
-    this.user = this.authService.getUserFromLocalCache();
+    const isLogin = this.authService.isUserLoggedIn();
+    if(isLogin)
+      this.user = this.authService.getUserFromLocalCache();
   }
 
   private loadingData() {
-    this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
-    this.selectedWatchlist = this.watchlists[0];
-    this.stocks = this.selectedWatchlist.tstocks!;
+    this.isRefreshing = true;
+    this.notificationService.sendNotification(NotificationType.INFO, `Loading...`);
+    this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber).subscribe(
+      response => {
+        this.watchlists = response;
+        this.isRefreshing = false;
+        if(response.length > 0){
+          this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success loaded');
+          this.selectedWatchlist = this.watchlists[0];
+          this.stocks = this.selectedWatchlist.tstocks!;
+        }
+        else {
+          this.selectedWatchlist = new Watchlist();
+          this.selectedWatchlist.name = 'No watchlist available';
+          this.stocks = null;
+          this.notificationService.sendNotification(NotificationType.WARNING, `No watchlist are found.`);
+        }
+      },
+      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    );
+
   }
 
   private refreshWatchlists(){

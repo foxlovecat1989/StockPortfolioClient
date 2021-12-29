@@ -40,7 +40,7 @@ export class WatchlistModalComponent implements OnInit, OnDestroy {
       this.user = this.authService.getUserFromLocalCache();
 
     this.watchlistForm = this.formBuilder.group({
-      name: [this.watchlist.name, Validators.required]
+      name: ['', Validators.required]
     });
   }
 
@@ -49,8 +49,11 @@ export class WatchlistModalComponent implements OnInit, OnDestroy {
   }
 
   public execute(){
+    console.log('123')
     this.watchlist.name = this.watchlistForm.controls['name'].value;
     this.watchlist.user = this.user;
+    console.log(this.watchlist.name)
+    console.log('123')
     this.subscriptions.push(this.watchlistService.createWatchlist(this.watchlist.name, this.watchlist.user.id).subscribe(
       response => {
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to create watchlist: ${this.watchlist.name}`);

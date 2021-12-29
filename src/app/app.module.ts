@@ -101,7 +101,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     AddStockModalComponent,
     ViewStockModalComponent,
     AddClassifyModalComponent,
-    ViewClassifyModalComponent
+    ViewClassifyModalComponent,
+    ChartsComponent
   ],
   providers: [
     NotificationService,

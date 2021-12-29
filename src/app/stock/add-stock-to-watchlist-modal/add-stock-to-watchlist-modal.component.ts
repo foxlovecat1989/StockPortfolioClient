@@ -16,14 +16,14 @@ import { WatchlistService } from 'src/app/service/watchlist.service';
   templateUrl: './add-stock-to-watchlist-modal.component.html',
   styleUrls: ['./add-stock-to-watchlist-modal.component.css']
 })
-export class AddStockToWatchlistModalComponent implements OnInit, OnChanges, OnDestroy {
+export class AddStockToWatchlistModalComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
   @Input('watchlists')
   watchlists!: Array<Watchlist>;
-  @Input('stockId')
-  stockId!: string;
+  @Input('symbol')
+  symbol!: string;
 
   selectWatchlistForm!: FormGroup;
   user!: User;
@@ -35,22 +35,32 @@ export class AddStockToWatchlistModalComponent implements OnInit, OnChanges, OnD
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private watchlistService: WatchlistService,
-    private authService: AuthenticationService,
     private notificationService: NotificationService,
   ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.loadingData();
-  }
-
   ngOnInit(): void {
-    this.checkAndSetUser();
     this.loadingData();
-
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  execute(){
+    const watchlist = this.selectWatchlistForm.controls['selectedWatchlist'].value;
+    this.subscriptions.push(this.watchlistService.addStockToWatchlist(
+          this.symbol,
+          watchlist.id
+    ).subscribe(
+      response => {
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success`);
+        this.activeModal.close();
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+        this.activeModal.close();
+      }
+    ));
   }
 
   private loadingData() {
@@ -67,28 +77,5 @@ export class AddStockToWatchlistModalComponent implements OnInit, OnChanges, OnD
     this.selectWatchlistForm = this.formBuilder.group({
       selectedWatchlist: this.watchlists.slice(0, 1)
     });
-  }
-
-  execute(){
-    const watchlist = this.selectWatchlistForm.controls['selectedWatchlist'].value;
-    this.subscriptions.push(this.watchlistService.addStockToWatchlist(
-          this.stockId,
-          watchlist.id
-    ).subscribe(
-      response => {
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success`);
-        this.activeModal.close();
-      },
-      (errorResponse: HttpErrorResponse) => {
-        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-        this.activeModal.close();
-      }
-    ));
-  }
-
-  private checkAndSetUser() {
-    const isLogin = this.authService.isUserLoggedIn();
-    if (isLogin)
-      this.user = this.authService.getUserFromLocalCache();
   }
 }

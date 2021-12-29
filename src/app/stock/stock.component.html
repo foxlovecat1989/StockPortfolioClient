@@ -40,16 +40,15 @@
           </thead>
           <tbody>
             <tr *ngFor="let stock of stocks">
-              <td (click)="trade(stock.symbol)">{{ stock.symbol }}</td>
-              <td (click)="trade(stock.symbol)">{{ stock.name }}</td>
-              <td (click)="trade(stock.symbol)">{{ stock.previousClosed | currency}}</td>
-              <td (click)="trade(stock.symbol)">{{ stock.price | currency }}</td>
-              <td (click)="trade(stock.symbol)">{{ stock.changePrice | currency }}</td>
-              <td (click)="trade(stock.symbol)">{{ stock.changeInPercent / 100 | percent }}</td>
-              <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
-              <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
-              <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
-              <td><button type="button" class="btn btn-outline-danger" (click)="addToWatchlist(stock)">Watch</button></td>
+              <td (click)="view(stock)">{{ stock.symbol }}</td>
+              <td (click)="view(stock)">{{ stock.name }}</td>
+              <td (click)="view(stock)">{{ stock.previousClosed | currency}}</td>
+              <td (click)="view(stock)">{{ stock.price | currency }}</td>
+              <td (click)="view(stock)">{{ stock.changePrice | currency }}</td>
+              <td (click)="view(stock)">{{ stock.changeInPercent / 100 | percent }}</td>
+              <td (click)="view(stock)">{{ stock.volume | number }}</td>
+              <td (click)="view(stock)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
+              <td (click)="view(stock)">{{ stock.classify.name }}</td>
             </tr>
           </tbody>
       </table>

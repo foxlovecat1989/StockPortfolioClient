@@ -9,13 +9,14 @@
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
               <label for="watchlist" hidden>Select:</label>
                 <select class="form-control" id="selectedWatchlist" name="selectedWatchlist" [(ngModel)]="selectedWatchlist" (ngModelChange)="reloadStocks()">
-                    <option [ngValue]="selectedWatchlist" disabled>{{ selectedWatchlist.name }}</option>
-                    <option *ngFor="let watchlist of watchlists" [ngValue]="watchlist">{{ watchlist.name }}</option>
+                    <option [ngValue]="selectedWatchlist" disabled>{{ selectedWatchlist?.name }}</option>
+                    <option *ngFor="let watchlist of watchlists" [ngValue]="watchlist">{{ watchlist?.name }}</option>
                 </select>
               <button type="button" class="btn btn-outline-secondary" (click)="createWatchlist()">Create</button>
               <button class="btn btn-outline-danger" (click)="deleteWatchlist(selectedWatchlist)">Delete</button>
               <button type="button" (click)="refreshPrice()" class="btn btn-outline-info">
-                <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
+              <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
+
               </button>
             </div>
           </div>

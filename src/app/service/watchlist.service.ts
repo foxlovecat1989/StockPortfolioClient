@@ -16,11 +16,11 @@ export class WatchlistService {
     private http: HttpClient
   ) { }
 
-  getWatchlistsByUserNumber(userNumber: string): Observable<Array<Watchlist>>{
-    return this.http.get<Array<Watchlist>>(`${environment.apiUrl}/api/v1/watchlist/${userNumber}`);
+  public getWatchlistsByUserNumber(userNumber: string): Observable<Array<Watchlist>>{
+    return this.http.get<Array<Watchlist>>(`${environment.apiUrl}/api/v1/watchlist/findAll/${userNumber}`);
   }
 
-  createWatchlist(name: string, userId: string): Observable<Watchlist>{
+  public createWatchlist(name: string, userId: string): Observable<Watchlist>{
     const formData = new FormData();
     formData.append('name', name);
     formData.append('userId', userId);
@@ -28,16 +28,16 @@ export class WatchlistService {
     return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist`, formData);
   }
 
-  deleteWatchlist(watchlistId: number): Observable<CustomHttpRespone> {
-    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/watchlist/${watchlistId}`);
-  }
-
-  addStockToWatchlist(stockId: string, watchlistId: string): Observable<Watchlist>{
+  public addStockToWatchlist(symbol: string, watchlistId: string): Observable<Watchlist>{
     const formData = new FormData();
-    formData.append('stockId', stockId);
+    formData.append('stockId', symbol);
     formData.append('watchlistId', watchlistId);
 
     return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist/add`, formData);
+  }
+
+  public deleteWatchlist(watchlistId: number): Observable<CustomHttpRespone> {
+    return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/watchlist/${watchlistId}`);
   }
 
 }

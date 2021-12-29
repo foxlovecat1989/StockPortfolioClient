@@ -7,7 +7,6 @@ import { RegisterComponent } from './register/register.component';
 import { WrapperComponent } from './wrapper/wrapper.component';
 import { AuthenticationGuard } from './guard/authentication.guard';
 import { InventoryComponent } from './inventory/inventory.component';
-import { PrefetchWatchlistService } from './service/prefetch-watchlist.service';
 import { StockComponent } from './stock/stock.component';
 import { TradeComponent } from './trade/trade.component';
 import { UserdetailComponent } from './userdetail/userdetail.component';
@@ -44,7 +43,7 @@ const routes: Routes = [
         path: 'user/stock', component: StockComponent, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'user/watchlist', component: WatchlistComponent, resolve: {watchlists: PrefetchWatchlistService}, canActivate: [AuthenticationGuard]
+        path: 'user/watchlist', component: WatchlistComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'user/userdetail', component: UserdetailComponent, canActivate: [AuthenticationGuard]
