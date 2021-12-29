@@ -16,13 +16,10 @@
               <button class="btn btn-outline-danger" (click)="deleteWatchlist(selectedWatchlist)">Delete</button>
               <button type="button" (click)="refreshPrice()" class="btn btn-outline-info">
               <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
-
               </button>
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-6 col-sm-4">
       </div>
   </div>
   <div class="row">
@@ -57,6 +54,31 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div>
+      <div class="col-md-12">
+        <h1>Watchlist</h1>
+        <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+          <label for="watchlist">Select:</label><span class="material-icons">touch_app</span>
+            <select class="form-control" id="selectedWatchlist" name="selectedWatchlist" [(ngModel)]="selectedWatchlist" (ngModelChange)="reloadStocks()">
+                <option [ngValue]="selectedWatchlist" disabled>{{ selectedWatchlist?.name }}</option>
+                <option *ngFor="let watchlist of watchlists" [ngValue]="watchlist">{{ watchlist?.name }}</option>
+            </select>
+          <button type="button" class="btn btn-outline-secondary" (click)="createWatchlist()">Create</button>
+          <button class="btn btn-outline-danger" (click)="deleteWatchlist(selectedWatchlist)">Delete</button>
+          <button type="button" (click)="refreshPrice()" class="btn btn-outline-info">
+          <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div>
+        placeholder
     </div>
   </div>
 </div>

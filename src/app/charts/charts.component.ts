@@ -1,19 +1,18 @@
+
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component ,ViewChild,OnInit, Input } from '@angular/core';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
-
 import {ChartComponent,ApexAxisChartSeries,ApexChart,ApexYAxis,ApexXAxis,ApexTitleSubtitle} from "ng-apexcharts";
 import { Subscription } from 'rxjs';
-import { NotificationType } from '../../../enum/notification-type.enum';
-import { StockReport } from '../../../model/stock-report';
-import { Tstock } from '../../../model/tstock';
-import { User } from '../../../model/user';
-import { Watchlist } from '../../../model/watchlist';
-import { AuthenticationService } from '../../../service/authentication.service';
-import { NotificationService } from '../../../service/notification.service';
-import { StockService } from '../../../service/stock.service';
-import { WatchlistService } from '../../../service/watchlist.service';
-import { AddStockToWatchlistModalComponent } from '../add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
+import { NotificationType } from '../enum/notification-type.enum';
+import { StockReport } from '../model/stock-report';
+import { Tstock } from '../model/tstock';
+import { User } from '../model/user';
+import { Watchlist } from '../model/watchlist';
+import { NotificationService } from '../service/notification.service';
+import { StockService } from '../service/stock.service';
+import { WatchlistService } from '../service/watchlist.service';
+import { AddStockToWatchlistModalComponent } from '../user/stock/add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries | any;
@@ -22,7 +21,6 @@ export type ChartOptions = {
   yaxis: ApexYAxis | any ;
   title: ApexTitleSubtitle| any;
 };
-
 @Component({
   selector: 'app-charts',
   templateUrl: './charts.component.html',
@@ -31,7 +29,7 @@ export type ChartOptions = {
 export class ChartsComponent implements OnInit {
 
   @ViewChild("chart") chart! : ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
+  chartOptions: Partial<ChartOptions>;
   @Input('selectedStock')
   selectedStock!: Tstock;
   @Input('selectedMonthInterval')
@@ -42,17 +40,13 @@ export class ChartsComponent implements OnInit {
   user!: User;
   @Input('watchlists')
   watchlists!: Array<Watchlist>;
-
   data = new Array<{'x': Date, 'y': Array<number>}>();
   results!: Array<StockReport>;
   modalOptions!: NgbModalOptions;
-
-
   private subscriptions: Subscription[] = [];
 
   constructor(
     private stockService: StockService,
-    private authService: AuthenticationService,
     private notificationService: NotificationService,
     private watchlistService: WatchlistService,
     public activeModal: NgbActiveModal,
@@ -60,16 +54,9 @@ export class ChartsComponent implements OnInit {
   ) {
     this.chartOptions = {
     };
-
-    this.modalOptions = {
-      backdrop:'static',
-      backdropClass:'customBackdrop',
-      size: 'xl'
-    }
-
   }
 
-  ngOnInit(){
+  ngOnInit(): void{
     this.initChart();
   }
 
@@ -77,8 +64,7 @@ export class ChartsComponent implements OnInit {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-
-  public generateDayWiseTimeSeries(baseval: any, count: any, yrange: any) {
+  public generateDayWiseTimeSeries(baseval: any, count: any, yrange: any) : Array<any>{
     var i = 0;
     var series = [];
     while (i < count) {
@@ -92,16 +78,13 @@ export class ChartsComponent implements OnInit {
     return series;
   }
 
-  public addOneMonth(){
+  public addOneMonth(): void{
     this.selectedMonthInterval += 1;
     this.initChart();
   }
 
-  public addToWatch(){
-    const modalRef = this.modalService.open(AddStockToWatchlistModalComponent);
-    modalRef.componentInstance.watchlists = this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber);
-    modalRef.componentInstance.symbol = this.selectedStock.symbol;
-    modalRef.componentInstance.watchlists = this.watchlists;
+  public addToWatch(): void{
+    this.openAddWatchModal();
   }
 
   private initChart(): Array<{'x': Date, 'y': Array<number>}> {
@@ -117,7 +100,7 @@ export class ChartsComponent implements OnInit {
     return this.data;
   }
 
-  private generateData() {
+  private generateData(): void {
     this.results.forEach(
       (next: StockReport) => {
         const time: number = new Date(next.date.toString().substring(0, 10)).getTime();
@@ -155,6 +138,13 @@ export class ChartsComponent implements OnInit {
         }
       }
     };
+  }
+
+  private openAddWatchModal(): void {
+    const modalRef = this.modalService.open(AddStockToWatchlistModalComponent);
+    modalRef.componentInstance.watchlists = this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber);
+    modalRef.componentInstance.symbol = this.selectedStock.symbol;
+    modalRef.componentInstance.watchlists = this.watchlists;
   }
 
 }

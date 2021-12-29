@@ -1,14 +1,14 @@
-<div class="modal-header bg-pink">
-  <h4 class="modal-title">Select Watchlist to Add</h4>
+<div class="modal-header bg-blue">
+  <h4 class="modal-title">Select Watchlist</h4>
   <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body bg-grey font-weight-500">
     <form [formGroup]="selectWatchlistForm">
-      <div class="form-group mb-1 mt-1">
+      <div class="form-group">
         <label for="selectedWatchlist" class="form-label">Watchlist: </label>
-        <select class="form-control" formControlName="selectedWatchlist">
+        <select class="form-control" formControlName="selectedWatchlist" id="selectedWatchlist" name="selectedWatchlist">
           <option [ngValue]="null" disabled>Select One</option>
           <option *ngFor="let watchlist of watchlists" [ngValue]="watchlist">{{ watchlist.name }}</option>
         </select>

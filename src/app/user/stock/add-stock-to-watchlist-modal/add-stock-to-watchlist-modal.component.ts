@@ -1,14 +1,13 @@
+
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
 import { Watchlist } from 'src/app/model/watchlist';
-import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { WatchlistService } from 'src/app/service/watchlist.service';
 
 @Component({
@@ -18,19 +17,15 @@ import { WatchlistService } from 'src/app/service/watchlist.service';
 })
 export class AddStockToWatchlistModalComponent implements OnInit, OnDestroy {
 
-  private subscriptions: Subscription[] = [];
-
   @Input('watchlists')
   watchlists!: Array<Watchlist>;
   @Input('symbol')
   symbol!: string;
-
   selectWatchlistForm!: FormGroup;
   user!: User;
-
   closeResult!: string;
   modalOptions!: NgbModalOptions;
-
+  private subscriptions: Subscription[] = [];
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
@@ -39,14 +34,14 @@ export class AddStockToWatchlistModalComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.loadingData();
+    this.initForm();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  execute(){
+  public execute(): void{
     const watchlist = this.selectWatchlistForm.controls['selectedWatchlist'].value;
     this.subscriptions.push(this.watchlistService.addStockToWatchlist(
           this.symbol,
@@ -63,17 +58,7 @@ export class AddStockToWatchlistModalComponent implements OnInit, OnDestroy {
     ));
   }
 
-  private loadingData() {
-    this.subscriptions.push(this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber).subscribe(
-      response => {
-        this.watchlists = response;
-        this.initForm();
-      },
-      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-    ));
-  }
-
-  private initForm() {
+  private initForm(): void {
     this.selectWatchlistForm = this.formBuilder.group({
       selectedWatchlist: this.watchlists.slice(0, 1)
     });

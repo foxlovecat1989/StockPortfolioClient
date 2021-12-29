@@ -15,6 +15,7 @@ import { ManageClassifyComponent } from './admin/manage-classify/manage-classify
 import { UserLogoutComponent } from './common/user-logout/user-logout.component';
 import { ResetPasswordComponent } from './common/login/rest-password/reset-password.component';
 import { ChartsComponent } from './charts/charts.component';
+import { PrefetchWatchlistService } from './service/prefetch-watchlist.service';
 
 
 const routes: Routes = [
@@ -40,7 +41,7 @@ const routes: Routes = [
         path: 'user/trade', component: TradeComponent, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'user/stock', component: StockComponent, canActivate: [AuthenticationGuard]
+        path: 'user/stock', resolve: {watchlists: PrefetchWatchlistService}, component: StockComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'user/watchlist', component: WatchlistComponent, canActivate: [AuthenticationGuard]

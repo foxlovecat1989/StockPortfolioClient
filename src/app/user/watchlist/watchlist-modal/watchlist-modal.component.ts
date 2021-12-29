@@ -48,15 +48,12 @@ export class WatchlistModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public execute(){
-    console.log('123')
+  public execute(): void{
     this.watchlist.name = this.watchlistForm.controls['name'].value;
     this.watchlist.user = this.user;
-    console.log(this.watchlist.name)
-    console.log('123')
-    this.subscriptions.push(this.watchlistService.createWatchlist(this.watchlist.name, this.watchlist.user.id).subscribe(
+    this.subscriptions.push(this.watchlistService.createWatchlist(this.watchlist.name, this.watchlist.user.userNumber).subscribe(
       response => {
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to create watchlist: ${this.watchlist.name}`);
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success created watchlist: ${this.watchlist.name}`);
         this.reload.reloadEvent.emit();
         this.activeModal.close();
       },

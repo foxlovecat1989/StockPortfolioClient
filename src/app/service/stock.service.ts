@@ -14,42 +14,42 @@ export class StockService {
     private http: HttpClient
   ) { }
 
-  getStockBySymbol(symbol: string): Observable<Tstock>{
+  public getStockBySymbol(symbol: string): Observable<Tstock>{
     return this.http.get<Tstock>(`${environment.apiUrl}/api/v1/stock/${symbol}`);
   }
 
-  getStockByStockName(name: string): Observable<Tstock>{
+  public getStockByStockName(name: string): Observable<Tstock>{
     return this.http.get<Tstock>(`${environment.apiUrl}/api/v1/stock?stockName=${name}`);
   }
 
-  getStocks(): Observable<Tstock[]> {
+  public getStocks(): Observable<Tstock[]> {
     return this.http.get<Tstock[]>(`${environment.apiUrl}/api/v1/stock/findAll`);
   }
 
-  addStock(stock: Tstock): Observable<Tstock> {
+  public addStock(stock: Tstock): Observable<Tstock> {
     return this.http.post<Tstock>(`${environment.apiUrl}/api/v1/stock`, stock);
   }
 
-  updateStock(stock: Tstock): Observable<Tstock> {
+  public updateStock(stock: Tstock): Observable<Tstock> {
     return this.http.patch<Tstock>(`${environment.apiUrl}/api/v1/stock`, stock);
   }
 
-  refreshStockPrice(): Observable<any> {
+  public refreshStockPrice(): Observable<any> {
     return this.http.get<any>(`${environment.apiUrl}/api/v1/stock/refresh`);
   }
 
-  addStocksToLocalCache(stocks: Array<Tstock>): void {
+  public addStocksToLocalCache(stocks: Array<Tstock>): void {
     localStorage.setItem('stocks', JSON.stringify(stocks));
   }
 
-  getStocksFromLocalCache(): Array<Tstock> | null {
+  public getStocksFromLocalCache(): Array<Tstock> | null {
     if (localStorage.getItem('stocks')) {
         return JSON.parse(localStorage.getItem('stocks')!);
     }
     return null;
   }
 
-  getStockReports(symbol: string, month: number): Observable<Array<StockReport>>{
+  public getStockReports(symbol: string, month: number): Observable<Array<StockReport>>{
       return this.http.get<Array<StockReport>>(`${environment.apiUrl}/api/v1/stock/histquotes/${symbol}/${month}`).pipe(
         map(
           nexts => {

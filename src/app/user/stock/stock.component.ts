@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ModalDismissReasons, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { ChartsComponent } from '../../charts/charts.component';
 import { NotificationType } from '../../enum/notification-type.enum';
@@ -11,8 +11,7 @@ import { AuthenticationService } from '../../service/authentication.service';
 import { NotificationService } from '../../service/notification.service';
 import { StockService } from '../../service/stock.service';
 import { WatchlistService } from '../../service/watchlist.service';
-import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
-import { AddStockToWatchlistModalComponent } from './add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-stock',
@@ -27,15 +26,16 @@ export class StockComponent implements OnInit, OnDestroy {
   user!: User;
   isRefreshing = false;
   selectedMonthInterval = 6;
-  private subscriptions: Subscription[] = [];
   closeResult!: string;
   modalOptions!: NgbModalOptions;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private stockService: StockService,
     private notificationService: NotificationService,
     private authService: AuthenticationService,
     private watchlistService: WatchlistService,
+    private activatedRoute: ActivatedRoute,
     private modalService: NgbModal
   ) {
     this.modalOptions = {
@@ -54,21 +54,11 @@ export class StockComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  view(stock: Tstock){
+  public view(stock: Tstock): void{
     this.openChartModal(stock);
   }
 
-  // trade(symbol: string){
-  //   this.subscriptions.push(this.stockService.getStockBySymbol(symbol).subscribe(
-  //     next => {
-  //       this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS Loading data...`);
-  //       this.selectedStock = next;
-  //       this.openTradeModal();
-  //     }
-  //   ));
-  // }
-
-  searchStocks(searchTerm: string): void {
+  public searchStocks(searchTerm: string): void {
     const results = new Array<Tstock>();
     for (const stock of this.stockService.getStocksFromLocalCache()!) {
       if (
@@ -83,49 +73,53 @@ export class StockComponent implements OnInit, OnDestroy {
      }
   }
 
-  refresh(){
+  public refresh(): void{
     this.isRefreshing = true;
-    this.subscriptions.push(this.stockService.refreshStockPrice().subscribe(
-      next => {
-        this.isRefreshing = false;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to refresh...`);
-        this.loadingData();
-      },
-      (errorResponse: HttpErrorResponse) => {
-        this.isRefreshing = false;
-        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-      }
+    this.subscriptions.push(
+      this.stockService.refreshStockPrice().subscribe(
+        response => {
+          this.isRefreshing = false;
+          this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to refresh...`);
+          this.loadingData();
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.isRefreshing = false;
+          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
+        }
     ));
   }
 
-
-  private loadingData() {
+  private loadingData(): void {
     this.notificationService.sendNotification(NotificationType.INFO, 'Loading...');
-    this.subscriptions.push(this.stockService.getStocks().subscribe(
-      stocks => {
-        this.stockService.addStocksToLocalCache(stocks);
-        this.stocks = stocks;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to load stocks');
-      },
-      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-    ));
+    this.subscriptions.push(
+      this.stockService.getStocks().subscribe(
+          (response: Array<Tstock>) => {
+            this.stockService.addStocksToLocalCache(response);
+            this.stocks = response;
+            this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success loaded data');
+          },
+          (errorResponse: HttpErrorResponse) =>
+              this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+      ));
+
+    this.subscriptions.push(
+        this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber).subscribe(
+            (response: Array<Watchlist>) => this.watchlists = response
+        ));
   }
 
-  private checkAndGetUser() {
-    this.authService.checkUserLoggedIn();
-    this.user = this.authService.getUserFromLocalCache();
+  private checkAndGetUser(): void {
+    const isLogin = this.authService.isUserLoggedIn();
+    if(isLogin)
+      this.user = this.authService.getUserFromLocalCache();
   }
 
-  private openTradeModal() {
-    const modalRef = this.modalService.open(TradeExecuteModalComponent);
-    modalRef.componentInstance.tstock = this.selectedStock;
-  }
-
-  private openChartModal(stock: Tstock) {
+  private openChartModal(stock: Tstock): void {
     const modalRef = this.modalService.open(ChartsComponent, this.modalOptions);
-    modalRef.componentInstance.selectedStock = stock;
     modalRef.componentInstance.selectedMonthInterval = this.selectedMonthInterval;
-    modalRef.componentInstance.title = this.selectedStock.symbol;
+    modalRef.componentInstance.selectedStock = stock;
+    modalRef.componentInstance.watchlists = this.activatedRoute.snapshot.data['watchlists'];
+    modalRef.componentInstance.title = stock.symbol;
     modalRef.componentInstance.user = this.user;
   }
 }
