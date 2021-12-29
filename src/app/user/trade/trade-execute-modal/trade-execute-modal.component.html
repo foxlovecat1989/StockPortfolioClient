@@ -5,9 +5,8 @@
   </button>
 </div>
 <div class="modal-body bg-grey font-weight-500">
-  <div *ngIf="tstock">
     <form [formGroup]="tradeForm">
-      <div class="form-group mb-1 mt-1">
+      <div class="form-group">
         <label for="tradeType" class="form-label">Trade Type: </label>
         <select class="form-control" formControlName="tradeType">
           <option [ngValue]="null" disabled>Select One</option>
@@ -37,7 +36,6 @@
       </div>
     </form>
   </div>
-</div>
 <div class="modal-footer">
   <button type="button" class="btn btn-primary" (click)="execute()" [disabled]="tradeForm.invalid">Execute</button>
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>

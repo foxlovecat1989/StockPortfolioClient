@@ -30,7 +30,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   user!: User;
   closeResult!: string;
   modalOptions!: NgbModalOptions;
-  selectedTstock!: Tstock;
+  selectedStock!: Tstock;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -39,17 +39,14 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private modalService: NgbModal,
     private reload: ReloadFormService,
-    private watchlistService: WatchlistService
+    private activatedRoute: ActivatedRoute
   ) {
-    this.modalOptions = {
-      backdrop:'static',
-      backdropClass:'customBackdrop'
-    }
+
   }
 
   ngOnInit(): void {
     this.checkAndGetUser();
-    this.loadingData();
+    this.initTable();
     this.subToReloadFormEvent();
   }
 
@@ -62,13 +59,8 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   }
 
   public trade(symbol: string): void{
-    this.subscriptions.push(this.stockService.getStockBySymbol(symbol).subscribe(
-      next => {
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success traded`);
-        this.selectedTstock = next;
-        this.openTradeModal();
-      }
-    ));
+    this.selectedStock = this.stockService.getStockFromLocalCacheBySymbol(symbol)!;
+    this.openTradeModal();
   }
 
   public createWatchlist(): void{
@@ -87,11 +79,12 @@ export class WatchlistComponent implements OnInit, OnDestroy {
 
   public refreshPrice(): void{
     this.isRefreshing = true;
+    this.notificationService.sendNotification(NotificationType.INFO, `Refresh Price...`);
     this.subscriptions.push(this.stockService.refreshStockPrice().subscribe(
       next => {
         this.isRefreshing = false;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS refreshed price`);
-        this.loadingData();
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success refreshed price`);
+        this.initTable();
       },
       (errorResponse: HttpErrorResponse) => {
         this.isRefreshing = false;
@@ -100,9 +93,26 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     ));
   }
 
+  private checkAndGetUser(): void {
+    const isLogin = this.authService.isUserLoggedIn();
+    if(isLogin)
+      this.user = this.authService.getUserFromLocalCache();
+  }
+
+  private subToReloadFormEvent(): void{
+    this.subscriptions.push(
+      this.reload.reloadEvent.subscribe(
+        next => {
+          this.initTable()
+        }
+      )
+    );
+  }
+
   private openTradeModal(): void {
     const modalRef = this.modalService.open(TradeExecuteModalComponent);
-    modalRef.componentInstance.tstock = this.selectedTstock;
+    modalRef.componentInstance.stock = this.selectedStock;
+    modalRef.componentInstance.user = this.user;
   }
 
   private openCreateWatchlistModal(): void {
@@ -115,57 +125,16 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.deleteWatchlist = deleteWatchlist;
   }
 
-  private checkAndGetUser(): void {
-    const isLogin = this.authService.isUserLoggedIn();
-    if(isLogin)
-      this.user = this.authService.getUserFromLocalCache();
+  private initTable() {
+    this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
+    if (this.watchlists.length > 0) {
+      this.selectedWatchlist = this.watchlists[0];
+      this.stocks = this.selectedWatchlist.tstocks!;
+    }
+    else {
+      this.selectedWatchlist = new Watchlist();
+      this.selectedWatchlist.name = 'No watchlist available';
+      this.stocks = null;
+    }
   }
-
-  private loadingData(): void {
-    this.isRefreshing = true;
-    this.notificationService.sendNotification(NotificationType.INFO, `Loading...`);
-    this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber).subscribe(
-      response => {
-        this.watchlists = response;
-        this.isRefreshing = false;
-        if(response.length > 0){
-          this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success loaded');
-          this.selectedWatchlist = this.watchlists[0];
-          this.stocks = this.selectedWatchlist.tstocks!;
-        }
-        else {
-          this.selectedWatchlist = new Watchlist();
-          this.selectedWatchlist.name = 'No watchlist available';
-          this.stocks = null;
-          this.notificationService.sendNotification(NotificationType.WARNING, `No watchlist are found.`);
-        }
-      },
-      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-    );
-
-  }
-
-  private refreshWatchlists(): void{
-    this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber).subscribe(
-        response => {
-            this.watchlists = response;
-            this.selectedWatchlist = this.watchlists[0];
-            this.stocks = this.selectedWatchlist.tstocks!;
-            this.reloadStocks();
-            this.notificationService.sendNotification(NotificationType.SUCCESS, `SUCCESS to refresh Data...`);
-        },
-        (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-    );
-  }
-
-  private subToReloadFormEvent(): void{
-    this.subscriptions.push(
-      this.reload.reloadEvent.subscribe(
-        next => {
-          this.refreshWatchlists();
-        }
-      )
-    );
-  }
-
 }

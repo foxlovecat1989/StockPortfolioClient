@@ -13,7 +13,7 @@ export class InventoryReportService {
     private http: HttpClient
     ) { }
 
-    getInventoryReport(userId: number): Observable<Array<InventoryReport>> {
-      return this.http.get<Array<InventoryReport>>(`${environment.apiUrl}/api/v1/report/${userId}`);
+    getInventoryReport(userNumber: string): Observable<Array<InventoryReport>> {
+      return this.http.get<Array<InventoryReport>>(`${environment.apiUrl}/api/v1/report/${userNumber}`);
     }
 }

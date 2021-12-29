@@ -42,6 +42,22 @@ export class StockService {
     localStorage.setItem('stocks', JSON.stringify(stocks));
   }
 
+  public getStockFromLocalCacheBySymbol(symbol: string): Tstock | null {
+    const stocks = this.getStocksFromLocalCache();
+    if(stocks == null)
+      return null;
+
+    return stocks.find(stock => symbol === stock.symbol)!;
+  }
+
+  public getStockFromLocalCacheByName(name: string): Tstock | null {
+    const stocks = this.getStocksFromLocalCache();
+    if(stocks == null)
+      return null;
+
+    return stocks.find(stock => name === stock.name)!;
+  }
+
   public getStocksFromLocalCache(): Array<Tstock> | null {
     if (localStorage.getItem('stocks')) {
         return JSON.parse(localStorage.getItem('stocks')!);

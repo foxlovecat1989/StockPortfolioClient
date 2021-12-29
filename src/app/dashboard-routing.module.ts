@@ -44,7 +44,7 @@ const routes: Routes = [
         path: 'user/stock', resolve: {watchlists: PrefetchWatchlistService}, component: StockComponent, canActivate: [AuthenticationGuard]
       },
       {
-        path: 'user/watchlist', component: WatchlistComponent, canActivate: [AuthenticationGuard]
+        path: 'user/watchlist', component: WatchlistComponent, resolve: {watchlists: PrefetchWatchlistService}, canActivate: [AuthenticationGuard]
       },
       {
         path: 'user/userdetail', component: UserdetailComponent, canActivate: [AuthenticationGuard]

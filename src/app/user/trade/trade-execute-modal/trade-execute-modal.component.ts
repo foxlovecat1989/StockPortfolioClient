@@ -9,6 +9,7 @@ import { TradeType } from 'src/app/enum/TradeType.enum';
 import { Trade } from 'src/app/model/trade';
 import { TradeObject } from 'src/app/model/trade-object';
 import { Tstock } from 'src/app/model/tstock';
+import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
@@ -20,8 +21,10 @@ import { TradeService } from 'src/app/service/trade.service';
 })
 export class TradeExecuteModalComponent implements OnInit, OnDestroy {
 
-  @Input('tstock')
-  tstock!: Tstock;
+  @Input('stock')
+  stock!: Tstock;
+  @Input('user')
+  user!: User;
   tradeObject = new TradeObject();
   tradeForm!: FormGroup;
   keysOfTradeType = Object.keys(TradeType);
@@ -41,28 +44,23 @@ export class TradeExecuteModalComponent implements OnInit, OnDestroy {
       this.initForm();
     }
 
-    ngOnChanges(): void {
-      this.initForm();
-    }
-
     ngOnDestroy(): void {
       this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 
-    public execute(){
-      this.notificationService.sendNotification(
-        NotificationType.WARNING, `Processing (${this.tradeForm.controls['tradeType'].value}) "${this.tstock.symbol}" Amount: ${this.tradeForm.controls['amount'].value}`)
-      this.tradeObject.tstock = this.tstock;
+    public execute(): void{
+      this.notificationService.sendNotification(NotificationType.WARNING, `Processing...`);
+      this.tradeObject.tstock = this.stock;
       this.tradeObject.amount = this.tradeForm.controls['amount'].value;
       this.tradeObject.tradeType = this.tradeForm.controls['tradeType'].value;
       this.tradeObject.user = this.authService.getUserFromLocalCache();
 
       this.subscriptions.push(this.tradeService.createTrade(this.tradeObject).subscribe(
         (response: Trade) => {
-          // close window
           this.activeModal.close();
           this.notificationService.sendNotification(
-          NotificationType.SUCCESS, ` SUCCESS TO (${this.tradeForm.controls['tradeType'].value}) "${this.tstock.symbol}" Amount: ${this.tradeForm.controls['amount'].value}`)
+          NotificationType.SUCCESS,
+          ` SUCCESS TO (${this.tradeForm.controls['tradeType'].value}) "${this.stock.symbol}" Amount: ${this.tradeForm.controls['amount'].value}`);
           this.reload.reloadEvent.emit();
           this.router.navigate(['user', 'report']);
         },
@@ -73,14 +71,13 @@ export class TradeExecuteModalComponent implements OnInit, OnDestroy {
           this.router.navigate(['user', 'report']);
         }
       ));
-
     }
 
-    private initForm() {
+    private initForm(): void {
       this.tradeForm = this.formbuilder.group({
         tradeType: ['', Validators.required],
-        stockSymbol: this.tstock.symbol,
-        stockName: this.tstock.name,
+        stockSymbol: this.stock.symbol,
+        stockName: this.stock.name,
         amount: ['', Validators.required]
       });
     }
