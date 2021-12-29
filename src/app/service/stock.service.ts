@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { StockReport } from '../model/stock-report';
 import { Tstock } from '../model/tstock';
 
 @Injectable({
@@ -46,6 +47,19 @@ export class StockService {
         return JSON.parse(localStorage.getItem('stocks')!);
     }
     return null;
+  }
+
+  getStockReports(symbol: string, month: number): Observable<Array<StockReport>>{
+      return this.http.get<Array<StockReport>>(`${environment.apiUrl}/api/v1/stock/histquotes/${symbol}/${month}`).pipe(
+        map(
+          nexts => {
+            const newStockReports = new Array<StockReport>();
+            nexts.forEach(stockReport => newStockReports.push(StockReport.fromHttp(stockReport)));
+
+            return newStockReports;
+          }
+        )
+      );
   }
 
 }
