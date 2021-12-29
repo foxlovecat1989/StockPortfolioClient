@@ -1,65 +1,5 @@
 <div class="container">
-  <div class="row no-gutters mt-3">
-      <div class="col-md-4 col-sm-4">
-        <div class="row mt-3">
-          <div class="col-sm-4">
-            <h1>Watchlist</h1>
-          </div>
-          <div class="col-md-12">
-            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-              <label for="watchlist" hidden>Select:</label>
-                <select class="form-control" id="selectedWatchlist" name="selectedWatchlist" [(ngModel)]="selectedWatchlist" (ngModelChange)="reloadStocks()">
-                    <option [ngValue]="selectedWatchlist" disabled>{{ selectedWatchlist?.name }}</option>
-                    <option *ngFor="let watchlist of watchlists" [ngValue]="watchlist">{{ watchlist?.name }}</option>
-                </select>
-              <button type="button" class="btn btn-outline-secondary" (click)="createWatchlist()">Create</button>
-              <button class="btn btn-outline-danger" (click)="deleteWatchlist(selectedWatchlist)">Delete</button>
-              <button type="button" (click)="refreshPrice()" class="btn btn-outline-info">
-              <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-12">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Symbol</th>
-            <th>Name</th>
-            <th>Previous Closed</th>
-            <th>Current Price</th>
-            <th>Change Price</th>
-            <th>Change In Percent</th>
-            <th>Volume</th>
-            <th>Last UpDate Time</th>
-            <th>Classify</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let stock of stocks">
-            <td (click)="trade(stock.symbol)">{{ stock.symbol }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.name }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.previousClosed | currency}}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.price | currency }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.changePrice | currency }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.changeInPercent / 100 | percent }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
-            <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
-            <td><button type="button" class="btn btn-outline-danger" (click)="remove(stock)">Remove</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row">
+  <div class="row mt-5">
     <div>
       <div class="col-md-12">
         <h1>Watchlist</h1>
@@ -78,7 +18,38 @@
       </div>
     </div>
     <div>
-        placeholder
+      <div class="col-sm-12 mt-3">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Name</th>
+              <th>Previous Closed</th>
+              <th>Current Price</th>
+              <th>Change Price</th>
+              <th>Change In Percent</th>
+              <th>Volume</th>
+              <th>Last UpDate Time</th>
+              <th>Classify</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let stock of stocks">
+              <td (click)="trade(stock.symbol)">{{ stock.symbol }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.name }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.previousClosed | currency}}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.price | currency }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.changePrice | currency }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.changeInPercent / 100 | percent }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.volume | number }}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.lastUpDateTime | date:'HH:mm - MMM d'}}</td>
+              <td (click)="trade(stock.symbol)">{{ stock.classify.name }}</td>
+              <td><button type="button" class="btn btn-outline-danger" (click)="remove(stock)">Remove</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
