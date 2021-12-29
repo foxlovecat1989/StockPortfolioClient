@@ -15,11 +15,11 @@ const customNotifierOptions: NotifierOptions = {
       },
     theme: 'material',
     behaviour: {
-      autoHide: 5000,
+      autoHide: 2000,
       onClick: 'hide',
       onMouseover: 'pauseAutoHide',
       showDismissButton: true,
-      stacking: 4
+      stacking: 3
     },
     animations: {
       enabled: true,
