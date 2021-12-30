@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { UserProfileModalComponent } from '../user/user-profile-modal/user-profile-modal.component';
 @Component({
   selector: 'app-wrapper',
   templateUrl: './wrapper.component.html',
@@ -16,7 +18,8 @@ export class WrapperComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) { }
 
   ngOnInit(): void {
@@ -34,7 +37,9 @@ export class WrapperComponent implements OnInit {
   }
 
   userProfile(){
-    this.router.navigate(['user', 'userdetail']);
+      const modalRef = this.modalService.open(UserProfileModalComponent);
+      modalRef.componentInstance.my_modal_title = 'I your title';
+      modalRef.componentInstance.my_modal_content = 'I am your content';
   }
 
 }

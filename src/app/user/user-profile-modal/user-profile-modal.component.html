@@ -1,0 +1,73 @@
+
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-center" id="exampleModalLongTitle">{{user?.userNumber}}
+              {{user?.username}}
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div>
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12 col-sm-auto">
+                      <div class="mx-auto" style="width: 120px;">
+                        <div class="d-flex justify-content-center align-items-center rounded">
+                          <img class="rounded" height="120" width="120" src="{{user?.profileImageUrl}}" alt="{{user?.username}}">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col d-flex flex-column flex-sm-row justify-content-between">
+                      <div class="text-center text-sm-left mb-sm-0">
+                        <h6 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{user?.username}}
+                          {{user?.username}}</h6>
+                        <p class="mb-1">{{user?.username}}</p>
+                        <div class="">Status:
+                          <span [hidden]="!user?.enabled" class="badge badge-success">isEnabled</span>
+                          <span [hidden]="user?.enabled" class="badge badge-danger">InisEnabled</span>
+                        </div>
+                        <div *ngIf="user?.lastLoginDateDisplay" class="text-muted"><small>Last Login: {{user?.lastLoginDateDisplay | date: 'medium'}}</small>
+                        </div>
+                      </div>
+                      <div class="text-center text-sm-right">
+                        <div class="text-muted"><small>Joined {{user?.joinDate | date: 'mediumDate'}}</small></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"></li>
+                  <li class="list-group-item"><i class="fa fa-id-badge float-right"></i>{{user?.userNumber}}
+                  </li>
+                  <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{user?.email}}
+                  </li>
+                  <li class="list-group-item"><i class="fas fa-shield-alt float-right"></i>{{user?.userRole?.substring(5)}}
+                  <li *ngIf="user?.lastLoginDateDisplay" class="list-group-item"><i
+                      class="fas fa-sign-in-alt float-right"></i>{{user?.lastLoginDateDisplay | date: 'medium'}}
+                  </li>
+                  <li class="list-group-item">
+                    <span [hidden]="user?.accountNonLocked">
+                      <i class="fa fa-lock float-right" style="color: red;">
+                      </i>
+                      Account Locked
+                    </span>
+                    <span [hidden]="!user?.accountNonLocked">
+                      <i class="fa fa-unlock float-right" style="color: green;">
+                      </i>
+                      Account Unlocked
+                    </span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+

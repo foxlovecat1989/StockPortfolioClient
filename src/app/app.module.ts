@@ -45,6 +45,7 @@ import { UserLogoutComponent } from './common/user-logout/user-logout.component'
 import { ResetPasswordComponent } from './common/login/rest-password/reset-password.component';
 import { ChartsComponent } from './user/stock/charts/charts.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { UserProfileModalComponent } from './user/user-profile-modal/user-profile-modal.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     DeleteClassifyModalComponent,
     UserLogoutComponent,
     ResetPasswordComponent,
-    ChartsComponent
+    ChartsComponent,
+    UserProfileModalComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     ViewStockModalComponent,
     AddClassifyModalComponent,
     ViewClassifyModalComponent,
-    ChartsComponent
+    ChartsComponent,
+    UserProfileModalComponent
   ],
   providers: [
     NotificationService,
