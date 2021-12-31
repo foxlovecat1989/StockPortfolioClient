@@ -9,7 +9,7 @@
                 <option [ngValue]="selectedWatchlist" disabled>{{ selectedWatchlist?.name }}</option>
                 <option *ngFor="let watchlist of watchlists" [ngValue]="watchlist">{{ watchlist?.name }}</option>
             </select>
-          <button type="button" class="btn btn-outline-secondary" (click)="createWatchlist()">Create</button>
+          <button type="button" class="btn btn-outline-success" (click)="createWatchlist()">Create</button>
           <button class="btn btn-outline-danger" (click)="deleteWatchlist(selectedWatchlist)">Delete</button>
           <button type="button" (click)="refreshPrice()" class="btn btn-outline-info">
           <i *ngIf="isRefreshing" class="fas fa-sync fa-spin"></i><i *ngIf="!isRefreshing" class="fas fa-sync"></i>
