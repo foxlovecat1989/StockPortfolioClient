@@ -12,7 +12,6 @@ import { AuthenticationService } from '../../service/authentication.service';
 import { NotificationService } from '../../service/notification.service';
 import { ReloadFormService } from '../../service/reload-form.service';
 import { StockService } from '../../service/stock.service';
-import { WatchlistService } from '../../service/watchlist.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
 import { WatchlistModalComponent } from './watchlist-modal/watchlist-modal.component';
 
@@ -26,11 +25,12 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   watchlists!: Array<Watchlist>;
   selectedWatchlist!: Watchlist;
   stocks!: Array<Tstock> | null;
-  isRefreshing = false;
+  isRefreshing!: boolean;
   user!: User;
   closeResult!: string;
   modalOptions!: NgbModalOptions;
   selectedStock!: Tstock;
+  isReloaded = false;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -102,9 +102,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   private subToReloadFormEvent(): void{
     this.subscriptions.push(
       this.reload.reloadEvent.subscribe(
-        next => {
-          this.initTable()
-        }
+        next => this.reloadWatchlist()
       )
     );
   }
@@ -136,5 +134,18 @@ export class WatchlistComponent implements OnInit, OnDestroy {
       this.selectedWatchlist.name = 'No watchlist available';
       this.stocks = null;
     }
+  }
+
+  private reloadWatchlist(): void {
+    const addOne = this.activatedRoute.queryParams.subscribe(
+      params => {
+        const name = params['name'];
+        const watchlist = new Watchlist();
+        watchlist.name = name;
+        this.watchlists.push(watchlist);
+        this.selectedWatchlist = watchlist;
+        this.reloadStocks();
+      }
+    );
   }
 }
