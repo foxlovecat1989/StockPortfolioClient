@@ -9,13 +9,13 @@
       <div class="form-group col-6">
         <label for="name">Watchlist Name:</label>
         <input type="text" class="form-control" id="name" name="name" formControlName="name">
-        <!-- <div class="alert alert-danger" *ngIf="watchlistForm.controls['name'].invalid && watchlistForm.controls['name'].dirty">
-          Name is required
-        </div> -->
+        <div class="alert alert-danger" *ngIf="watchlistForm.controls['name'].invalid && watchlistForm.controls['name'].touched">
+           Name is required
+        </div>
       </div>
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-outline-primary" (click)="execute()">Create</button>
+  <button type="button" class="btn btn-outline-primary" (click)="execute()" [disabled]="watchlistForm.invalid">Create</button>
   <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Cancel</button>
 </div>
