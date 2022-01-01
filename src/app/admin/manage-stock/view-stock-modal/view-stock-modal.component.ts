@@ -59,7 +59,7 @@ export class ViewStockModalComponent implements OnInit, OnDestroy {
     ));
   }
 
-  private initForm() {
+  private initForm(): void {
     this.stockForm = this.formBuilder.group({
       id: this.selectedStock.id,
       name: this.selectedStock.name,

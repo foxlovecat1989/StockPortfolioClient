@@ -20,10 +20,8 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
 
   @Input('classifies')
   classifies!: Array<Classify>;
-
   stock = new Tstock();
   stockForm!: FormGroup;
-
   closeResult!: string;
   private subscriptions: Subscription[] = [];
 
@@ -45,7 +43,7 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  private initForm() {
+  private initForm(): void {
     this.stockForm = this.formBuilder.group({
       name: '',
       symbol: '',
@@ -53,7 +51,7 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  execute(){
+  execute(): void{
     this.notificationService.sendNotification(NotificationType.INFO, `Processing adding data...`);
     this.stock.name = this.stockForm.controls['name'].value;
     this.stock.symbol = this.stockForm.controls['symbol'].value;
@@ -62,7 +60,7 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.stockService.addStock(this.stock).subscribe(
       resposne => {
         this.reloadFormService.reloadEvent.emit();
-          this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to add stock`);
+          this.notificationService.sendNotification(NotificationType.SUCCESS, `Added Stock: ${this.stock.name} Success`);
           this.activeModal.close();
       },
       (errorResponse: HttpErrorResponse) => {
