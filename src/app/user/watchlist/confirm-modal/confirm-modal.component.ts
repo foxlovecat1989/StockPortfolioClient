@@ -40,8 +40,7 @@ export class ConfirmModalComponent implements OnInit, OnDestroy{
     this.subscriptions.push(this.watchlistService.deleteWatchlist(deleteWatchlist.id).subscribe(
       response => {
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to delete ${deleteWatchlist.name}`);
-        this.router.navigate(['user', 'watchlist'], {queryParams: {'action': 'delete'}});
-        this.reload.reloadWatchlistEvent.emit(deleteWatchlist);
+        this.reload.reloadWatchlistEvent.emit({'watchlist': deleteWatchlist, 'isCreate': false});
         this.activeModal.close();
       },
       (errorResponse: HttpErrorResponse) => {

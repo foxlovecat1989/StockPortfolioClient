@@ -56,8 +56,7 @@ export class WatchlistModalComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.watchlistService.createWatchlist(this.watchlist.name, this.watchlist.user.userNumber).subscribe(
       response => {
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success created watchlist: ${this.watchlist.name}`);
-        this.reload.reloadWatchlistEvent.emit(this.watchlist);
-        this.router.navigate(['user', 'watchlist'], {queryParams: {'action': 'create'} });
+        this.reload.reloadWatchlistEvent.emit({'watchlist': this.watchlist, 'isCreate': true});
         this.activeModal.close();
       },
       (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)

@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, ComponentFactoryResolver, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -39,8 +39,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private modalService: NgbModal,
     private reload: ReloadFormService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
+    private activatedRoute: ActivatedRoute
   ) {
 
   }
@@ -103,7 +102,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   private subToReloadFormEvent(): void{
     this.subscriptions.push(
       this.reload.reloadWatchlistEvent.subscribe(
-        (next: Watchlist) => this.reloadWatchlist(next)
+        (next: {'watchlist': Watchlist, 'isCreate': boolean}) => this.reloadWatchlist(next)
       )
     );
   }
@@ -137,10 +136,9 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     }
   }
 
-  private reloadWatchlist(watchlist: Watchlist): void {
-    const action = this.activatedRoute.snapshot.queryParams['action'];
-    console.log(action)
-    if(action === 'create'){    // create
+  private reloadWatchlist(next: {'watchlist': Watchlist, 'isCreate': boolean}): void {
+    const watchlist = next.watchlist;
+    if(next.isCreate){    // create
       this.watchlists.push(watchlist);
       this.selectedWatchlist = watchlist;
     }
@@ -150,6 +148,5 @@ export class WatchlistComponent implements OnInit, OnDestroy {
       this.selectedWatchlist = this.watchlists[0];
     }
     this.reloadStocks();
-    
   }
 }
