@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ComponentFactoryResolver, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
@@ -39,7 +39,8 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private modalService: NgbModal,
     private reload: ReloadFormService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
 
   }
@@ -101,8 +102,8 @@ export class WatchlistComponent implements OnInit, OnDestroy {
 
   private subToReloadFormEvent(): void{
     this.subscriptions.push(
-      this.reload.reloadEvent.subscribe(
-        next => this.reloadWatchlist()
+      this.reload.reloadWatchlistEvent.subscribe(
+        (next: Watchlist) => this.reloadWatchlist(next)
       )
     );
   }
@@ -136,16 +137,19 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     }
   }
 
-  private reloadWatchlist(): void {
-    const addOne = this.activatedRoute.queryParams.subscribe(
-      params => {
-        const name = params['name'];
-        const watchlist = new Watchlist();
-        watchlist.name = name;
-        this.watchlists.push(watchlist);
-        this.selectedWatchlist = watchlist;
-        this.reloadStocks();
-      }
-    );
+  private reloadWatchlist(watchlist: Watchlist): void {
+    const action = this.activatedRoute.snapshot.queryParams['action'];
+    console.log(action)
+    if(action === 'create'){    // create
+      this.watchlists.push(watchlist);
+      this.selectedWatchlist = watchlist;
+    }
+    else{             // delete
+      const index = this.watchlists.findIndex(next => watchlist.name === next.name);
+      this.watchlists.splice(index, 1);
+      this.selectedWatchlist = this.watchlists[0];
+    }
+    this.reloadStocks();
+    
   }
 }

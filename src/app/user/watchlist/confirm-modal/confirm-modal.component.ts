@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
@@ -23,22 +24,24 @@ export class ConfirmModalComponent implements OnInit, OnDestroy{
     public activeModal: NgbActiveModal,
     private notificationService: NotificationService,
     private reload: ReloadFormService,
-    private watchlistService: WatchlistService
+    private watchlistService: WatchlistService,
+    private router: Router
     ) {}
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(sub => sub.unsubscribe());
-  }
 
   ngOnInit(): void {
 
   }
 
-  executeDelete(deleteWatchlist: Watchlist){
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(sub => sub.unsubscribe());
+  }
+
+  public executeDelete(deleteWatchlist: Watchlist): void {
     this.subscriptions.push(this.watchlistService.deleteWatchlist(deleteWatchlist.id).subscribe(
       response => {
-        this.reload.reloadEvent.emit();
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to delete ${deleteWatchlist.name}`);
+        this.router.navigate(['user', 'watchlist'], {queryParams: {'action': 'delete'}});
+        this.reload.reloadWatchlistEvent.emit(deleteWatchlist);
         this.activeModal.close();
       },
       (errorResponse: HttpErrorResponse) => {
