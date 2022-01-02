@@ -23,10 +23,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
 
   @Input('selectedUser')
   selectedUser!: User;
-  @Input('recentTrades')
-  recentTrades!: Array<Trade>;
   userForm!: FormGroup;
-  keysOfRole = Object.keys(UserRole);
   fileName!: string;
   profileImage!: File;
   closeResult!: string;
@@ -39,7 +36,6 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private notificationService: NotificationService,
     private reloadFormService: ReloadFormService,
-    private tradeService: TradeService,
     private modalService: NgbModal
     ) {
       this.modalOptions = {
@@ -49,7 +45,6 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit(): void {
-    this.loadingRecentTrades();
     this.initForm();
   }
 
@@ -57,7 +52,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  execute(){
+  execute(): void{
     this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.selectedUser.username = this.userForm.controls['username'].value;
     this.selectedUser.email = this.userForm.controls['email'].value;
@@ -78,17 +73,12 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     ));
   }
 
-  onProfileImageChange(fileName: string, profileImage: File): void {
-    this.fileName =  fileName;
-    this.profileImage = profileImage;
-  }
-
-  remove(){
+  remove(): void{
     this.activeModal.close();
     this.openDelete();
   }
 
-  private initForm() {
+  private initForm(): void {
     this.userForm = this.formBuilder.group({
       userNumber: this.selectedUser.userNumber,
       username: this.selectedUser.username,
@@ -99,20 +89,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     });
   }
 
-  private loadingRecentTrades() {
-    this.subscriptions.push(this.tradeService.getRecentTrades(this.selectedUser.userNumber).subscribe(
-      response => {
-        this.recentTrades = response;
-        this.notificationService.sendNotification(
-              NotificationType.SUCCESS,
-              `Succuess to get recent trades by ${this.selectedUser.userNumber}`);
-      },
-      (errorResponse: HttpErrorResponse) =>
-          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-    ));
-  }
-
-  private openDelete() {
+  private openDelete(): void {
     const modalRef = this.modalService.open(DeleteUserModalComponent);
     modalRef.componentInstance.selectedUser = this.selectedUser;
   }
