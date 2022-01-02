@@ -57,7 +57,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/dashboard',
+    redirectTo: '/user/report',
     pathMatch: 'full'
   }
 ];

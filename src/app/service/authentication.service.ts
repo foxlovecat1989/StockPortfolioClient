@@ -5,9 +5,6 @@ import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { User } from '../model/user';
-import { ReloadFormService } from './reload-form.service';
-
-
 
 @Injectable({
   providedIn: 'root'

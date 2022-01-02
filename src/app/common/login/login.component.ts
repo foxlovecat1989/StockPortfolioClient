@@ -15,7 +15,8 @@ import { ReloadFormService } from 'src/app/service/reload-form.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  public showLoading = false;
+
+  showLoading = false;
   private subscriptions: Subscription[] = [];
 
 
