@@ -61,21 +61,12 @@
                   </div>
                 </form>
               </div>
-              <div class="row mt-3">
-                <div>
-                  <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                    <input
-                        type="file" accept="image/*" name="profileImage"
-                        (change)="onProfileImageChange($any($event).target.files[0].name, $any($event).target.files[0])" class="form-control">
-                    <button type="button" class="btn btn-outline-primary" (click)="onUpdateProfileImage()">Upload</button>
-                  </div>
-                </div>
-              </div>
           </div>
         </div>
       </div>
   </form>
   <div class="modal-footer">
+      <button (click)="resetPassword()" class="btn btn-block btn-danger">Reset Password</button>
       <button (click)="onLogOut()" class="btn btn-block btn-secondary">
         <span>Logout</span>
         <i class="fas fa-sign-in-alt ml-1"></i>

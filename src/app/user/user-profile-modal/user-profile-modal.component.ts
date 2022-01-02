@@ -63,7 +63,14 @@ export class UserProfileModalComponent implements OnInit {
   }
 
   resetPassword(): void {
-
+    this.subscriptions.push(this.userService.resetPassword(this.user.email).subscribe(
+      response => {
+        this.notificationService.sendNotification(NotificationType.SUCCESS, response.message);
+        this.onLogOut();
+      },
+      (errorResponse: HttpErrorResponse) =>
+          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    ));
   }
 
   execute(): void{
