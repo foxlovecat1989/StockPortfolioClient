@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           this.authenticationService.saveToken(token!);
           this.authenticationService.addUserToLocalCache(response.body!);
           this.showLoading = false;
-          this.router.navigate(['user', 'stock']);
+          this.router.navigate(['user', 'report']);
           this.reload.reloadHeaderEvent.emit(true);
         },
         (errorResponse: HttpErrorResponse) => {
