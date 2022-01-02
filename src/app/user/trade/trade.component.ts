@@ -55,7 +55,22 @@ export class TradeComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  loadParams(){
+  dateChanged(): void {
+    this.router.navigate(['user', 'trade'], {queryParams : {date : this.selectedDate}});
+  }
+
+  execute(tstock: Tstock): void{
+    this.selectedTstock = tstock;
+    this.open();
+  }
+
+  private open(): void {
+    const modalRef = this.modalService.open(TradeExecuteModalComponent);
+    modalRef.componentInstance.stock = this.selectedTstock;
+    modalRef.componentInstance.user = this.user;
+  }
+
+  private loadParams(): void{
     this.subscriptions.push(this.route.queryParams.subscribe(
       params => {
         this.selectedDate = params['date'];
@@ -65,7 +80,7 @@ export class TradeComponent implements OnInit, OnDestroy {
       }));
   }
 
-  loadData() {
+  private loadData(): void {
         const user = this.authService.getUserFromLocalCache();
         this.notificationService.sendNotification(NotificationType.INFO, 'Loading Data..please wait');
         this.subscriptions.push(this.tradeService.getTradesByDate(+user.id, this.selectedDate).subscribe(
@@ -83,29 +98,5 @@ export class TradeComponent implements OnInit, OnDestroy {
             this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
           }
         ));
-  }
-
-  dateChanged() {
-    this.router.navigate(['user', 'trade'], {queryParams : {date : this.selectedDate}});
-  }
-
-  execute(tstock: Tstock){
-    this.selectedTstock = tstock;
-    this.open();
-  }
-
-  open() {
-    const modalRef = this.modalService.open(TradeExecuteModalComponent);
-    modalRef.componentInstance.tstock = this.selectedTstock;
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return  `with: ${reason}`;
-    }
   }
 }
