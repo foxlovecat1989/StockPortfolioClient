@@ -7,6 +7,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { HeaderType } from 'src/app/enum/header-type.enum';
 import { User } from 'src/app/model/user';
+import { ReloadFormService } from 'src/app/service/reload-form.service';
 
 @Component({
   selector: 'app-login',
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       private router: Router,
       private authenticationService: AuthenticationService,
       private notificationService: NotificationService,
+      private reload: ReloadFormService
     ) {}
 
   ngOnInit(): void {
@@ -40,9 +42,9 @@ export class LoginComponent implements OnInit, OnDestroy {
           const token = response.headers.get(HeaderType.JWT_TOKEN);
           this.authenticationService.saveToken(token!);
           this.authenticationService.addUserToLocalCache(response.body!);
-          this.authenticationService.isUserLoggedInEvent.emit(true);
           this.showLoading = false;
           this.router.navigate(['user', 'stock']);
+          this.reload.reloadHeaderEvent.emit(true);
         },
         (errorResponse: HttpErrorResponse) => {
           this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);

@@ -53,8 +53,8 @@ export class UserService {
     return this.http.get<CustomHttpRespone>(`${environment.apiUrl}/api/v1/user/reset/password/${email}`);
   }
 
-  updateProfileImage(formData: FormData): Observable<HttpEvent<User>> {
-    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/updateProfileImage`, formData,
+  updateProfileImage(userNumber: String, formData: FormData): Observable<HttpEvent<User>> {
+    return this.http.post<User>(`${environment.apiUrl}/api/v1/user/updateProfileImage/${userNumber}`, formData,
     {reportProgress: true,
       observe: 'events'
     });

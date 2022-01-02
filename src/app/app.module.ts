@@ -33,7 +33,6 @@ import { AddStockToWatchlistModalComponent } from './user/stock/add-stock-to-wat
 import { AddUserModalComponent } from './admin/manage-user/add-user-modal/add-user-modal.component';
 import { DeleteUserModalComponent } from './admin/manage-user/delete-user-modal/delete-user-modal.component';
 import { ViewUserModalComponent } from './admin/manage-user/view-user-modal/view-user-modal.component';
-import { UserdetailComponent } from './user/userdetail/userdetail.component';
 import { ManageStockComponent } from './admin/manage-stock/manage-stock.component';
 import { ViewStockModalComponent } from './admin/manage-stock/view-stock-modal/view-stock-modal.component';
 import { AddStockModalComponent } from './admin/manage-stock/add-stock-modal/add-stock-modal.component';
@@ -41,7 +40,6 @@ import { ManageClassifyComponent } from './admin/manage-classify/manage-classify
 import { AddClassifyModalComponent } from './admin/manage-classify/add-classify-modal/add-classify-modal.component';
 import { ViewClassifyModalComponent } from './admin/manage-classify/view-classify-modal/view-classify-modal.component';
 import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-classify-modal/delete-classify-modal.component';
-import { UserLogoutComponent } from './common/user-logout/user-logout.component';
 import { ResetPasswordComponent } from './common/login/rest-password/reset-password.component';
 import { ChartsComponent } from './user/stock/charts/charts.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -65,7 +63,6 @@ import { UserProfileModalComponent } from './user/user-profile-modal/user-profil
     AddUserModalComponent,
     DeleteUserModalComponent,
     ViewUserModalComponent,
-    UserdetailComponent,
     ManageStockComponent,
     ViewStockModalComponent,
     AddStockModalComponent,
@@ -73,7 +70,6 @@ import { UserProfileModalComponent } from './user/user-profile-modal/user-profil
     AddClassifyModalComponent,
     ViewClassifyModalComponent,
     DeleteClassifyModalComponent,
-    UserLogoutComponent,
     ResetPasswordComponent,
     ChartsComponent,
     UserProfileModalComponent

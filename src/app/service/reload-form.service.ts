@@ -6,6 +6,7 @@ import { Watchlist } from '../model/watchlist';
 })
 export class ReloadFormService {
   reloadEvent = new EventEmitter();
+  reloadHeaderEvent = new EventEmitter<boolean>();
   reloadWatchlistEvent = new EventEmitter<{'watchlist': Watchlist, 'isCreate': boolean}>();
   constructor() { }
 }

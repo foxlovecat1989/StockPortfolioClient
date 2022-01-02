@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
 import { User } from '../model/user';
+import { ReloadFormService } from './reload-form.service';
 
 
 
@@ -15,7 +16,6 @@ export class AuthenticationService {
 
   private token!: string;
   private loggedInUsername!: string;
-  isUserLoggedInEvent = new EventEmitter<boolean>();
 
   constructor(
     private http: HttpClient,
@@ -67,9 +67,7 @@ export class AuthenticationService {
       this.logOut();
       return false;
     }
-
     this.loggedInUsername = decodedTokenSub;
-    this.isUserLoggedInEvent.emit(true);
 
     return true;
   }

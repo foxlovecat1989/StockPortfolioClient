@@ -9,10 +9,8 @@ import { AuthenticationGuard } from './guard/authentication.guard';
 import { InventoryComponent } from './user/inventory/inventory.component';
 import { StockComponent } from './user/stock/stock.component';
 import { TradeComponent } from './user/trade/trade.component';
-import { UserdetailComponent } from './user/userdetail/userdetail.component';
 import { WatchlistComponent } from './user/watchlist/watchlist.component';
 import { ManageClassifyComponent } from './admin/manage-classify/manage-classify.component';
-import { UserLogoutComponent } from './common/user-logout/user-logout.component';
 import { ResetPasswordComponent } from './common/login/rest-password/reset-password.component';
 import { ChartsComponent } from './user/stock/charts/charts.component';
 import { PrefetchWatchlistService } from './service/prefetch-watchlist.service';
@@ -24,9 +22,6 @@ const routes: Routes = [
     children: [
       {
         path: 'login', component: LoginComponent
-      },
-      {
-        path: 'logout', component: UserLogoutComponent
       },
       {
         path: 'register', component: RegisterComponent
@@ -45,9 +40,6 @@ const routes: Routes = [
       },
       {
         path: 'user/watchlist', component: WatchlistComponent, resolve: {watchlists: PrefetchWatchlistService}, canActivate: [AuthenticationGuard]
-      },
-      {
-        path: 'user/userdetail', component: UserdetailComponent, canActivate: [AuthenticationGuard]
       },
       {
         path: 'user/report', component: InventoryComponent, canActivate: [AuthenticationGuard]
