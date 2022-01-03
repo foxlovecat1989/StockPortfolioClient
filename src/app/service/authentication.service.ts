@@ -69,7 +69,7 @@ export class AuthenticationService {
   }
 
   isAdmin(): boolean {
-    const role = this.getUserFromLocalCache().userRole;
+    const role = this.getUserFromLocalCache().userRole.substring(5).toUpperCase();
     const isAdmin = (role === 'ADMIN') || (role === 'MANAGER');
 
     return isAdmin;

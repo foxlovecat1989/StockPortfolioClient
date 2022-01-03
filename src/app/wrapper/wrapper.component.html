@@ -31,17 +31,17 @@
           <span *ngIf="isExpanded">Report</span>
         </mat-list-item>
 
-        <mat-list-item [routerLink]="'admin/management/users'">
+        <mat-list-item [routerLink]="'admin/management/users'" *ngIf="isAdmin">
           <mat-icon mat-list-icon>manage_accounts</mat-icon>
           <span *ngIf="isExpanded">Manage User</span>
         </mat-list-item>
 
-        <mat-list-item [routerLink]="'admin/management/stocks'">
+        <mat-list-item [routerLink]="'admin/management/stocks'" *ngIf="isAdmin">
           <mat-icon mat-list-icon>polymer</mat-icon>
           <span *ngIf="isExpanded">Manage Stock</span>
         </mat-list-item>
 
-        <mat-list-item [routerLink]="'admin/management/classifies'">
+        <mat-list-item [routerLink]="'admin/management/classifies'" *ngIf="isAdmin">
           <mat-icon mat-list-icon>dashboard_customize</mat-icon>
           <span *ngIf="isExpanded">Manage Classify</span>
         </mat-list-item>

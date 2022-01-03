@@ -14,6 +14,7 @@ export class WrapperComponent implements OnInit {
   user!: User | null;
   isExpanded = false;
   isLogin!: boolean;
+  isAdmin!: boolean;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -23,7 +24,12 @@ export class WrapperComponent implements OnInit {
 
   ngOnInit(): void {
     this.checkUserAndSet();
+    this.setIsAdmin();
     this.listenToReloadEvent();
+  }
+
+  private setIsAdmin(): void {
+    this.isAdmin = this.authenticationService.isAdmin();
   }
 
   toggleExpanded(): void {
