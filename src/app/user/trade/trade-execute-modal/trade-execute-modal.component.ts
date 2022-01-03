@@ -67,8 +67,6 @@ export class TradeExecuteModalComponent implements OnInit, OnDestroy {
         (errorResponse: HttpErrorResponse) => {
           this.activeModal.close();
           this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
-          this.reload.reloadEvent.emit();
-          this.router.navigate(['user', 'report']);
         }
       ));
     }
