@@ -16,11 +16,10 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private helper: JwtHelperService,
-    private router: Router
+    private helper: JwtHelperService
     ) {}
 
-   login(user: User): Observable<HttpResponse<User>> {
+  login(user: User): Observable<HttpResponse<User>> {
     return this.http.post<User>(`${environment.apiUrl}/api/v1/user/login`, user, { observe: 'response' });
   }
 
@@ -67,5 +66,12 @@ export class AuthenticationService {
     this.loggedInUsername = decodedTokenSub;
 
     return true;
+  }
+
+  isAdmin(): boolean {
+    const role = this.getUserFromLocalCache().userRole;
+    const isAdmin = (role === 'ADMIN') || (role === 'MANAGER');
+
+    return isAdmin;
   }
 }
