@@ -7,15 +7,15 @@ export class NotificationService {
 
   private notifier: NotifierService;
 
-	public constructor( notifier: NotifierService ) {
+	constructor( notifier: NotifierService ) {
 		this.notifier = notifier;
 	}
 
-  public notify(type: NotificationType, message: string) {
+  notify(type: NotificationType, message: string) {
     this.notifier.notify(type, message);
   }
 
-  public sendNotification(notificationType: NotificationType, message: string): void {
+  sendNotification(notificationType: NotificationType, message: string): void {
     if (message)
       this.notify(notificationType, message);
     else

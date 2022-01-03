@@ -14,7 +14,7 @@ export class WatchlistService {
     private http: HttpClient
   ) { }
 
-  public getWatchlistsByUserNumber(userNumber: string): Observable<Array<Watchlist>>{
+  getWatchlistsByUserNumber(userNumber: string): Observable<Array<Watchlist>>{
     return this.http.get<Array<Watchlist>>(`${environment.apiUrl}/api/v1/watchlist/findAll/${userNumber}`)
     .pipe(
       map(
@@ -28,19 +28,19 @@ export class WatchlistService {
     );
   }
 
-  public createWatchlist(watchlistName: string, userNumber: string): Observable<Watchlist>{
+  createWatchlist(watchlistName: string, userNumber: string): Observable<Watchlist>{
     const formObject: {'name': string} = {name: watchlistName};
 
     return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist/create/${userNumber}`, formObject);
   }
 
-  public addStockToWatchlist(symbol: string, watchlistId: string): Observable<Watchlist>{
+  addStockToWatchlist(symbol: string, watchlistId: string): Observable<Watchlist>{
     const formObject: {'id': string} = {id: watchlistId};
 
     return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist/add/${symbol}`, formObject);
   }
 
-  public deleteWatchlist(watchlistId: number): Observable<CustomHttpRespone> {
+  deleteWatchlist(watchlistId: number): Observable<CustomHttpRespone> {
     return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/watchlist/${watchlistId}`);
   }
 
