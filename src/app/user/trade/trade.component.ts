@@ -83,7 +83,7 @@ export class TradeComponent implements OnInit, OnDestroy {
   private loadData(): void {
         const user = this.authService.getUserFromLocalCache();
         this.notificationService.sendNotification(NotificationType.INFO, 'Loading Data..please wait');
-        this.subscriptions.push(this.tradeService.getTradesByDate(+user.id, this.selectedDate).subscribe(
+        this.subscriptions.push(this.tradeService.getTradesByDate(user.userNumber, this.selectedDate).subscribe(
           next => {
             this.trades = next;
             this.isLoading = true;

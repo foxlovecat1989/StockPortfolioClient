@@ -13,9 +13,7 @@ import { UserService } from './user.service';
 export class TradeService {
 
   constructor(
-    private http: HttpClient,
-    private authService: AuthenticationService,
-    private userService: UserService
+    private http: HttpClient
   ) { }
 
   getTrades(): Observable<Array<Trade>> {
@@ -36,9 +34,9 @@ export class TradeService {
     );
   }
 
-  getTradesByDate(userId: number, date: string) : Observable<Array<Trade>> {
+  getTradesByDate(userNumner: string, date: string) : Observable<Array<Trade>> {
 
-    return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trade/findAll/${userId}/${date}`)
+    return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trade/findAll/${userNumner}/${date}`)
       .pipe(
         map (
           datas => {
@@ -51,11 +49,7 @@ export class TradeService {
       );
   }
 
-  getRecentTrades(userNumber: string) : Observable<Array<Trade>> {
-    return this.http.get<Trade[]>(`${environment.apiUrl}/api/v1/trade/recentTrade/findAll/${userNumber}`);
-  }
-
-  public createTrade(tradeObject: TradeObject): Observable<Trade>{
+  createTrade(tradeObject: TradeObject): Observable<Trade>{
     return this.http.post<Trade>(environment.apiUrl + '/api/v1/trade/', tradeObject);
   }
 }
