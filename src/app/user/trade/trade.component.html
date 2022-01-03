@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-7">
+    <div class="col-md-10">
       <div class="row">
         <div class="col-md-8 mt-5">
         <h1>Trade Records</h1>
@@ -19,21 +19,21 @@
               <li class="list-inline-item badge bg-secondary">Pre-Close: {{ trade.tstock.previousClosed | currency }}</li>
             </ul>
             <div class="row">
-              <div class="col-md-7">
+              <div class="col-md-8">
                 <p class="mb-0">Buy At: {{ trade.price | currency }}</p>
                 <p class="mb-0">Change: {{ trade.tstock.price - trade.price | currency }}</p>
                 <p class="mb-0">Volume: {{ trade.amount | number }}</p>
                 <p class="mb-0 badge bg-danger">Profit: {{ (trade.tstock.price - trade.price) * trade.amount | currency}}</p>
               </div>
               <div class="col-md-3">
-                <a class="btn btn-outline-danger mx-1 " (click)="execute(trade.tstock)">Trade</a>
+                <a class="btn btn-outline-danger mx-1 " (click)="execute(trade.tstock)"><i class="fas fa-balance-scale"></i></a>
               </div>
             </div>
           </div>
         </div>
 
       </div>
-      </div>
+        </div>
       </div>
     </div>
   </div>
