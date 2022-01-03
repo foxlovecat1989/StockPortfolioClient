@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
@@ -37,7 +36,7 @@ export class WrapperComponent implements OnInit {
   }
 
   private checkUserAndSet(): void {
-    this.isLogin = this.authenticationService.checkUserLoggedIn();
+    this.isLogin = this.authenticationService.isUserLoggedIn();
     if(this.isLogin)
       this.user = this.authenticationService.getUserFromLocalCache();
     else

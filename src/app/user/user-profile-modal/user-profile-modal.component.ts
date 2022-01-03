@@ -141,7 +141,7 @@ export class UserProfileModalComponent implements OnInit {
   }
 
   private checkAndSetUser() {
-    const isLogin = this.authenticationService.checkUserLoggedIn();
+    const isLogin = this.authenticationService.isUserLoggedIn();
     if (isLogin)
       this.user = this.authenticationService.getUserFromLocalCache();
   }

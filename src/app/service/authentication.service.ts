@@ -1,5 +1,5 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -20,11 +20,11 @@ export class AuthenticationService {
     private router: Router
     ) {}
 
-  public login(user: User): Observable<HttpResponse<User>> {
+   login(user: User): Observable<HttpResponse<User>> {
     return this.http.post<User>(`${environment.apiUrl}/api/v1/user/login`, user, { observe: 'response' });
   }
 
-  public logOut(): void {
+  logOut(): void {
     this.token != null;
     this.loggedInUsername != null;
     localStorage.removeItem('user');
@@ -32,28 +32,28 @@ export class AuthenticationService {
     localStorage.removeItem('stocks');
   }
 
-  public saveToken(token: string): void {
+  saveToken(token: string): void {
     this.token = token;
     localStorage.setItem('token', token);
   }
 
-  public addUserToLocalCache(user: User): void {
+  addUserToLocalCache(user: User): void {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  public getUserFromLocalCache(): User {
+  getUserFromLocalCache(): User {
     return JSON.parse(localStorage.getItem('user')!);
   }
 
-  public loadToken(): void {
+  loadToken(): void {
     this.token = localStorage.getItem('token')!;
   }
 
-  public getToken(): string {
+  getToken(): string {
     return this.token;
   }
 
-  public isUserLoggedIn(): boolean {
+  isUserLoggedIn(): boolean {
     this.loadToken();
     const decodedTokenSub = this.helper.decodeToken(this.token);
     const isTokenNullOrEmpty = (this.token == null || this.token === '');
@@ -67,12 +67,5 @@ export class AuthenticationService {
     this.loggedInUsername = decodedTokenSub;
 
     return true;
-  }
-
-  public checkUserLoggedIn() : boolean {
-    if (!this.isUserLoggedIn())
-      this.router.navigate(['login']);
-
-    return this.isUserLoggedIn();
   }
 }
