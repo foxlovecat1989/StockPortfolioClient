@@ -3,7 +3,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { NotificationType } from '../../enum/notification-type.enum';
 import { Tstock } from '../../model/tstock';
 import { User } from '../../model/user';
@@ -13,7 +12,8 @@ import { NotificationService } from '../../service/notification.service';
 import { ReloadFormService } from '../../service/reload-form.service';
 import { StockService } from '../../service/stock.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
-import { WatchlistModalComponent } from './watchlist-modal/watchlist-modal.component';
+import { CreateWatchlistModalComponent } from './create-watchlist-modal/create-watchlist-modal.component';
+import { DeleteWatchlistModalComponent } from './delete-watchlist-modal/delete-watchlist-modal.component';
 
 @Component({
   selector: 'app-watchlist',
@@ -114,12 +114,12 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   }
 
   private openCreateWatchlistModal(): void {
-    const modalRef = this.modalService.open(WatchlistModalComponent);
+    const modalRef = this.modalService.open(CreateWatchlistModalComponent);
     modalRef.componentInstance.watchlists = this.watchlists;
   }
 
   private openConfirmModal(deleteWatchlist: Watchlist): void {
-    const modalRef = this.modalService.open(ConfirmModalComponent);
+    const modalRef = this.modalService.open(DeleteWatchlistModalComponent);
     modalRef.componentInstance.deleteWatchlist = deleteWatchlist;
   }
 

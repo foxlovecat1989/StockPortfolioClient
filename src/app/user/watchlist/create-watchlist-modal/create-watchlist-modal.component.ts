@@ -1,4 +1,3 @@
-
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -13,12 +12,14 @@ import { User } from 'src/app/model/user';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { Router } from '@angular/router';
 
+
 @Component({
-  selector: 'app-watchlist-modal',
-  templateUrl: './watchlist-modal.component.html',
-  styleUrls: ['./watchlist-modal.component.css']
+  selector: 'app-create-watchlist-modal',
+  templateUrl: './create-watchlist-modal.component.html',
+  styleUrls: ['./create-watchlist-modal.component.css']
 })
-export class WatchlistModalComponent implements OnInit, OnDestroy {
+export class CreateWatchlistModalComponent implements OnInit, OnDestroy {
+
   user!: User;
   watchlist = new Watchlist();
   watchlistForm!: FormGroup;

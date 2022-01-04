@@ -10,11 +10,11 @@ import { ReloadFormService } from 'src/app/service/reload-form.service';
 import { WatchlistService } from 'src/app/service/watchlist.service';
 
 @Component({
-  selector: 'app-confirm-modal',
-  templateUrl: './confirm-modal.component.html',
-  styleUrls: ['./confirm-modal.component.css']
+  selector: 'app-delete-watchlist-modal',
+  templateUrl: './delete-watchlist-modal.component.html',
+  styleUrls: ['./delete-watchlist-modal.component.css']
 })
-export class ConfirmModalComponent implements OnInit, OnDestroy{
+export class DeleteWatchlistModalComponent implements OnInit, OnDestroy {
 
   @Input('deleteWatchlist')
   deleteWatchlist!: Watchlist;
@@ -36,7 +36,7 @@ export class ConfirmModalComponent implements OnInit, OnDestroy{
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public executeDelete(deleteWatchlist: Watchlist): void {
+  executeDelete(deleteWatchlist: Watchlist): void {
     this.subscriptions.push(this.watchlistService.deleteWatchlist(deleteWatchlist.id).subscribe(
       response => {
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to delete ${deleteWatchlist.name}`);

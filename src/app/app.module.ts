@@ -27,8 +27,6 @@ import { TradeExecuteModalComponent } from './user/trade/trade-execute-modal/tra
 import { InventoryComponent } from './user/inventory/inventory.component';
 import { StockComponent } from './user/stock/stock.component';
 import { WatchlistComponent } from './user/watchlist/watchlist.component';
-import { WatchlistModalComponent } from './user/watchlist/watchlist-modal/watchlist-modal.component';
-import { ConfirmModalComponent } from './user/watchlist/confirm-modal/confirm-modal.component';
 import { AddStockToWatchlistModalComponent } from './user/stock/add-stock-to-watchlist-modal/add-stock-to-watchlist-modal.component';
 import { AddUserModalComponent } from './admin/manage-user/add-user-modal/add-user-modal.component';
 import { DeleteUserModalComponent } from './admin/manage-user/delete-user-modal/delete-user-modal.component';
@@ -44,6 +42,8 @@ import { ResetPasswordComponent } from './common/login/rest-password/reset-passw
 import { ChartsComponent } from './user/stock/charts/charts.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { UserProfileModalComponent } from './user/user-profile-modal/user-profile-modal.component';
+import { CreateWatchlistModalComponent } from './user/watchlist/create-watchlist-modal/create-watchlist-modal.component';
+import { DeleteWatchlistModalComponent } from './user/watchlist/delete-watchlist-modal/delete-watchlist-modal.component';
 
 @NgModule({
   declarations: [
@@ -57,8 +57,7 @@ import { UserProfileModalComponent } from './user/user-profile-modal/user-profil
     InventoryComponent,
     StockComponent,
     WatchlistComponent,
-    WatchlistModalComponent,
-    ConfirmModalComponent,
+    CreateWatchlistModalComponent,
     AddStockToWatchlistModalComponent,
     AddUserModalComponent,
     DeleteUserModalComponent,
@@ -72,7 +71,9 @@ import { UserProfileModalComponent } from './user/user-profile-modal/user-profil
     DeleteClassifyModalComponent,
     ResetPasswordComponent,
     ChartsComponent,
-    UserProfileModalComponent
+    UserProfileModalComponent,
+    CreateWatchlistModalComponent,
+    DeleteWatchlistModalComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +92,6 @@ import { UserProfileModalComponent } from './user/user-profile-modal/user-profil
   ],
   entryComponents:[
     TradeExecuteModalComponent,
-    WatchlistModalComponent,
     AddStockToWatchlistModalComponent,
     ViewUserModalComponent,
     AddUserModalComponent,
@@ -101,7 +101,9 @@ import { UserProfileModalComponent } from './user/user-profile-modal/user-profil
     AddClassifyModalComponent,
     ViewClassifyModalComponent,
     ChartsComponent,
-    UserProfileModalComponent
+    UserProfileModalComponent,
+    CreateWatchlistModalComponent,
+    DeleteWatchlistModalComponent
   ],
   providers: [
     NotificationService,
