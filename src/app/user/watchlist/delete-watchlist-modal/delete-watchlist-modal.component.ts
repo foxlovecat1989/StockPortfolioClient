@@ -1,6 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
@@ -24,8 +23,7 @@ export class DeleteWatchlistModalComponent implements OnInit, OnDestroy {
     public activeModal: NgbActiveModal,
     private notificationService: NotificationService,
     private reload: ReloadFormService,
-    private watchlistService: WatchlistService,
-    private router: Router
+    private watchlistService: WatchlistService
     ) {}
 
   ngOnInit(): void {
@@ -37,6 +35,7 @@ export class DeleteWatchlistModalComponent implements OnInit, OnDestroy {
   }
 
   executeDelete(deleteWatchlist: Watchlist): void {
+    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.subscriptions.push(this.watchlistService.deleteWatchlist(deleteWatchlist.id).subscribe(
       response => {
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to delete ${deleteWatchlist.name}`);

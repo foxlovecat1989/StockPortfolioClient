@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { WatchlistService } from 'src/app/service/watchlist.service';
 import { NotificationType } from '../../enum/notification-type.enum';
 import { Tstock } from '../../model/tstock';
 import { User } from '../../model/user';
@@ -39,7 +40,8 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private modalService: NgbModal,
     private reload: ReloadFormService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private watchlistService: WatchlistService
   ) {
 
   }
@@ -138,15 +140,15 @@ export class WatchlistComponent implements OnInit, OnDestroy {
 
   private reloadWatchlist(next: {'watchlist': Watchlist, 'isCreate': boolean}): void {
     const watchlist = next.watchlist;
-    if(next.isCreate){    // create
-      this.watchlists.push(watchlist);
-      this.selectedWatchlist = watchlist;
-    }
-    else{             // delete
-      const index = this.watchlists.findIndex(next => watchlist.name === next.name);
-      this.watchlists.splice(index, 1);
-      this.selectedWatchlist = this.watchlists[0];
-    }
+    this.watchlistService.getWatchlistsByUserNumber(this.user.userNumber).subscribe(
+      response => {
+        this.watchlists = response;
+        if(next.isCreate)
+          this.selectedWatchlist = this.watchlists.find(element => watchlist.name === element.name)!;
+        else
+          this.selectedWatchlist = this.watchlists[0];
+      }
+    );
     this.reloadStocks();
   }
 }

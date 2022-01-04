@@ -51,6 +51,7 @@ export class CreateWatchlistModalComponent implements OnInit, OnDestroy {
   execute(): void{
     this.watchlist.name = this.watchlistForm.controls['name'].value;
     this.watchlist.user = this.user;
+    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.subscriptions.push(this.watchlistService.createWatchlist(this.watchlist.name, this.watchlist.user.userNumber).subscribe(
       response => {
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success created watchlist: ${this.watchlist.name}`);
