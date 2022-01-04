@@ -10,8 +10,6 @@ import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/model/user';
 import { ReloadFormService } from 'src/app/service/reload-form.service';
-import { Router } from '@angular/router';
-
 
 @Component({
   selector: 'app-create-watchlist-modal',
@@ -32,8 +30,7 @@ export class CreateWatchlistModalComponent implements OnInit, OnDestroy {
       private authService: AuthenticationService,
       private notificationService: NotificationService,
       private watchlistService: WatchlistService,
-      private reload: ReloadFormService,
-      private router: Router
+      private reload: ReloadFormService
     )
    { }
 
@@ -51,7 +48,7 @@ export class CreateWatchlistModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public execute(): void{
+  execute(): void{
     this.watchlist.name = this.watchlistForm.controls['name'].value;
     this.watchlist.user = this.user;
     this.subscriptions.push(this.watchlistService.createWatchlist(this.watchlist.name, this.watchlist.user.userNumber).subscribe(

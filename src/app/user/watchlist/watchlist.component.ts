@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from '../../enum/notification-type.enum';
@@ -54,30 +54,30 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public reloadStocks(): void{
+  reloadStocks(): void{
     this.stocks = this.selectedWatchlist.tstocks!;
   }
 
-  public trade(symbol: string): void{
+  trade(symbol: string): void{
     this.selectedStock = this.stockService.getStockFromLocalCacheBySymbol(symbol)!;
     this.openTradeModal();
   }
 
-  public createWatchlist(): void{
+  createWatchlist(): void{
     this.openCreateWatchlistModal();
   }
 
-  public deleteWatchlist(deleteWatchlist: Watchlist): void{
+  deleteWatchlist(deleteWatchlist: Watchlist): void{
     this.openConfirmModal(deleteWatchlist);
   }
 
-  public remove(stock: Tstock): void{
+  remove(stock: Tstock): void{
     this.selectedWatchlist.tstocks = this.selectedWatchlist.tstocks.filter(next => stock !== next);
     this.notificationService.sendNotification(NotificationType.INFO, `Remove item ${stock.symbol}`);
     this.reloadStocks();
   }
 
-  public refreshPrice(): void{
+  refreshPrice(): void{
     this.isRefreshing = true;
     this.notificationService.sendNotification(NotificationType.INFO, `Refresh Price...`);
     this.subscriptions.push(this.stockService.refreshStockPrice().subscribe(
