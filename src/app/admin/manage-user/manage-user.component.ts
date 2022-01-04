@@ -1,14 +1,13 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { NgbModalOptions, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { UserService } from 'src/app/service/user.service';
 import { AddUserModalComponent } from './add-user-modal/add-user-modal.component';
 import { ViewUserModalComponent } from './view-user-modal/view-user-modal.component';
@@ -34,9 +33,8 @@ export class ManageUserComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private userService: UserService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService,
-    private modalService: NgbModal,
-    private activatedRoute: ActivatedRoute
+    private reloadService: ReloadService,
+    private modalService: NgbModal
     ) {
       this.modalOptions = {
         backdrop:'static',
@@ -54,31 +52,15 @@ export class ManageUserComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  loadingData(){
-    this.isRefreshing = true;
-    this.notificationService.sendNotification(NotificationType.SUCCESS, `Loading...`);
-    this.userService.getUsers().subscribe(
-      users => {
-        this.users = users;
-        this.isRefreshing = false;
-        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to load user`);
-      },
-      (errorResponse:HttpErrorResponse) => {
-        this.isRefreshing = false;
-        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-      }
-    );
-  }
-
-  refreshUser(){
+  refreshUser(): void {
     this.loadingData();
   }
 
-  add(){
+  add(): void {
     this.openAdd();
   }
 
-  view(user: User){
+  view(user: User): void {
     this.selectedUser = user;
     this.openView();
   }
@@ -99,24 +81,40 @@ export class ManageUserComponent implements OnInit, OnDestroy {
     }
   }
 
-  private checkAndSetUser() {
+  private checkAndSetUser(): void {
     const isLogin = this.authService.isUserLoggedIn();
     if (isLogin)
       this.user = this.authService.getUserFromLocalCache();
   }
 
-  private listenToReloadEvent() {
-    this.subscriptions.push(this.reloadFormService.reloadEvent.subscribe(
+  private listenToReloadEvent(): void {
+    this.subscriptions.push(this.reloadService.reloadEvent.subscribe(
       response => this.loadingData()
     ));
   }
 
-  private openView() {
+  private openView(): void {
     const modalRef = this.modalService.open(ViewUserModalComponent);
     modalRef.componentInstance.selectedUser = this.selectedUser;
   }
 
-  private openAdd() {
+  private openAdd(): void {
     const modalRef = this.modalService.open(AddUserModalComponent);
+  }
+
+  private loadingData(): void {
+    this.isRefreshing = true;
+    this.notificationService.sendNotification(NotificationType.SUCCESS, `Loading...`);
+    this.userService.getUsers().subscribe(
+      users => {
+        this.users = users;
+        this.isRefreshing = false;
+        this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to load user`);
+      },
+      (errorResponse:HttpErrorResponse) => {
+        this.isRefreshing = false;
+        this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+      }
+    );
   }
 }

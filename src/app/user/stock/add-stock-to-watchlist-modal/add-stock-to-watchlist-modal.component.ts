@@ -26,6 +26,7 @@ export class AddStockToWatchlistModalComponent implements OnInit, OnDestroy {
   closeResult!: string;
   modalOptions!: NgbModalOptions;
   private subscriptions: Subscription[] = [];
+
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
@@ -41,7 +42,7 @@ export class AddStockToWatchlistModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public execute(): void{
+  execute(): void{
     const watchlist = this.selectWatchlistForm.controls['selectedWatchlist'].value;
     this.subscriptions.push(this.watchlistService.addStockToWatchlist(
           this.symbol,

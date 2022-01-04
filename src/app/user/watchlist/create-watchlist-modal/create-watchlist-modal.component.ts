@@ -9,7 +9,7 @@ import { WatchlistService } from 'src/app/service/watchlist.service';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { HttpErrorResponse } from '@angular/common/http';
 import { User } from 'src/app/model/user';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 
 @Component({
   selector: 'app-create-watchlist-modal',
@@ -21,7 +21,6 @@ export class CreateWatchlistModalComponent implements OnInit, OnDestroy {
   user!: User;
   watchlist = new Watchlist();
   watchlistForm!: FormGroup;
-
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -30,7 +29,7 @@ export class CreateWatchlistModalComponent implements OnInit, OnDestroy {
       private authService: AuthenticationService,
       private notificationService: NotificationService,
       private watchlistService: WatchlistService,
-      private reload: ReloadFormService
+      private reload: ReloadService
     )
    { }
 

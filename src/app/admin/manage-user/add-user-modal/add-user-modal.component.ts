@@ -1,6 +1,6 @@
 
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { UserRole } from 'src/app/enum/user-role';
 import { User } from 'src/app/model/user';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -25,7 +25,6 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
   closeResult!: string;
   fileName!: string;
   profileImage!: File;
-
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -33,7 +32,7 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService
+    private reloadService: ReloadService
     ) {
 
     }
@@ -51,7 +50,7 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
     this.profileImage = profileImage;
   }
 
-  execute(){
+  execute(): void {
     this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.user.username = this.userForm.controls['username'].value;
     this.user.email = this.userForm.controls['email'].value;
@@ -63,7 +62,7 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
 
       resposne => {
           this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to add ${this.user.username}`);
-          this.reloadFormService.reloadEvent.emit();
+          this.reloadService.reloadEvent.emit();
           this.activeModal.close();
       },
       (errorResponse: HttpErrorResponse) => {
@@ -73,7 +72,7 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
     ));
   }
 
-  private initForm() {
+  private initForm(): void {
     this.user.userRole = 'USER';
     this.user.accountNonLocked = false;
     this.user.enabled = false;

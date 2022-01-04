@@ -12,8 +12,9 @@ import { Tstock } from 'src/app/model/tstock';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { TradeService } from 'src/app/service/trade.service';
+
 @Component({
   selector: 'app-trade-execute-modal',
   templateUrl: './trade-execute-modal.component.html',
@@ -37,7 +38,7 @@ export class TradeExecuteModalComponent implements OnInit, OnDestroy {
     private authService: AuthenticationService,
     private router: Router,
     private tradeService: TradeService,
-    private reload: ReloadFormService
+    private reload: ReloadService
     ) { }
 
     ngOnInit(): void {
@@ -48,7 +49,7 @@ export class TradeExecuteModalComponent implements OnInit, OnDestroy {
       this.subscriptions.forEach(sub => sub.unsubscribe());
     }
 
-    public execute(): void{
+    execute(): void{
       this.notificationService.sendNotification(NotificationType.WARNING, `Processing...`);
       this.tradeObject.tstock = this.stock;
       this.tradeObject.amount = this.tradeForm.controls['amount'].value;

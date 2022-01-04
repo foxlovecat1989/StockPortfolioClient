@@ -9,7 +9,7 @@ import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { ClassifyService } from 'src/app/service/classify.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { StockService } from 'src/app/service/stock.service';
 import { AddStockModalComponent } from './add-stock-modal/add-stock-modal.component';
 import { ViewStockModalComponent } from './view-stock-modal/view-stock-modal.component';
@@ -24,10 +24,9 @@ export class ManageStockComponent implements OnInit, OnDestroy {
   stocks!: Array<Tstock>;
   selectedStock!: Tstock;
   classifies!: Array<Classify>;
-  private subscriptions: Subscription[] = [];
-
   closeResult!: string;
-  modalOptions:NgbModalOptions;
+  modalOptions: NgbModalOptions;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private authService: AuthenticationService,
@@ -35,7 +34,7 @@ export class ManageStockComponent implements OnInit, OnDestroy {
     private stockService: StockService,
     private modalService: NgbModal,
     private classifyService: ClassifyService,
-    private reloadFormService: ReloadFormService
+    private reloadService: ReloadService
   ) {
     this.modalOptions = {
       backdrop:'static',
@@ -53,11 +52,11 @@ export class ManageStockComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  add(){
+  add(): void{
     this.openAdd();
   }
 
-  view(stock: Tstock){
+  view(stock: Tstock): void{
     this.selectedStock = stock;
     this.openView();
   }
@@ -77,7 +76,7 @@ export class ManageStockComponent implements OnInit, OnDestroy {
      }
   }
 
-  private loadingData(){
+  private loadingData(): void{
     this.notificationService.sendNotification(NotificationType.INFO, `Proccessing...`);
     this.subscriptions.push(this.classifyService.getClassifies().subscribe(next => this.classifies = next));
     this.subscriptions.push(this.stockService.getStocks().subscribe(
@@ -90,25 +89,25 @@ export class ManageStockComponent implements OnInit, OnDestroy {
     ));
   }
 
-  private checkAndSetUser() {
+  private checkAndSetUser(): void {
     const isLogin = this.authService.isUserLoggedIn();
     if (isLogin)
       this.user = this.authService.getUserFromLocalCache();
   }
 
-  private openView() {
+  private openView(): void {
     const modalRef = this.modalService.open(ViewStockModalComponent);
     modalRef.componentInstance.selectedStock = this.selectedStock;
     modalRef.componentInstance.classifies = this.classifies;
   }
 
-  private openAdd() {
+  private openAdd(): void {
     const modalRef = this.modalService.open(AddStockModalComponent);
     modalRef.componentInstance.classifies = this.classifies;
   }
 
-  private listenToReloadEvent() {
-    this.subscriptions.push(this.reloadFormService.reloadEvent.subscribe(
+  private listenToReloadEvent(): void {
+    this.subscriptions.push(this.reloadService.reloadEvent.subscribe(
       response => this.loadingData()
     ));
   }

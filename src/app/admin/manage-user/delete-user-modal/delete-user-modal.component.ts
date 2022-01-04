@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { User } from 'src/app/model/user';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -22,7 +22,7 @@ export class DeleteUserModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private notificationService: NotificationService,
-    private reload: ReloadFormService,
+    private reload: ReloadService,
     private userService: UserService
     ) {}
 
@@ -34,7 +34,7 @@ export class DeleteUserModalComponent implements OnInit {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  executeDelete(){
+  executeDelete(): void {
     this.notificationService.sendNotification(NotificationType.INFO, `Processing delete...`);
     this.subscriptions.push(this.userService.deleteUser(this.selectedUser.userNumber).subscribe(
       response => {

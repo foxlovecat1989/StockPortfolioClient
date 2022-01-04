@@ -7,7 +7,7 @@ import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { ClassifyService } from 'src/app/service/classify.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { AddClassifyModalComponent } from './add-classify-modal/add-classify-modal.component';
 import { ViewClassifyModalComponent } from './view-classify-modal/view-classify-modal.component';
 
@@ -21,17 +21,16 @@ export class ManageClassifyComponent implements OnInit, OnDestroy {
   user!: User;
   classifies!: Array<Classify>;
   selectedClassify!: Classify;
-  private subscriptions: Subscription[] = [];
-
   closeResult!: string;
   modalOptions:NgbModalOptions;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private authService: AuthenticationService,
     private notificationService: NotificationService,
     private classifyService: ClassifyService,
     private modalService: NgbModal,
-    private reloadFormService: ReloadFormService
+    private reloadService: ReloadService
   ) {
     this.modalOptions = {
       backdrop:'static',
@@ -49,43 +48,43 @@ export class ManageClassifyComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  loadingData(){
+  add(): void{
+    this.openAdd();
+  }
+
+  view(classify: Classify): void {
+    this.selectedClassify = classify;
+    this.openView();
+  }
+
+  private checkAndSetUser(): void {
+    const isLogin = this.authService.isUserLoggedIn();
+    if (isLogin)
+      this.user = this.authService.getUserFromLocalCache();
+  }
+
+  private openView(): void {
+    const modalRef = this.modalService.open(ViewClassifyModalComponent);
+    modalRef.componentInstance.selectedClassify = this.selectedClassify;
+  }
+
+  private openAdd(): void {
+    const modalRef = this.modalService.open(AddClassifyModalComponent);
+  }
+
+  private listenToReloadEvent(): void {
+    this.subscriptions.push(this.reloadService.reloadEvent.subscribe(
+      response => this.loadingData()
+    ));
+  }
+
+  private loadingData(): void{
     this.classifyService.getClassifies().subscribe(
       (response: Array<Classify>) => {
         this.classifies = response;
         this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success to load data');
       }
     );
-  }
-
-  add(){
-    this.openAdd();
-  }
-
-  view(classify: Classify){
-    this.selectedClassify = classify;
-    this.openView();
-  }
-
-  private checkAndSetUser() {
-    const isLogin = this.authService.isUserLoggedIn();
-    if (isLogin)
-      this.user = this.authService.getUserFromLocalCache();
-  }
-
-  private openView() {
-    const modalRef = this.modalService.open(ViewClassifyModalComponent);
-    modalRef.componentInstance.selectedClassify = this.selectedClassify;
-  }
-
-  private openAdd() {
-    const modalRef = this.modalService.open(AddClassifyModalComponent);
-  }
-
-  private listenToReloadEvent() {
-    this.subscriptions.push(this.reloadFormService.reloadEvent.subscribe(
-      response => this.loadingData()
-    ));
   }
 
 }

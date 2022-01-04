@@ -7,7 +7,7 @@ import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
 import { Tstock } from 'src/app/model/tstock';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { StockService } from 'src/app/service/stock.service';
 
 @Component({
@@ -21,17 +21,15 @@ export class ViewStockModalComponent implements OnInit, OnDestroy {
   selectedStock!: Tstock;
   @Input('classifies')
   classifies!: Array<Classify>;
-
+  stockForm!: FormGroup;
   closeResult!: string;
   private subscriptions: Subscription[] = [];
-
-  stockForm!: FormGroup;
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private stockService: StockService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService,
+    private reloadService: ReloadService,
   ) {}
 
   ngOnInit(): void {
@@ -42,14 +40,14 @@ export class ViewStockModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  execute(){
+  execute(): void{
     this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.selectedStock.name = this.stockForm.controls['name'].value;
     this.selectedStock.classify = this.stockForm.controls['classify'].value;
     this.subscriptions.push(this.stockService.updateStock(this.selectedStock).subscribe(
       resposne => {
           this.notificationService.sendNotification(NotificationType.SUCCESS, `Update stock detials successfully`);
-          this.reloadFormService.reloadEvent.emit();
+          this.reloadService.reloadEvent.emit();
           this.activeModal.close();
       },
       (errorResponse: HttpErrorResponse) => {

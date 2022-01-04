@@ -12,7 +12,7 @@ import { Trade } from 'src/app/model/trade';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { TradeService } from 'src/app/service/trade.service';
 import { UserService } from 'src/app/service/user.service';
 
@@ -48,7 +48,7 @@ export class UserProfileModalComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private authService: AuthenticationService,
     private router: Router,
-    private reload: ReloadFormService
+    private reload: ReloadService
   ) {
 
   }

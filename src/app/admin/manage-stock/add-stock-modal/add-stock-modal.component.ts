@@ -8,7 +8,7 @@ import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
 import { Tstock } from 'src/app/model/tstock';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { StockService } from 'src/app/service/stock.service';
 
 @Component({
@@ -30,7 +30,7 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private stockService: StockService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService
+    private reloadService: ReloadService
     ) {
 
     }
@@ -43,14 +43,6 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  private initForm(): void {
-    this.stockForm = this.formBuilder.group({
-      name: '',
-      symbol: '',
-      classify: this.classifies[0]
-    });
-  }
-
   execute(): void{
     this.notificationService.sendNotification(NotificationType.INFO, `Processing adding data...`);
     this.stock.name = this.stockForm.controls['name'].value;
@@ -59,7 +51,7 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(this.stockService.addStock(this.stock).subscribe(
       resposne => {
-        this.reloadFormService.reloadEvent.emit();
+        this.reloadService.reloadEvent.emit();
           this.notificationService.sendNotification(NotificationType.SUCCESS, `Added Stock: ${this.stock.name} Success`);
           this.activeModal.close();
       },
@@ -68,6 +60,14 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
         this.activeModal.close();
       }
     ));
+  }
+
+  private initForm(): void {
+    this.stockForm = this.formBuilder.group({
+      name: '',
+      symbol: '',
+      classify: this.classifies[0]
+    });
   }
 
 }

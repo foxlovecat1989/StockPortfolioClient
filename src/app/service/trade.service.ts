@@ -4,8 +4,6 @@ import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Trade } from '../model/trade';
 import { TradeObject } from '../model/trade-object';
-import { AuthenticationService } from './authentication.service';
-import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'

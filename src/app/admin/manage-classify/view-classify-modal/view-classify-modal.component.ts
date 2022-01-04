@@ -7,7 +7,7 @@ import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
 import { ClassifyService } from 'src/app/service/classify.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { DeleteClassifyModalComponent } from '../delete-classify-modal/delete-classify-modal.component';
 
 @Component({
@@ -19,18 +19,17 @@ export class ViewClassifyModalComponent implements OnInit, OnDestroy {
 
   @Input('selectedClassify')
   selectedClassify!: Classify;
-
-  closeResult!: string;
-  private subscriptions: Subscription[] = [];
-  modalOptions: NgbModalOptions;
-
   classifyForm!: FormGroup;
+  closeResult!: string;
+  modalOptions: NgbModalOptions;
+  private subscriptions: Subscription[] = [];
+
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
     private classifyService: ClassifyService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService,
+    private reloadService: ReloadService,
     private modalService: NgbModal
   ) {
     this.modalOptions = {
@@ -47,13 +46,13 @@ export class ViewClassifyModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  execute(){
+  execute(): void{
     this.notificationService.sendNotification(NotificationType.INFO, `Processing update data...`);
     this.selectedClassify.name = this.classifyForm.controls['name'].value;
     this.subscriptions.push(this.classifyService.updateClassifyName(this.selectedClassify).subscribe(
       resposne => {
           this.notificationService.sendNotification(NotificationType.SUCCESS, `Update classify name successfully`);
-          this.reloadFormService.reloadEvent.emit();
+          this.reloadService.reloadEvent.emit();
           this.activeModal.close();
       },
       (errorResponse: HttpErrorResponse) => {
@@ -63,19 +62,19 @@ export class ViewClassifyModalComponent implements OnInit, OnDestroy {
     ));
   }
 
-  remove(){
+  remove(): void{
     this.activeModal.close();
     this.openDelete();
   }
 
-  private initForm() {
+  private initForm(): void {
     this.classifyForm = this.formBuilder.group({
       id: this.selectedClassify.classifyId,
       name: this.selectedClassify.name,
     });
   }
 
-  private openDelete() {
+  private openDelete(): void {
     const modalRef = this.modalService.open(DeleteClassifyModalComponent);
     modalRef.componentInstance.deleteClassify = this.selectedClassify;
   }

@@ -4,11 +4,9 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
-import { Watchlist } from 'src/app/model/watchlist';
 import { ClassifyService } from 'src/app/service/classify.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
-import { WatchlistService } from 'src/app/service/watchlist.service';
+import { ReloadService } from 'src/app/service/reload.service';
 
 @Component({
   selector: 'app-delete-classify-modal',
@@ -24,7 +22,7 @@ export class DeleteClassifyModalComponent implements OnInit {
   constructor(
     public activeModal: NgbActiveModal,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService,
+    private reloadService: ReloadService,
     private classifyService: ClassifyService
     ) {}
 
@@ -36,10 +34,10 @@ export class DeleteClassifyModalComponent implements OnInit {
 
   }
 
-  executeDelete(deleteClassify: Classify){
+  executeDelete(deleteClassify: Classify): void{
     this.subscriptions.push(this.classifyService.deleteClassify(deleteClassify.name).subscribe(
       response => {
-        this.reloadFormService.reloadEvent.emit();
+        this.reloadService.reloadEvent.emit();
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to delete ${deleteClassify.name}`);
         this.activeModal.close();
       },

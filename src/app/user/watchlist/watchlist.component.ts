@@ -3,6 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
+import { ReloadService } from 'src/app/service/reload.service';
 import { WatchlistService } from 'src/app/service/watchlist.service';
 import { NotificationType } from '../../enum/notification-type.enum';
 import { Tstock } from '../../model/tstock';
@@ -10,7 +11,6 @@ import { User } from '../../model/user';
 import { Watchlist } from '../../model/watchlist';
 import { AuthenticationService } from '../../service/authentication.service';
 import { NotificationService } from '../../service/notification.service';
-import { ReloadFormService } from '../../service/reload-form.service';
 import { StockService } from '../../service/stock.service';
 import { TradeExecuteModalComponent } from '../trade/trade-execute-modal/trade-execute-modal.component';
 import { CreateWatchlistModalComponent } from './create-watchlist-modal/create-watchlist-modal.component';
@@ -39,7 +39,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     private stockService: StockService,
     private authService: AuthenticationService,
     private modalService: NgbModal,
-    private reload: ReloadFormService,
+    private reload: ReloadService,
     private activatedRoute: ActivatedRoute,
     private watchlistService: WatchlistService
   ) {
@@ -125,7 +125,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     modalRef.componentInstance.deleteWatchlist = deleteWatchlist;
   }
 
-  private initTable() {
+  private initTable(): void {
     this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
     if (this.watchlists.length > 0) {
       this.selectedWatchlist = this.watchlists[0];

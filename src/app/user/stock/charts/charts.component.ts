@@ -64,7 +64,7 @@ export class ChartsComponent implements OnInit {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public generateDayWiseTimeSeries(baseval: any, count: any, yrange: any) : Array<any>{
+  generateDayWiseTimeSeries(baseval: any, count: any, yrange: any) : Array<any>{
     var i = 0;
     var series = [];
     while (i < count) {
@@ -78,12 +78,12 @@ export class ChartsComponent implements OnInit {
     return series;
   }
 
-  public addOneMonth(): void{
+  addOneMonth(): void{
     this.selectedMonthInterval += 1;
     this.initChart();
   }
 
-  public addToWatch(): void{
+  addToWatch(): void{
     this.openAddWatchModal();
   }
 

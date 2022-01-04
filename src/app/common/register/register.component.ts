@@ -17,8 +17,8 @@ import { UserService } from '../../service/user.service';
 export class RegisterComponent implements OnInit, OnDestroy {
 
   registerForm!: FormGroup;
-  private subscriptions: Subscription[] = [];
   showLoading = false;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -54,7 +54,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       )
     );
   }
-  private initForm() {
+
+  private initForm(): void {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, UsernameValidators.cannotContainSpace]],
       email: ['', [Validators.required, Validators.email]],

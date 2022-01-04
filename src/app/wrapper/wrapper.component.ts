@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from 'src/app/model/user';
 import { AuthenticationService } from 'src/app/service/authentication.service';
-import { ReloadFormService } from '../service/reload-form.service';
+import { ReloadService } from '../service/reload.service';
 import { UserProfileModalComponent } from '../user/user-profile-modal/user-profile-modal.component';
 @Component({
   selector: 'app-wrapper',
@@ -18,7 +18,7 @@ export class WrapperComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
-    private reload: ReloadFormService,
+    private reload: ReloadService,
     private modalService: NgbModal
   ) { }
 
@@ -28,10 +28,6 @@ export class WrapperComponent implements OnInit {
     this.listenToReloadEvent();
   }
 
-  private setIsAdmin(): void {
-    this.isAdmin = this.authenticationService.isAdmin();
-  }
-
   toggleExpanded(): void {
     this.isExpanded = !this.isExpanded;
   }
@@ -39,6 +35,10 @@ export class WrapperComponent implements OnInit {
   userProfile(): void {
       const modalRef = this.modalService.open(UserProfileModalComponent);
       modalRef.componentInstance.user = this.user;
+  }
+
+  private setIsAdmin(): void {
+    this.isAdmin = this.authenticationService.isAdmin();
   }
 
   private checkUserAndSet(): void {

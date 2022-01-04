@@ -7,7 +7,7 @@ import { AuthenticationService } from 'src/app/service/authentication.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { HeaderType } from 'src/app/enum/header-type.enum';
 import { User } from 'src/app/model/user';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 
 @Component({
   selector: 'app-login',
@@ -19,22 +19,15 @@ export class LoginComponent implements OnInit, OnDestroy {
   showLoading = false;
   private subscriptions: Subscription[] = [];
 
-
   constructor(
       private router: Router,
       private authenticationService: AuthenticationService,
       private notificationService: NotificationService,
-      private reload: ReloadFormService
+      private reload: ReloadService
     ) {}
 
   ngOnInit(): void {
     this.checkIsLogin();
-  }
-
-  private checkIsLogin() {
-    const isLogin = this.authenticationService.isUserLoggedIn();
-    if(isLogin)
-      this.router.navigate(['user', 'report']);
   }
 
   ngOnDestroy(): void {
@@ -59,5 +52,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
       )
     );
+  }
+
+  private checkIsLogin(): void {
+    const isLogin = this.authenticationService.isUserLoggedIn();
+    if(isLogin)
+      this.router.navigate(['user', 'report']);
   }
 }

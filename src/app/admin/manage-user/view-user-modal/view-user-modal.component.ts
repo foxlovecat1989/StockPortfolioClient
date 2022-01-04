@@ -5,12 +5,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { NgbActiveModal, NgbModal, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
 import { NotificationType } from 'src/app/enum/notification-type.enum';
-import { UserRole } from 'src/app/enum/user-role';
-import { Trade } from 'src/app/model/trade';
 import { User } from 'src/app/model/user';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
-import { TradeService } from 'src/app/service/trade.service';
+import { ReloadService } from 'src/app/service/reload.service';
 import { UserService } from 'src/app/service/user.service';
 import { DeleteUserModalComponent } from '../delete-user-modal/delete-user-modal.component';
 
@@ -35,7 +32,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService,
+    private reloadService: ReloadService,
     private modalService: NgbModal
     ) {
       this.modalOptions = {
@@ -63,7 +60,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.userService.updateUser(this.selectedUser).subscribe(
       resposne => {
           this.notificationService.sendNotification(NotificationType.SUCCESS, `Update user detials successfully`);
-          this.reloadFormService.reloadEvent.emit();
+          this.reloadService.reloadEvent.emit();
           this.activeModal.close();
       },
       (errorResponse: HttpErrorResponse) => {

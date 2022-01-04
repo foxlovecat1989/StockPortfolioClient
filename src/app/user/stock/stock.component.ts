@@ -52,11 +52,11 @@ export class StockComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  public view(stock: Tstock): void{
+  view(stock: Tstock): void{
     this.openChartModal(stock);
   }
 
-  public searchStocks(searchTerm: string): void {
+  searchStocks(searchTerm: string): void {
     const results = new Array<Tstock>();
     for (const stock of this.stockService.getStocksFromLocalCache()!) {
       if (
@@ -71,7 +71,7 @@ export class StockComponent implements OnInit, OnDestroy {
      }
   }
 
-  public refresh(): void{
+  refresh(): void{
     this.isRefreshing = true;
     this.subscriptions.push(
       this.stockService.refreshStockPrice().subscribe(

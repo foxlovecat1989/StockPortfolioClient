@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { NotificationType } from '../../../enum/notification-type.enum';
-import { AuthenticationService } from '../../../service/authentication.service';
 import { NotificationService } from '../../../service/notification.service';
 import { UserService } from '../../../service/user.service';
 
@@ -16,8 +15,8 @@ import { UserService } from '../../../service/user.service';
 export class ResetPasswordComponent implements OnInit {
 
   resetForm!: FormGroup;
-  private subscriptions: Subscription[] = [];
   showLoading = false;
+  private subscriptions: Subscription[] = [];
 
   constructor(
     private router: Router,
@@ -34,7 +33,7 @@ export class ResetPasswordComponent implements OnInit {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  reset(){
+  reset(): void {
     const email = this.resetForm.controls['email'].value;
     this.notificationService.sendNotification(NotificationType.INFO, `Proccessing...`);
     this.subscriptions.push(this.userService.resetPassword(email).subscribe(

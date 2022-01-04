@@ -7,7 +7,7 @@ import { NotificationType } from 'src/app/enum/notification-type.enum';
 import { Classify } from 'src/app/model/classify';
 import { ClassifyService } from 'src/app/service/classify.service';
 import { NotificationService } from 'src/app/service/notification.service';
-import { ReloadFormService } from 'src/app/service/reload-form.service';
+import { ReloadService } from 'src/app/service/reload.service';
 
 @Component({
   selector: 'app-add-classify-modal',
@@ -27,7 +27,7 @@ export class AddClassifyModalComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private classifyService: ClassifyService,
     private notificationService: NotificationService,
-    private reloadFormService: ReloadFormService
+    private reloadService: ReloadService
     ) {
 
     }
@@ -40,19 +40,19 @@ export class AddClassifyModalComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(sub => sub.unsubscribe());
   }
 
-  private initForm() {
+  private initForm(): void {
     this.classifyForm = this.formBuilder.group({
       name: ''
     });
   }
 
-  execute(){
+  execute(): void{
     this.notificationService.sendNotification(NotificationType.INFO, `Processing adding data...`);
     this.classify.name = this.classifyForm.controls['name'].value;
 
     this.subscriptions.push(this.classifyService.createClassify(this.classify).subscribe(
       resposne => {
-          this.reloadFormService.reloadEvent.emit();
+          this.reloadService.reloadEvent.emit();
           this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to add classify`);
           this.activeModal.close();
       },
