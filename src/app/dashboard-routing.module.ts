@@ -21,6 +21,9 @@ const routes: Routes = [
     path: '', component: WrapperComponent,
     children: [
       {
+        path: '', component: LoginComponent
+      },
+      {
         path: 'login', component: LoginComponent
       },
       {
