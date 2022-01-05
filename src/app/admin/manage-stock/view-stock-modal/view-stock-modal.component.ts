@@ -41,7 +41,6 @@ export class ViewStockModalComponent implements OnInit, OnDestroy {
   }
 
   execute(): void{
-    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.selectedStock.name = this.stockForm.controls['name'].value;
     this.selectedStock.classify = this.stockForm.controls['classify'].value;
     this.subscriptions.push(this.stockService.updateStock(this.selectedStock).subscribe(

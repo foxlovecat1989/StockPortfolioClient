@@ -104,7 +104,6 @@ export class ManageUserComponent implements OnInit, OnDestroy {
 
   private loadingData(): void {
     this.isRefreshing = true;
-    this.notificationService.sendNotification(NotificationType.SUCCESS, `Loading...`);
     this.userService.getUsers().subscribe(
       users => {
         this.users = users;

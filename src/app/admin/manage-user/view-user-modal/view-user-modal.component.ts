@@ -50,7 +50,6 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
   }
 
   execute(): void{
-    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.selectedUser.username = this.userForm.controls['username'].value;
     this.selectedUser.email = this.userForm.controls['email'].value;
     this.selectedUser.enabled = this.userForm.controls['enabled'].value;

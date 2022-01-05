@@ -44,7 +44,6 @@ export class AddStockModalComponent implements OnInit, OnDestroy {
   }
 
   execute(): void{
-    this.notificationService.sendNotification(NotificationType.INFO, `Processing adding data...`);
     this.stock.name = this.stockForm.controls['name'].value;
     this.stock.symbol = this.stockForm.controls['symbol'].value;
     this.stock.classify = this.stockForm.controls['classify'].value;

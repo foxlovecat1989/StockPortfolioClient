@@ -51,7 +51,6 @@ export class AddUserModalComponent implements OnInit, OnDestroy {
   }
 
   execute(): void {
-    this.notificationService.sendNotification(NotificationType.INFO, `Processing...`);
     this.user.username = this.userForm.controls['username'].value;
     this.user.email = this.userForm.controls['email'].value;
     this.user.enabled = this.userForm.controls['enabled'].value;

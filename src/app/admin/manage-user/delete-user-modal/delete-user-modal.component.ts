@@ -35,7 +35,6 @@ export class DeleteUserModalComponent implements OnInit {
   }
 
   executeDelete(): void {
-    this.notificationService.sendNotification(NotificationType.INFO, `Processing delete...`);
     this.subscriptions.push(this.userService.deleteUser(this.selectedUser.userNumber).subscribe(
       response => {
         this.notificationService.sendNotification(NotificationType.SUCCESS, `Success to delete ${this.selectedUser.username}`);

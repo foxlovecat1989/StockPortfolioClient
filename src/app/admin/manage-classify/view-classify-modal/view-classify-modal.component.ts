@@ -47,7 +47,6 @@ export class ViewClassifyModalComponent implements OnInit, OnDestroy {
   }
 
   execute(): void{
-    this.notificationService.sendNotification(NotificationType.INFO, `Processing update data...`);
     this.selectedClassify.name = this.classifyForm.controls['name'].value;
     this.subscriptions.push(this.classifyService.updateClassifyName(this.selectedClassify).subscribe(
       resposne => {

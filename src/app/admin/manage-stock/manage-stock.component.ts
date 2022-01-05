@@ -77,7 +77,6 @@ export class ManageStockComponent implements OnInit, OnDestroy {
   }
 
   private loadingData(): void{
-    this.notificationService.sendNotification(NotificationType.INFO, `Proccessing...`);
     this.subscriptions.push(this.classifyService.getClassifies().subscribe(next => this.classifies = next));
     this.subscriptions.push(this.stockService.getStocks().subscribe(
       (response: Array<Tstock>) => {
