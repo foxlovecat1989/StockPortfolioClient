@@ -14,8 +14,8 @@
                 </div>
                 <input type="text" class="form-control" name="username" placeholder="Username" ngModel #usernameInput="ngModel" required>
               </div>
-              <div class="alert alert-secondary" *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
-                <div *ngIf="loginForm.controls['username'].invalid">Name is required.</div>
+              <div class="alert alert-secondary" *ngIf="loginForm.controls['username']?.invalid && loginForm.controls['username'].touched">
+                <div *ngIf="loginForm.controls['username']?.invalid">Name is required.</div>
               </div>
 
               <div class="input-group mb-2">
@@ -24,11 +24,11 @@
                 </div>
                 <input type="password" class="form-control" name="password" placeholder="Password" ngModel #passwordInput="ngModel" required>
               </div>
-              <div class="alert alert-secondary" *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
-                <div *ngIf="loginForm.controls['password'].invalid">Password is required.</div>
+              <div class="alert alert-secondary" *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password'].touched">
+                <div *ngIf="loginForm.controls['password']?.invalid">Password is required.</div>
               </div>
               <div class="d-flex justify-content-center mt-3 login_container">
-                <button type="submit" [disabled]="loginForm.invalid || showLoading" name="button" class="btn login_btn">
+                <button type="submit" [disabled]="loginForm?.invalid || showLoading" name="button" class="btn login_btn">
                   <i *ngIf="showLoading" class="fas fa-spinner fa-spin"></i>&nbsp;&nbsp;
                   <span *ngIf="showLoading">Loading...</span>
                   <span *ngIf="!showLoading">Login</span>
