@@ -82,7 +82,7 @@ export class ViewUserModalComponent implements OnInit, OnDestroy {
       email: this.selectedUser.email,
       enabled: this.selectedUser.enabled,
       accountNonLocked: this.selectedUser.accountNonLocked,
-      userRole: this.selectedUser.userRole
+      userRole: this.selectedUser.userRole.substring(5).toUpperCase()
     });
   }
 
