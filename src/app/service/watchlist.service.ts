@@ -40,6 +40,12 @@ export class WatchlistService {
     return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist/add/${symbol}`, formObject);
   }
 
+  removeStockToWatchlist(symbol: string, watchlistId: number): Observable<Watchlist>{
+    const formObject: {'id': number, 'symbol': string} = {id: watchlistId, symbol: symbol};
+
+    return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist/remove/item/${symbol}`, formObject);
+  }
+
   deleteWatchlist(watchlistId: number): Observable<CustomHttpRespone> {
     return this.http.delete<CustomHttpRespone>(`${environment.apiUrl}/api/v1/watchlist/${watchlistId}`);
   }

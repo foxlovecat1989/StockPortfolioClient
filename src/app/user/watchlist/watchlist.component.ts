@@ -73,9 +73,16 @@ export class WatchlistComponent implements OnInit, OnDestroy {
     this.openConfirmModal(deleteWatchlist);
   }
 
-  remove(stock: Tstock): void{
-    this.selectedWatchlist.tstocks = this.selectedWatchlist.tstocks.filter(next => stock !== next);
-    this.notificationService.sendNotification(NotificationType.INFO, `Remove item ${stock.symbol}`);
+  removeItemFromWatchlist(stock: Tstock): void{
+    // this.selectedWatchlist.tstocks = this.selectedWatchlist.tstocks.filter(next => stock !== next);
+    this.subscriptions.push(this.watchlistService.removeStockToWatchlist(stock.symbol, this.selectedWatchlist.id).subscribe(
+      response => {
+        this.selectedWatchlist = response;
+        this.reloadStocks();
+        this.notificationService.sendNotification(NotificationType.INFO, `Remove item ${stock.symbol}`);
+      },
+      (errorResponse: HttpErrorResponse) => this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
+    ));
     this.reloadStocks();
   }
 
