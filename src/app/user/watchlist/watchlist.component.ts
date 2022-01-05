@@ -145,8 +145,16 @@ export class WatchlistComponent implements OnInit, OnDestroy {
         this.watchlists = response;
         if(next.isCreate)
           this.selectedWatchlist = this.watchlists.find(element => watchlist.name === element.name)!;
-        else
-          this.selectedWatchlist = this.watchlists[0];
+        else{
+          if(this.watchlists[0] != null)
+            this.selectedWatchlist = this.watchlists[0];
+          else{
+            this.selectedWatchlist = new Watchlist();
+            this.selectedWatchlist.name = 'No watchlist available';
+            this.stocks = null;
+          }
+
+        }
       }
     );
     this.reloadStocks();
