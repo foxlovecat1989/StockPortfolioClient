@@ -43,7 +43,6 @@ export class TradeExecuteModalComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
       this.initForm();
-      console.log(this.keysOfTradeType)
     }
 
     ngOnDestroy(): void {
