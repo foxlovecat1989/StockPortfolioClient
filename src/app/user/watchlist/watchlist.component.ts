@@ -111,7 +111,7 @@ export class WatchlistComponent implements OnInit, OnDestroy {
   private subToReloadFormEvent(): void{
     this.subscriptions.push(
       this.reload.reloadWatchlistEvent.subscribe(
-        (next: {'watchlist': Watchlist, 'isCreate': boolean}) => this.reloadWatchlist(next)
+        (next: {'watchlist': Watchlist, 'isCreate': boolean}) => {this.reloadWatchlist(next)}
       )
     );
   }
@@ -162,8 +162,8 @@ export class WatchlistComponent implements OnInit, OnDestroy {
           }
 
         }
+        this.reloadStocks();
       }
     );
-    this.reloadStocks();
   }
 }
