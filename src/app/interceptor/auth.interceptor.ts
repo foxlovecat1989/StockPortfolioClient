@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (httpRequest.url.includes(`${environment.apiUrl}/api/v1/registration`))
       return httpHandler.handle(httpRequest);
 
-    if (httpRequest.url.includes(`${environment.apiUrl}/api/v1/user/reset/password`))
+    if (httpRequest.url.includes(`${environment.apiUrl}/api/v1/user/reset/password/**`))
       return httpHandler.handle(httpRequest);
 
     if (httpRequest.url.includes(`${environment.apiUrl}/api/v1/stock/findAll`))
