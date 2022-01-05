@@ -58,7 +58,6 @@ export class WrapperComponent implements OnInit {
         else
           this.user = null;
         this.setIsAdmin();
-        console.log(this.isAdmin)
       }
     );
   }
