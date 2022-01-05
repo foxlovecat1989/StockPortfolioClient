@@ -12,7 +12,7 @@
             <h2>{{ trade.getTradeDateAsDate() | date:'MMM' }}</h2>
           </div>
           <div class="col-md-10">
-            <h3 class="text-uppercase"><strong>{{ trade.tstock.name }} - {{ trade.tstock.symbol }}</strong></h3>
+            <h3 class="text-uppercase"><strong>{{ trade.tradeType }}: {{ trade.tstock.name }} - {{ trade.tstock.symbol }}</strong></h3>
             <ul class="list-inline">
               <li class="list-inline-item badge bg-info text-dark">Current Pirce: {{ trade.tstock.price | currency }}</li>
               <li class="list-inline-item badge bg-danger">Change: {{ trade.tstock.changePrice | currency }}</li>
