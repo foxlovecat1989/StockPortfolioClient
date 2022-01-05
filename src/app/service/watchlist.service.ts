@@ -35,7 +35,7 @@ export class WatchlistService {
   }
 
   addStockToWatchlist(symbol: string, watchlistId: string): Observable<Watchlist>{
-    const formObject: {'id': string} = {id: watchlistId};
+    const formObject: {'id': string, 'symbol': string} = {id: watchlistId, symbol: symbol};
 
     return this.http.post<Watchlist>(`${environment.apiUrl}/api/v1/watchlist/add/${symbol}`, formObject);
   }
