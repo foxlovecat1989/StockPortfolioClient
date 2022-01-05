@@ -88,19 +88,8 @@ export class StockComponent implements OnInit, OnDestroy {
   }
 
   private loadingData(): void {
-    this.notificationService.sendNotification(NotificationType.INFO, 'Loading...');
-    this.subscriptions.push(
-      this.stockService.getStocks().subscribe(
-          (response: Array<Tstock>) => {
-            this.stockService.addStocksToLocalCache(response);
-            this.stocks = response;
-            this.notificationService.sendNotification(NotificationType.SUCCESS, 'Success loaded data');
-          },
-          (errorResponse: HttpErrorResponse) =>
-              this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message)
-      ));
-
-      this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
+    this.stocks = this.stockService.getStocksFromLocalCache()!;
+    this.watchlists = this.activatedRoute.snapshot.data['watchlists'];
   }
 
   private checkAndGetUser(): void {
