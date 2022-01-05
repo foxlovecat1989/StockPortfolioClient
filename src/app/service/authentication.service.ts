@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { Router } from '@angular/router';
 import { User } from '../model/user';
 
 @Injectable({
@@ -69,7 +68,7 @@ export class AuthenticationService {
   }
 
   isAdmin(): boolean {
-    const role = this.getUserFromLocalCache().userRole.substring(5).toUpperCase();
+    const role = this.getUserFromLocalCache()?.userRole?.substring(5).toUpperCase();
     const isAdmin = (role === 'ADMIN') || (role === 'MANAGER');
 
     return isAdmin;

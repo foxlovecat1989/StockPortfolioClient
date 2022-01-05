@@ -8,6 +8,8 @@ import { NotificationService } from 'src/app/service/notification.service';
 import { HeaderType } from 'src/app/enum/header-type.enum';
 import { User } from 'src/app/model/user';
 import { ReloadService } from 'src/app/service/reload.service';
+import { StockService } from 'src/app/service/stock.service';
+import { Tstock } from 'src/app/model/tstock';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       private router: Router,
       private authenticationService: AuthenticationService,
       private notificationService: NotificationService,
+      private stockService: StockService,
       private reload: ReloadService
     ) {}
 
@@ -49,6 +52,14 @@ export class LoginComponent implements OnInit, OnDestroy {
         (errorResponse: HttpErrorResponse) => {
           this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
           this.showLoading = false;
+        }
+      ),
+      this.stockService.getStocks().subscribe(
+        (response: Array<Tstock>) => {
+          this.stockService.addStocksToLocalCache(response)
+        },
+        (errorResponse: HttpErrorResponse) => {
+          this.notificationService.sendNotification(NotificationType.ERROR, errorResponse.error.message);
         }
       )
     );
