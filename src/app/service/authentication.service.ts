@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { User } from '../model/user';
+import { ReloadService } from './reload.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,8 @@ export class AuthenticationService {
 
   constructor(
     private http: HttpClient,
-    private helper: JwtHelperService
+    private helper: JwtHelperService,
+    private reloadService: ReloadService
     ) {}
 
   login(user: User): Observable<HttpResponse<User>> {
@@ -25,6 +27,7 @@ export class AuthenticationService {
   logOut(): void {
     this.token != null;
     this.loggedInUsername != null;
+    this.reloadService.reloadHeaderEvent.emit();
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     localStorage.removeItem('stocks');

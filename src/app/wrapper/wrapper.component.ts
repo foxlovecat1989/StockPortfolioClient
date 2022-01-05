@@ -13,8 +13,8 @@ export class WrapperComponent implements OnInit {
 
   user!: User | null;
   isExpanded = false;
-  isLogin!: boolean;
-  isAdmin!: boolean;
+  isLogin = false;
+  isAdmin = false;
 
   constructor(
     private authenticationService: AuthenticationService,
@@ -56,7 +56,9 @@ export class WrapperComponent implements OnInit {
         if(next)
           this.user = this.authenticationService.getUserFromLocalCache();
         else
-          this.user = null
+          this.user = null;
+        this.setIsAdmin();
+        console.log(this.isAdmin)
       }
     );
   }
