@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { NotificationType } from '../../../enum/notification-type.enum';
-import { NotificationService } from '../../../service/notification.service';
-import { UserService } from '../../../service/user.service';
+import { NotificationType } from '../../enum/notification-type.enum';
+import { NotificationService } from '../../service/notification.service';
+import { UserService } from '../../service/user.service';
 
 @Component({
   selector: 'app-reset-password',

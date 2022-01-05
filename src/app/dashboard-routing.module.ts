@@ -11,7 +11,7 @@ import { StockComponent } from './user/stock/stock.component';
 import { TradeComponent } from './user/trade/trade.component';
 import { WatchlistComponent } from './user/watchlist/watchlist.component';
 import { ManageClassifyComponent } from './admin/manage-classify/manage-classify.component';
-import { ResetPasswordComponent } from './common/login/rest-password/reset-password.component';
+import { ResetPasswordComponent } from './common/rest-password/reset-password.component';
 import { ChartsComponent } from './user/stock/charts/charts.component';
 import { PrefetchWatchlistService } from './service/prefetch-watchlist.service';
 

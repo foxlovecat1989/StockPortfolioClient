@@ -38,7 +38,7 @@ import { ManageClassifyComponent } from './admin/manage-classify/manage-classify
 import { AddClassifyModalComponent } from './admin/manage-classify/add-classify-modal/add-classify-modal.component';
 import { ViewClassifyModalComponent } from './admin/manage-classify/view-classify-modal/view-classify-modal.component';
 import { DeleteClassifyModalComponent } from './admin/manage-classify/delete-classify-modal/delete-classify-modal.component';
-import { ResetPasswordComponent } from './common/login/rest-password/reset-password.component';
+import { ResetPasswordComponent } from './common/rest-password/reset-password.component';
 import { ChartsComponent } from './user/stock/charts/charts.component';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { UserProfileModalComponent } from './user/user-profile-modal/user-profile-modal.component';
